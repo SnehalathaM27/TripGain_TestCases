@@ -145,6 +145,8 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Hotel names do not match. Description Page: '" + hotelNameFromDesc + "' | Booking Page: '" + hotelNameFromBooking + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	            isPass = false;
 	        }
 	    }
@@ -153,6 +155,10 @@ public class SkyTravelers_Hotels_BookingPage {
 	        Log.ReportEvent("PASS", "Hotel name validation passed between Description and Booking pages.");
 	    } else {
 	        Log.ReportEvent("FAIL", "Hotel name validation failed between Description and Booking pages.");
+            ScreenShots.takeScreenShot1();
+            Assert.fail();
+
+
 	    }
 	}
 
@@ -173,6 +179,7 @@ public class SkyTravelers_Hotels_BookingPage {
 	    if (bookingDate.isEmpty()) {
 	        Log.ReportEvent("FAIL", "Check-in date from Booking Page is empty or not found.");
 	        ScreenShots.takeScreenShot1();
+
 	        isPass = false;
 	    }
 
@@ -183,6 +190,8 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Check-in dates do not match. Description Page: '" + descDate + "' | Booking Page: '" + bookingDate + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	            isPass = false;
 	        }
 	    }
@@ -192,6 +201,10 @@ public class SkyTravelers_Hotels_BookingPage {
 	        Log.ReportEvent("PASS", "Check-in date validation passed successfully From Description To Booking page .");
 	    } else {
 	        Log.ReportEvent("FAIL", "Check-in date validation failed From Description To Booking page.");
+            ScreenShots.takeScreenShot1();
+            Assert.fail();
+
+
 	    }
 	}
 
@@ -211,6 +224,7 @@ public class SkyTravelers_Hotels_BookingPage {
 	    if (bookingMonth.isEmpty()) {
 	        Log.ReportEvent("FAIL", "Check-in month from Booking Page is empty or not found.");
 	        ScreenShots.takeScreenShot1();
+
 	        isPass = false;
 	    }
 
@@ -221,6 +235,8 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Check-in months do not match. Description Page: '" + descMonth + "' | Booking Page: '" + bookingMonth + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	            isPass = false;
 	        }
 	    }
@@ -230,6 +246,10 @@ public class SkyTravelers_Hotels_BookingPage {
 	        Log.ReportEvent("PASS", "Check-in month validation passed successfully From Description To Booking page.");
 	    } else {
 	        Log.ReportEvent("FAIL", "Check-in month validation failed From Description To Booking page.");
+            ScreenShots.takeScreenShot1();
+            Assert.fail();
+
+
 	    }
 	}
 
@@ -245,10 +265,14 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Check-out months do not match. Description Page: '" + descMonth + "' | Booking Page: '" + bookingMonth + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	        }
 	    } else {
 	        Log.ReportEvent("FAIL", "Check-out month data missing on one or both pages.");
 	        ScreenShots.takeScreenShot1();
+            Assert.fail();
+
 	    }
 	}
 
@@ -264,10 +288,14 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Check-out dates do not match. Description Page: '" + descDate + "' | Booking Page: '" + bookingDate + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	        }
 	    } else {
 	        Log.ReportEvent("FAIL", "Check-out date data missing on one or both pages.");
 	        ScreenShots.takeScreenShot1();
+            Assert.fail();
+
 	    }
 	}
 
@@ -291,10 +319,14 @@ public class SkyTravelers_Hotels_BookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Guest count does not match. Description Page: '" + descGuestCount + "' | Booking Page: '" + bookingPeopleCountRaw + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		        }
 		    } else {
 		        Log.ReportEvent("FAIL", "Guest count data missing on one or both pages.");
 		        ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 
@@ -311,10 +343,14 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Room type does not match. Desc Page: '" + descRoomType + "' | Booking Page: '" + bookingRoomText + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 	        }
 	    } else {
 	        Log.ReportEvent("FAIL", "Room type data missing on one or both pages.");
 	        ScreenShots.takeScreenShot1();
+            Assert.fail();
+
 	    }
 	}
 	
@@ -358,10 +394,13 @@ public class SkyTravelers_Hotels_BookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Nights count does not match. Desc Page: '" + descNightsText + "' | Booking Page: '" + bookingNightsText + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		        }
 		    } else {
 		        Log.ReportEvent("FAIL", "Nights count data missing on one or both pages.");
 		        ScreenShots.takeScreenShot1();
+
 		    }
 		}
 
@@ -387,10 +426,13 @@ public class SkyTravelers_Hotels_BookingPage {
 	        } else {
 	            Log.ReportEvent("FAIL", "Meal Plan does not match. Desc Page: '" + descMealPlan + "' | Booking Page: '" + bookingMealPlan + "'");
 	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
 	        }
 	    } else {
 	        Log.ReportEvent("FAIL", "Meal Plan data missing on one or both pages.");
 	        ScreenShots.takeScreenShot1();
+            Assert.fail();
+
 	    }
 	}
 
@@ -445,10 +487,14 @@ public class SkyTravelers_Hotels_BookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Hotel locations do not match. Results Page: '" + resultsLocation + "' | Booking Page: '" + bookingLocation + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		        }
 		    } else {
 		        Log.ReportEvent("FAIL", "Hotel location data missing on one or both pages.");
 		        ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 
@@ -469,10 +515,14 @@ public class SkyTravelers_Hotels_BookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Hotel prices do not match. Description Page: '" + descPrice + "' | Booking Page: '" + bookingPrice + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		        }
 		    } else {
 		        Log.ReportEvent("FAIL", "Hotel price data missing on one or both pages.");
 		        ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 	
@@ -500,11 +550,15 @@ public class SkyTravelers_Hotels_BookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Amount mismatch. Total Amount: '" + totalAmount + "' | Final Bottom Amount: '" + finalAmount + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		        }
 
 		    } else {
 		        Log.ReportEvent("FAIL", "One or both amount values are missing.");
 		        ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 

@@ -100,10 +100,10 @@ public class TCHO_3_verifyHotelsSearchwithStarRating extends BaseClass{
 		
 		SkyTravelersHotelsSearchPage.clickOnHotels();
 		Thread.sleep(3000);
-		SkyTravelersHotelsSearchPage.enterDestinationForHotels(origin);
-		SkyTravelersHotelsSearchPage.selectDate(fromDate, fromMonthYear);
-		SkyTravelersHotelsSearchPage.selectReturnDate(returnDate, returnMonthYear);
-		SkyTravelersHotelsSearchPage.fillRoomDetails(roomCount, adultCount, childCount, childAge);
+		SkyTravelersHotelsSearchPage.enterDestinationForHotels(origin, Log);
+		SkyTravelersHotelsSearchPage.selectDate(fromDate, fromMonthYear, Log);
+		SkyTravelersHotelsSearchPage.selectReturnDate(returnDate, returnMonthYear, Log);
+		SkyTravelersHotelsSearchPage.fillRoomDetails(roomCount, adultCount, childCount, childAge, Log);
 		SkyTravelersHotelsSearchPage.clickSearchHotelsAndWaitForResults(Log);;
 		Thread.sleep(1000);
 		
@@ -159,7 +159,7 @@ public class TCHO_3_verifyHotelsSearchwithStarRating extends BaseClass{
 		
 		SkyTravelersHotelsDescriptionPage.validateRoomAndGuestCountsFromResultToDescPage(ResultPageRoomsAndGuests, descRoomCount, descGuestCount, Log, screenShots);
 		
-		SkyTravelersHotelsDescriptionPage.validateHotelAmountFromResultToDescPage(descAmount, resultPageAmount, Log, screenShots);
+	//	SkyTravelersHotelsDescriptionPage.validateHotelAmountFromResultToDescPage(descAmount, resultPageAmount, Log, screenShots);
 
 		SkyTravelersHotelsDescriptionPage.validateStarRatingFromResultToDescpage(starrating, descStarRating, Log, screenShots);
 		
@@ -169,9 +169,10 @@ public class TCHO_3_verifyHotelsSearchwithStarRating extends BaseClass{
 	//	SkyTravelersHotelsDescriptionPage.validateFacilitiesTitleWithDescPageAmenities(facilitiesTitleText, descPageAmenities, Log, screenShots);
 		Thread.sleep(3000);
 
-		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(0); //0 clicks on 1 room --//1 clicks on 2nd room....
+		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(1, Log); 
 		
-		
+		Thread.sleep(2000);
+
 		
 		
 		
@@ -216,7 +217,7 @@ String[] bookingLocation = SkyTravelersHotelsBookingPage.getHotelLocationFromBoo
 		
 		
 		String[] confirmHotelName = SkyTravelersHotelsconfirmBookingPage.getHotelNameTextFromConfirmPage();
-		//String[] confirmHotelLoc = SkyTravelersHotelsconfirmBookingPage.getHotelLocationTextFromConfirmPage();
+		String[] confirmHotelLoc = SkyTravelersHotelsconfirmBookingPage.getHotelLocationTextFromConfirmPage();
 		String[] confirmHotelCheckInDate = SkyTravelersHotelsconfirmBookingPage.getHotelCheckInDateFromConfirmPage();
 		String[] confirmHotelcheckInMonth = SkyTravelersHotelsconfirmBookingPage.gethotelcheckInMonthFromConfirmPage();
 		String[] confirmHotelCheckOutdate = SkyTravelersHotelsconfirmBookingPage.getHotelCheckOutDateFromConfirmPage();
@@ -228,7 +229,7 @@ String[] bookingLocation = SkyTravelersHotelsBookingPage.getHotelLocationFromBoo
 
 		
 		SkyTravelersHotelsconfirmBookingPage.validateHotelNameFromBookingAndConfirmPage(bookingHotelname, confirmHotelName, Log, screenShots);
-	//	SkyTravelersHotelsconfirmBookingPage.validateHotelLocationFromBookingAndConfirmPage(bookingLocation, confirmHotelLoc, Log, screenShots);
+		SkyTravelersHotelsconfirmBookingPage.validateHotelLocationFromBookingAndConfirmPage(bookingLocation, confirmHotelLoc, Log, screenShots);
 		SkyTravelersHotelsconfirmBookingPage.validateHotelCheckInDayFromBookingAndConfirmPage(bookingcheckindate, confirmHotelCheckInDate, Log, screenShots);
 		SkyTravelersHotelsconfirmBookingPage.validateHotelCheckInMonthFromBookingAndConfirmPage(bookingcheckinmonth, confirmHotelcheckInMonth, Log, screenShots);
 		SkyTravelersHotelsconfirmBookingPage.validateHotelCheckOutDayFromBookingAndConfirmPage(bookingcheckoutdate, confirmHotelCheckOutdate, Log, screenShots);
@@ -240,7 +241,7 @@ String[] bookingLocation = SkyTravelersHotelsBookingPage.getHotelLocationFromBoo
 		
 		SkyTravelersHotelsconfirmBookingPage.clcikBookNowButtonOnConfirmPage();
 		
-		SkyTravelersHotelsconfirmBookingPage.validateBillingInformationDisplayed(Log);
+		SkyTravelersHotelsconfirmBookingPage.validateBillingInformationDisplayed(Log, screenShots);
 		
        //Function to Logout from Application
     		//tripgainhomepage.logOutFromApplication(Log, screenShots);

@@ -1,5 +1,7 @@
 package com.tripgain.collectionofpages;
 
+import static org.testng.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import com.tripgain.common.Log;
 import com.tripgain.common.ScreenShots;
@@ -34,7 +37,7 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		public String[] getHotelLocationTextFromConfirmPage() throws InterruptedException {
 			Thread.sleep(2000);
 		    String Loc = driver.findElement(By.xpath("//*[contains(@class,'modal-body')]//*[@class='booking-review-page__body__booking-details_hotel-location']")).getText();
-	        System.out.println("Hotel name from confirm Confirm page : " + Loc);
+	        System.out.println("Hotel Location from confirm Confirm page : " + Loc);
 
 		    return new String[]{Loc};
 		}	
@@ -110,6 +113,7 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Hotel names do not match. Booking Page: '" + bookingName + "' | Confirmation Page: '" + confirmName + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
 		            isPass = false;
 		        }
 		    }
@@ -118,6 +122,9 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        Log.ReportEvent("PASS", "Hotel name validation passed between Booking and Confirmation pages.");
 		    } else {
 		        Log.ReportEvent("FAIL", "Hotel name validation failed between Booking and Confirmation pages.");
+	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 
@@ -127,6 +134,7 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		    if (bookingLocArray == null || bookingLocArray.length == 0 || bookingLocArray[0].trim().isEmpty()) {
 		        Log.ReportEvent("FAIL", "Hotel location from Booking Page is null, empty or missing.");
 		        ScreenShots.takeScreenShot1();
+		        
 		        isPass = false;
 		    } 
 		    else if (confirmLocArray == null || confirmLocArray.length == 0 || confirmLocArray[0].trim().isEmpty()) {
@@ -143,6 +151,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Hotel locations do not match. Booking Page: '" + bookingLoc + "' | Confirmation Page: '" + confirmLoc + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -151,6 +161,10 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        Log.ReportEvent("PASS", "Hotel location validation passed between Booking and Confirmation pages.");
 		    } else {
 		        Log.ReportEvent("FAIL", "Hotel location validation failed between Booking and Confirmation pages.");
+	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
+
 		    }
 		}
 
@@ -174,6 +188,7 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Check-in days do not match. Booking: '" + bookingDay + "' | Confirmation: '" + confirmDay + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
 		            isPass = false;
 		        }
 		    }
@@ -199,6 +214,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Check-in months do not match. Booking: '" + bookingMonth + "' | Confirmation: '" + confirmMonth + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -224,6 +241,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Check-out days do not match. Booking: '" + bookingDay + "' | Confirmation: '" + confirmDay + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -249,6 +268,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Check-out months do not match. Booking: '" + bookingMonth + "' | Confirmation: '" + confirmMonth + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -274,6 +295,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Room types do not match. Booking: '" + bookingRoom + "' | Confirmation: '" + confirmRoom + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -299,6 +322,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "People count does not match. Booking: '" + bookingPeople + "' | Confirmation: '" + confirmPeople + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -324,6 +349,8 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		        } else {
 		            Log.ReportEvent("FAIL", "Meal plans do not match. Booking: '" + bookingMealPlan + "' | Confirmation: '" + confirmMealPlan + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -353,11 +380,15 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		            } else {
 		                Log.ReportEvent("FAIL", "Total amounts do not match. Booking: '" + bookingAmount + "' | Confirmation: '" + confirmAmount + "'");
 		                ScreenShots.takeScreenShot1();
+			            Assert.fail();
+
 		                isPass = false;
 		            }
 		        } catch (NumberFormatException e) {
 		            Log.ReportEvent("FAIL", "Unable to parse total amounts. Booking: '" + bookingAmountStr + "', Confirm: '" + confirmAmountStr + "'");
 		            ScreenShots.takeScreenShot1();
+		            Assert.fail();
+
 		            isPass = false;
 		        }
 		    }
@@ -386,16 +417,24 @@ public class SkyTravelers_Hotels_confirmBookingPage {
 		}
 		
 		//Method to validate payment page is displayed or not 
-		public void validateBillingInformationDisplayed(Log Log) {
+		public void validateBillingInformationDisplayed(Log Log,ScreenShots ScreenShots) {
 		    try {
 		        WebElement billingInfoElement = driver.findElement(By.xpath("//span[text()='Billing Information']"));
 		        if (billingInfoElement.isDisplayed()) {
 		            Log.ReportEvent("PASS", "Payment page is displayed successfully.");
+		            System.out.println("Payment page is displayed");
 		        } else {
 		            Log.ReportEvent("FAIL", "Payment page is NOT displayed.");
+		            System.out.println("Payment page is NOT displayed ");
+		            Assert.fail();
+
 		        }
 		    } catch (NoSuchElementException e) {
-		        Log.ReportEvent("FAIL", "Payment page is NOT displayed - element not found.");
+		        Log.ReportEvent("FAIL", "Payment page is NOT displayed");
+		        System.out.println("Payment page is NOT displayed ");
+	            ScreenShots.takeScreenShot1();
+	            Assert.fail();
+
 		    }
 		}
 

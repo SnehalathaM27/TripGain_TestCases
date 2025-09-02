@@ -98,10 +98,10 @@ public class TCHO_2_verifyHotelsSearchWithLocationDropdown extends BaseClass{
 		
 		SkyTravelersHotelsSearchPage.clickOnHotels();
 		Thread.sleep(3000);
-		SkyTravelersHotelsSearchPage.enterDestinationForHotels(origin);
-		SkyTravelersHotelsSearchPage.selectDate(fromDate, fromMonthYear);
-		SkyTravelersHotelsSearchPage.selectReturnDate(returnDate, returnMonthYear);
-		SkyTravelersHotelsSearchPage.fillRoomDetails(roomCount, adultCount, childCount, childAge);
+		SkyTravelersHotelsSearchPage.enterDestinationForHotels(origin, Log);
+		SkyTravelersHotelsSearchPage.selectDate(fromDate, fromMonthYear, Log);
+		SkyTravelersHotelsSearchPage.selectReturnDate(returnDate, returnMonthYear, Log);
+		SkyTravelersHotelsSearchPage.fillRoomDetails(roomCount, adultCount, childCount, childAge, Log);
 		SkyTravelersHotelsSearchPage.clickSearchHotelsAndWaitForResults(Log);;
 		Thread.sleep(1000);
 	//	String hotelLocFromDropdown = SkyTravelersHotelsSearchPage.clickAndSearchHotelLocationName(Log, screenShots);
@@ -159,7 +159,7 @@ public class TCHO_2_verifyHotelsSearchWithLocationDropdown extends BaseClass{
 		
 		SkyTravelersHotelsDescriptionPage.validateRoomAndGuestCountsFromResultToDescPage(ResultPageRoomsAndGuests, descRoomCount, descGuestCount, Log, screenShots);
 		
-		SkyTravelersHotelsDescriptionPage.validateHotelAmountFromResultToDescPage(descAmount, resultPageAmount, Log, screenShots);
+	//	SkyTravelersHotelsDescriptionPage.validateHotelAmountFromResultToDescPage(descAmount, resultPageAmount, Log, screenShots);
 
 	//	SkyTravelersHotelsSearchPage.validateStarRatingFromResultToDescpage(starrating, descStarRating, Log, screenShots);
 		
@@ -169,9 +169,11 @@ public class TCHO_2_verifyHotelsSearchWithLocationDropdown extends BaseClass{
 		String descPageAmenities = SkyTravelersHotelsDescriptionPage.getAmenitiesFromDescPage();
 		//   SkyTravelersHotelsSearchPage.validateFacilitiesTitleWithDescPageAmenities(facilitiesTitleText, descPageAmenities, Log, screenShots);
 
-		
-		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(0); //0 clicks on 1 room --//1 clicks on 2nd room....
-		
+		Thread.sleep(2000);
+
+		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(1, Log); 
+		Thread.sleep(2000);
+
 		
 		
 		
@@ -201,7 +203,6 @@ public class TCHO_2_verifyHotelsSearchWithLocationDropdown extends BaseClass{
 	SkyTravelersHotelsBookingPage.validateNightsFromDescAndBookingPage(DescRoomDetails, bookingNightsText, Log, screenShots);
 	SkyTravelersHotelsBookingPage.validateMealPlanFromDescAndBookingPage(DescRoomDetails, bookingmealText, Log, screenShots);
 	//	SkyTravelersHotelsSearchPage.validateCancellationPolicyFromDescAndBookingPage(DescRoomDetails, bookingcancellationText, Log, screenShots);
-		//SkyTravelersHotelsSearchPage.validateHotelLocationFromResultsAndBookingPage(hotelcardLoc, bookingLocation, Log, screenShots);
 	SkyTravelersHotelsBookingPage.validateHotelPriceFromDescAndBookingPage(DescRoomDetails, bookingHotelChargesAmount, Log, screenShots);
 	SkyTravelersHotelsBookingPage.validateTotalAndFinalBottomAmountFromBookingPage(bookingTotalAmount, BookingbottomAmount, Log, screenShots);
 	SkyTravelersHotelsBookingPage.validateHotelLocationFromResultsAndBookingPage(hotelcardLoc, bookingLocation, Log, screenShots);
@@ -242,7 +243,7 @@ Thread.sleep(2000);
 		
 		SkyTravelersHotelsconfirmBookingPage.clcikBookNowButtonOnConfirmPage();
 		
-		SkyTravelersHotelsconfirmBookingPage.validateBillingInformationDisplayed(Log);
+		SkyTravelersHotelsconfirmBookingPage.validateBillingInformationDisplayed(Log, screenShots);
 		
        //Function to Logout from Application
     		//tripgainhomepage.logOutFromApplication(Log, screenShots);

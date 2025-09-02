@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import com.tripgain.common.Log;
 import com.tripgain.common.ScreenShots;
@@ -253,6 +254,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 	            log.ReportEvent("PASS", "Check-Out Date validation passed from Result page to description page .");
 	        } else {
 	            log.ReportEvent("FAIL", "Check-Out Date validation failed from Result page to description page .");
+		        screenshots.takeScreenShot1();
+
 	        }
 
 	    } catch (Exception e) {
@@ -291,6 +294,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 	    } else {
 	        log.ReportEvent("FAIL", "Hotel from description page '" + hotelFromDesc + "' NOT match with result page hotel name .");
 	        screenshots.takeScreenShot1();
+            Assert.fail();
+
 	    }
 	}
 
@@ -343,6 +348,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 	    if (!roomsResult.equals(roomsDesc)) {
 	        log.ReportEvent("FAIL", "Room count mismatch! ResultPage: " + roomsResult + ", DescPage: " + roomsDesc);
 	        screenshots.takeScreenShot1();
+            Assert.fail();
+
 	    } else {
 	        log.ReportEvent("PASS", "Room count matches from hotels result page to description page .");
 	    }
@@ -385,6 +392,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 	    if (!descAmount.equals(resultAmount)) {
 	        log.ReportEvent("FAIL", "Hotel amount mismatch! DescPage: " + descAmount + ", ResultsPage: " + resultAmount);
 	        screenshots.takeScreenShot1();
+            Assert.fail();
+
 	    } else {
 	        log.ReportEvent("PASS", "Hotel amount matches on Hotel Result as well as Description Page");
 	    }
@@ -418,6 +427,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 	    if (!selectedStarRating.equalsIgnoreCase(descStar)) {
 	        log.ReportEvent("FAIL", "Star rating mismatch! Results Page: " + selectedStarRating + ", Desc Page: " + descStar);
 	        screenshots.takeScreenShot1();
+            Assert.fail();
+
 	    } else {
 	        log.ReportEvent("PASS", "Star rating matches on both pages.");
 	    }
@@ -430,24 +441,59 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			}
 			
 			//Method to get amenities text from description page
+//			public String getAmenitiesFromDescPage() {
+//			    try {
+//			        List<WebElement> amenitiesElements = driver.findElements(By.xpath("//div[@id='amenities']//span"));
+//			        
+//			        StringBuilder amenitiesBuilder = new StringBuilder();
+//
+//			        // Loop through each amenity element
+//			        for (WebElement element : amenitiesElements) {
+//			            // Get the text of the element and remove extra spaces
+//			            String text = element.getText().trim();
+//			            
+//			            // If text is not empty, add it to the builder followed by a comma and space
+//			            if (!text.isEmpty()) {
+//			                amenitiesBuilder.append(text).append(", ");
+//			            }
+//			        }
+//
+//			        // If the builder has any text, remove the last comma and space
+//			        if (amenitiesBuilder.length() > 2) {
+//			            amenitiesBuilder.setLength(amenitiesBuilder.length() - 2);
+//			        }
+//
+//			        return amenitiesBuilder.toString();
+//
+//			    } catch (Exception e) {
+//			        System.out.println("Error fetching amenities: " + e.getMessage());
+//			        return "";
+//			    }
+//			}
+			
 			public String getAmenitiesFromDescPage() {
 			    try {
-			        List<WebElement> amenitiesElements = driver.findElements(By.xpath("//div[@id='amenities']//span"));
-			        
+			        List<WebElement> amenitiesElements = driver.findElements(
+			            By.xpath("//div[@id='amenities']//span")
+			        );
+
+			        // If no amenities found
+			        if (amenitiesElements.isEmpty()) {
+			            System.out.println("No amenities found");
+			            return "No amenities found";
+			        }
+
 			        StringBuilder amenitiesBuilder = new StringBuilder();
 
 			        // Loop through each amenity element
 			        for (WebElement element : amenitiesElements) {
-			            // Get the text of the element and remove extra spaces
 			            String text = element.getText().trim();
-			            
-			            // If text is not empty, add it to the builder followed by a comma and space
 			            if (!text.isEmpty()) {
 			                amenitiesBuilder.append(text).append(", ");
 			            }
 			        }
 
-			        // If the builder has any text, remove the last comma and space
+			        // Clean up trailing comma and space
 			        if (amenitiesBuilder.length() > 2) {
 			            amenitiesBuilder.setLength(amenitiesBuilder.length() - 2);
 			        }
@@ -455,10 +501,11 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			        return amenitiesBuilder.toString();
 
 			    } catch (Exception e) {
-			        System.out.println("Error fetching amenities: " + e.getMessage());
-			        return "";
+			        System.out.println("Unexpected error while fetching amenities: " + e.getMessage());
+			        return "No amenities found";
 			    }
 			}
+
 
 
 	//Method to click on rooms and book 
@@ -661,20 +708,134 @@ public class SkyTravelers_Hotels_DescriptionPage {
 //			}
 //			
 			
-			public String[] clickOnBookButtonForRoomsOnDescPage(int roomIndex) throws InterruptedException {
-			    System.out.println("=== Starting Room Booking Process ===");
+//			public String[] clickOnBookButtonForRoomsOnDescPage(int roomIndex) throws InterruptedException {
+//			    System.out.println("=== Starting Room Booking Process ===");
+//
+//			    // Step 1: Click Rooms Tab
+//			    WebElement roomsTab = driver.findElement(By.xpath("//button[text()='Rooms']"));
+//			    Thread.sleep(1000);
+//			    roomsTab.click();
+//			    System.out.println("Clicked on Rooms tab");
+//			    Thread.sleep(4000);
+//
+//			    // Step 2: Get all room cards
+//			    List<WebElement> roomCards = driver.findElements(By.xpath("//div[@class='room-options-section__room-card card']"));
+//			    int roomCount = roomCards.size();
+//			    System.out.println("Room cards found: " + roomCount);
+//
+//			    WebElement selectedCard = null;
+//
+//			    // Step 3: Check if no rooms are available
+//			    if (roomCount == 0) {
+//			        WebElement bookNowBtn = driver.findElement(By.xpath("//div[text()='Book Now']"));
+//			        bookNowBtn.click();
+//			        System.out.println("Clicked Book Now button");
+//			        Thread.sleep(1000);
+//			        return new String[] {
+//			            "Not found", "Not found", "Not found", "Not found", "Not found",
+//			            "Not found", "Not found", "Not found"
+//			        };
+//			    }
+//
+//			    // Step 4: Adjust for 1-based input
+//			    int adjustedIndex = roomIndex - 1;
+//
+//			    // Step 5: Validate room index
+//			    if (adjustedIndex < 0 || adjustedIndex >= roomCount) {
+//			        System.out.println("Invalid room index provided: " + roomIndex + ". Defaulting to first room.");
+//			        adjustedIndex = 0;
+//			    }
+//
+//			    selectedCard = roomCards.get(adjustedIndex);
+//			    System.out.println("Selected room card at index: " + roomIndex + " (zero-based: " + adjustedIndex + ")");
+//
+//			    // Step 6: Click Terms & Conditions inside selected room card
+//			    try {
+//			        WebElement termsLink = selectedCard.findElement(By.xpath(".//a[text()='Terms & Conditions']"));
+//			        Thread.sleep(1000);
+//			        termsLink.click();
+//			        System.out.println("Clicked Terms & Conditions inside selected card");
+//			    } catch (NoSuchElementException e) {
+//			        System.out.println("No Terms & Conditions found in selected card.");
+//			    }
+//
+//			    Thread.sleep(1000); // Wait for modal to load
+//
+//			    // Step 7: Get cancellation info globally
+//			    String cancelAfter = getTextFromElements("//*[contains(@class,'cancellation-policy-from-date')]");
+//			    String cancelBefore = getTextFromElements("//*[contains(@class,'cancellation-policy-to-date')]");
+//			    String cancelCharges = getTextFromElements("//*[contains(@class,'cancellation-policy-penalty')]");
+//
+////			    System.out.println("=== Cancellation Info ===");
+////			    System.out.println("After: " + cancelAfter);
+////			    System.out.println("Before: " + cancelBefore);
+////			    System.out.println("Charges: " + cancelCharges);
+//
+//			    Thread.sleep(1000);
+//			    
+//			    // Step 8: Click Book button inside selected card
+//			    try {
+//			        WebElement bookButton = selectedCard.findElement(By.xpath(".//button[text()='Book']"));
+//
+//			        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bookButton);
+//
+//			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//			        wait.until(ExpectedConditions.elementToBeClickable(bookButton));
+//
+//			        bookButton.click();
+//			        System.out.println("Clicked Book button inside selected card");
+//			    } catch (Exception e) {
+//			        System.out.println("Failed to click Book button: " + e.getMessage());
+//			    }
+//
+//			    // Step 9: Extract room details
+//			    String roomType = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_room-type')]");
+//			    String fareType = getTextFromChild(selectedCard, ".//div[./span[text()='Highlights']]//span[contains(@class,'font-weight-bold')]");
+//			    String price = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_actual-price')]");
+//			    String nightsText = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_nights')]");
+//			    String mealPlan = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_meal-plan')]");
+//
+//			    System.out.println("Room Details => Type: " + roomType + ", Fare: " + fareType + ", Price: " + price + ", Nights: " + nightsText + ", Meal Plan: " + mealPlan);
+//
+////			    return new String[] {
+////			        roomType, fareType, price, nightsText, mealPlan,
+////			        cancelAfter, cancelBefore, cancelCharges
+////			    };
+//			    
+//			    return new String[] {
+//				        roomType, fareType, price, nightsText, mealPlan
+//				       
+//				    };
+//			}
+//
+//			private String getTextFromChild(WebElement parent, String xpath) {
+//			    try {
+//			        WebElement el = parent.findElement(By.xpath(xpath));
+//			        return el.getText().trim();
+//			    } catch (NoSuchElementException e) {
+//			        return "Not found";
+//			    }
+//			}
+//
+//			private String getTextFromElements(String xpath) {
+//			    List<WebElement> elements = driver.findElements(By.xpath(xpath));
+//			    if (elements.isEmpty()) return "Not found";
+//			    return elements.stream().map(WebElement::getText).map(String::trim).collect(Collectors.joining(" | "));
+//			}
+
+			public String[] clickOnBookButtonForRoomsOnDescPage(int roomIndex,Log Log) throws InterruptedException {
+			    Log.ReportEvent("INFO", "=== Starting Room Booking Process ===");
 
 			    // Step 1: Click Rooms Tab
 			    WebElement roomsTab = driver.findElement(By.xpath("//button[text()='Rooms']"));
 			    Thread.sleep(1000);
 			    roomsTab.click();
-			    System.out.println("Clicked on Rooms tab");
 			    Thread.sleep(4000);
 
 			    // Step 2: Get all room cards
 			    List<WebElement> roomCards = driver.findElements(By.xpath("//div[@class='room-options-section__room-card card']"));
 			    int roomCount = roomCards.size();
-			    System.out.println("Room cards found: " + roomCount);
+			    Log.ReportEvent("INFO", "Room cards found: " + roomCount);
 
 			    WebElement selectedCard = null;
 
@@ -682,7 +843,7 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			    if (roomCount == 0) {
 			        WebElement bookNowBtn = driver.findElement(By.xpath("//div[text()='Book Now']"));
 			        bookNowBtn.click();
-			        System.out.println("Clicked Book Now button");
+			        Log.ReportEvent("WARN", "No rooms available—clicked 'Book Now' default case");
 			        Thread.sleep(1000);
 			        return new String[] {
 			            "Not found", "Not found", "Not found", "Not found", "Not found",
@@ -690,26 +851,26 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			        };
 			    }
 
-			    // Step 4: Adjust for 1-based input
+			    // Step 4: Adjust for 1‑based input
 			    int adjustedIndex = roomIndex - 1;
 
 			    // Step 5: Validate room index
 			    if (adjustedIndex < 0 || adjustedIndex >= roomCount) {
-			        System.out.println("Invalid room index provided: " + roomIndex + ". Defaulting to first room.");
+			        Log.ReportEvent("WARN", "Invalid room index provided: " + roomIndex + ". Defaulting to first room.");
 			        adjustedIndex = 0;
 			    }
 
 			    selectedCard = roomCards.get(adjustedIndex);
-			    System.out.println("Selected room card at index: " + roomIndex + " (zero-based: " + adjustedIndex + ")");
+			    Log.ReportEvent("INFO", "Selected room card at index: " + roomIndex + " (zero‑based: " + adjustedIndex + ")");
 
 			    // Step 6: Click Terms & Conditions inside selected room card
 			    try {
 			        WebElement termsLink = selectedCard.findElement(By.xpath(".//a[text()='Terms & Conditions']"));
 			        Thread.sleep(1000);
 			        termsLink.click();
-			        System.out.println("Clicked Terms & Conditions inside selected card");
+			        Log.ReportEvent("INFO", "Clicked Terms & Conditions inside selected card");
 			    } catch (NoSuchElementException e) {
-			        System.out.println("No Terms & Conditions found in selected card.");
+			        Log.ReportEvent("INFO", "No Terms & Conditions found in selected card.");
 			    }
 
 			    Thread.sleep(1000); // Wait for modal to load
@@ -718,27 +879,38 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			    String cancelAfter = getTextFromElements("//*[contains(@class,'cancellation-policy-from-date')]");
 			    String cancelBefore = getTextFromElements("//*[contains(@class,'cancellation-policy-to-date')]");
 			    String cancelCharges = getTextFromElements("//*[contains(@class,'cancellation-policy-penalty')]");
-
-//			    System.out.println("=== Cancellation Info ===");
-//			    System.out.println("After: " + cancelAfter);
-//			    System.out.println("Before: " + cancelBefore);
-//			    System.out.println("Charges: " + cancelCharges);
+			   // Log.ReportEvent("INFO", "Cancellation policy retrieved: After=" + cancelAfter +
+			     //                     ", Before=" + cancelBefore + ", Charges=" + cancelCharges);
 
 			    Thread.sleep(1000);
-			    
+
 			    // Step 8: Click Book button inside selected card
 			    try {
 			        WebElement bookButton = selectedCard.findElement(By.xpath(".//button[text()='Book']"));
-
 			        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bookButton);
 
 			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			        wait.until(ExpectedConditions.elementToBeClickable(bookButton));
 
 			        bookButton.click();
-			        System.out.println("Clicked Book button inside selected card");
+			        Log.ReportEvent("INFO", "Clicked Book button inside selected card");
+
+			        // Wait a moment for potential error popup
+			        Thread.sleep(2000);
+
+			        // Check for error popup
+			        List<WebElement> errorPopups = driver.findElements(By.xpath(
+			            "//div[contains(@class,'app-alert__error')]//p[contains(@class,'app-alert__error_description')]"));
+			        if (!errorPopups.isEmpty()) {
+			            String popupText = errorPopups.get(0).getText();
+			            Log.ReportEvent("FAIL", "Popup displayed: \"" + popupText + "\"");
+			            return new String[] { "FAIL", popupText };
+			        } else {
+			            //Log.ReportEvent("PASS", "No error popup displayed. Continuing normal flow.");
+			        }
+
 			    } catch (Exception e) {
-			        System.out.println("Failed to click Book button: " + e.getMessage());
+			        Log.ReportEvent("ERROR", "Failed to click Book button: " + e.getMessage());
 			    }
 
 			    // Step 9: Extract room details
@@ -748,17 +920,12 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			    String nightsText = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_nights')]");
 			    String mealPlan = getTextFromChild(selectedCard, ".//span[contains(@class,'room-card_meal-plan')]");
 
-			    System.out.println("Room Details => Type: " + roomType + ", Fare: " + fareType + ", Price: " + price + ", Nights: " + nightsText + ", Meal Plan: " + mealPlan);
+			    Log.ReportEvent("INFO", "Room Details => Type: " + roomType + ", Fare: " + fareType +
+			                          ", Price: " + price + ", Nights: " + nightsText + ", Meal Plan: " + mealPlan);
 
-//			    return new String[] {
-//			        roomType, fareType, price, nightsText, mealPlan,
-//			        cancelAfter, cancelBefore, cancelCharges
-//			    };
-			    
 			    return new String[] {
-				        roomType, fareType, price, nightsText, mealPlan
-				       
-				    };
+			        roomType, fareType, price, nightsText, mealPlan
+			    };
 			}
 
 			private String getTextFromChild(WebElement parent, String xpath) {
@@ -773,15 +940,80 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			private String getTextFromElements(String xpath) {
 			    List<WebElement> elements = driver.findElements(By.xpath(xpath));
 			    if (elements.isEmpty()) return "Not found";
-			    return elements.stream().map(WebElement::getText).map(String::trim).collect(Collectors.joining(" | "));
+			    return elements.stream().map(WebElement::getText)
+			                   .map(String::trim)
+			                   .collect(Collectors.joining(" | "));
 			}
 
 		
 			
 //Method to validate facilities text from result page hotel card to description page 
+//			public void validateFacilitiesTitleWithDescPageAmenities(String facilitiesTitleText, String amenitiesText, Log Log, ScreenShots ScreenShots) {
+//			    boolean isPass = true;
+//
+//			    if (facilitiesTitleText == null || facilitiesTitleText.isEmpty()) {
+//			        Log.ReportEvent("FAIL", "Facilities title text from result page is null or empty.");
+//			        ScreenShots.takeScreenShot1();
+//			        isPass = false;
+//			    } else if (amenitiesText == null || amenitiesText.isEmpty()) {
+//			        Log.ReportEvent("FAIL", "Amenities text from description page is null or empty.");
+//			        ScreenShots.takeScreenShot1();
+//			        isPass = false;
+//			    } else {
+//			        // Split both strings into arrays by comma
+//			        String[] facilitiesArr = facilitiesTitleText.toLowerCase().split(",");
+//			        String[] amenitiesArr = amenitiesText.toLowerCase().split(",");
+//
+//			        // Trim spaces from each item
+//			        for (int i = 0; i < facilitiesArr.length; i++) {
+//			            facilitiesArr[i] = facilitiesArr[i].trim();
+//			        }
+//			        for (int i = 0; i < amenitiesArr.length; i++) {
+//			            amenitiesArr[i] = amenitiesArr[i].trim();
+//			        }
+//
+//			        // Check if every facility in facilitiesArr is present in amenitiesArr
+//			        for (String facility : facilitiesArr) {
+//			            boolean found = false;
+//			            for (String amenity : amenitiesArr) {
+//			                if (amenity.equals(facility)) {
+//			                    found = true;
+//			                    break;
+//			                }
+//			            }
+//			            if (!found) {
+//			                Log.ReportEvent("FAIL", "Facility '" + facility.toUpperCase() + "' NOT found in description page amenities.");
+//			                ScreenShots.takeScreenShot1();
+//			                isPass = false;
+//			            }
+//			        }
+//
+//			        if (isPass) {
+//			            Log.ReportEvent("PASS", "Facilities title from result page is present in description page amenities.");
+//			        }
+//			    }
+//
+//			    if (isPass) {
+//			        Log.ReportEvent("PASS", "Facilities validation passed successfully from result to description page.");
+//			    } else {
+//			        Log.ReportEvent("FAIL", "Facilities validation failed from result to description page.");
+//	                ScreenShots.takeScreenShot1();
+//
+//			    }
+//			}
+
 			public void validateFacilitiesTitleWithDescPageAmenities(String facilitiesTitleText, String amenitiesText, Log Log, ScreenShots ScreenShots) {
 			    boolean isPass = true;
 
+			    // Handle case where both are empty
+			    if ((facilitiesTitleText == null || facilitiesTitleText.isEmpty()) &&
+			        (amenitiesText == null || amenitiesText.isEmpty())) {
+
+			        Log.ReportEvent("INFO", "No amenities found on both result and description pages.");
+			        return; // No need to proceed further, considered as PASS
+			    }
+
+			    // Handle if only one is empty - FAIL
 			    if (facilitiesTitleText == null || facilitiesTitleText.isEmpty()) {
 			        Log.ReportEvent("FAIL", "Facilities title text from result page is null or empty.");
 			        ScreenShots.takeScreenShot1();
@@ -815,6 +1047,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			            if (!found) {
 			                Log.ReportEvent("FAIL", "Facility '" + facility.toUpperCase() + "' NOT found in description page amenities.");
 			                ScreenShots.takeScreenShot1();
+				            Assert.fail();
+
 			                isPass = false;
 			            }
 			        }
@@ -828,7 +1062,8 @@ public class SkyTravelers_Hotels_DescriptionPage {
 			        Log.ReportEvent("PASS", "Facilities validation passed successfully from result to description page.");
 			    } else {
 			        Log.ReportEvent("FAIL", "Facilities validation failed from result to description page.");
-	                ScreenShots.takeScreenShot1();
+			        ScreenShots.takeScreenShot1();
+		            Assert.fail();
 
 			    }
 			}

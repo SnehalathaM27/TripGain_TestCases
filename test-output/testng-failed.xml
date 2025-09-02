@@ -8,13 +8,13 @@
         <methods>
           <include name="launchApplication"/>
           <include name="tearDown"/>
-          <include name="myTest" invocation-numbers="0 1 3 4 5 6"/>
+          <include name="myTest" invocation-numbers="0 16 1 18 3 19 4 5 6 10"/>
         </methods>
       </class> <!-- SkyTravellers_Hotels.TCHO_3_verifyHotelsSearchwithStarRating -->
       <class name="SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown">
         <methods>
           <include name="launchApplication"/>
-          <include name="myTest" invocation-numbers="2 8 9"/>
+          <include name="myTest" invocation-numbers="0 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17 18"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown -->
@@ -22,14 +22,14 @@
         <methods>
           <include name="launchApplication"/>
           <include name="tearDown"/>
-          <include name="myTest" invocation-numbers="6 7"/>
+          <include name="myTest" invocation-numbers="16 1 2 7 8 12 13"/>
         </methods>
       </class> <!-- SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1 -->
       <class name="SkyTravellers_Hotels.TCHO_4_verifyHotelsSearchwithFacilities">
         <methods>
           <include name="launchApplication"/>
           <include name="tearDown"/>
-          <include name="myTest" invocation-numbers="0 1 3 4 6 7 8"/>
+          <include name="myTest" invocation-numbers="0 1 17 18 3 4 7 10 11 13"/>
         </methods>
       </class> <!-- SkyTravellers_Hotels.TCHO_4_verifyHotelsSearchwithFacilities -->
     </classes>

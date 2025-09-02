@@ -4,6 +4,7 @@
  <!-- You can change this to "firefox" or others -->
   <test name="test">
   <parameter name="browser" value="chrome"/>
+  
      <classes>
 
      
@@ -226,19 +227,17 @@
  
  
                        <!--skytravelers (hotels)-->
-
-    <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1"/>
+        <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1"/>
     <class name="SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown"/>
     <class name="SkyTravellers_Hotels.TCHO_3_verifyHotelsSearchwithStarRating"/>
     <class name="SkyTravellers_Hotels.TCHO_4_verifyHotelsSearchwithFacilities"/>
-    
+
     
    
 
      </classes>
      
-                     
-     
+                    
      
   </test> <!-- Test -->
  

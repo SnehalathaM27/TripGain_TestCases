@@ -385,7 +385,7 @@ public class Tripgain_homepage {
 			{
 				Thread.sleep(500);
 				driver.findElement(By.xpath("//button[@aria-label='Next Month']")).click();
-				if(driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::h2)[1]")).getText().contentEquals(MonthandYear))
+				if(driver.findElement(By.xpath("(//*[@class='react-datepicker__current-month'])[1]")).getText().contentEquals(MonthandYear))
 				{
 					driver.findElement(By.xpath("(//div[@class='react-datepicker__month-container'])[1]//div[text()='"+day+"' and @aria-disabled='false']")).click();
 					break;

@@ -45,66 +45,85 @@ public class SkyTravelers_Hotels_SearchPage {
 		driver.findElement(By.xpath("//span[text()='Hotel']")).click();
 	}
 	
-	public void enterDestinationForHotels(String city) {
-		try {
-			// Optionally adjust zoom - only if necessary
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("document.body.style.zoom='80%'");
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
-			// Wait for the search input to be visible and interactable
-			WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[text()='Enter Destination / Area / Property']/following-sibling::div//input")));
-			// Clear and send keys
-			searchField.clear();
-			
-			searchField.sendKeys(city);
-			Thread.sleep(1000);
+	public void enterDestinationForHotels(String city,Log Log) {
+	    try {
+	        // Optional: adjust zoom
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript("document.body.style.zoom='80%'");
 
-			// Wait for the dropdown options to appear
-			List<WebElement> listOfProperty = wait.until(
-					ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='location-focused location-option']"))
-			);
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
+	        WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(
+	            By.xpath("//label[text()='Enter Destination / Area / Property']/following-sibling::div//input")));
 
-			if (!listOfProperty.isEmpty()) {
-				Thread.sleep(2000);
-				listOfProperty.get(0).click();
-				Thread.sleep(1000);
-			} else {
-				System.out.println("No options found in the dropdown.");
-			}
+	        searchField.clear();
+	        searchField.sendKeys(city);
+	        Thread.sleep(1000);
 
-		} catch (Exception e) {
-			System.out.println("Failed to select a location from the list: " + e.getMessage());
-		}
+	        List<WebElement> listOfProperty = wait.until(
+	            ExpectedConditions.visibilityOfAllElementsLocatedBy(
+	                By.xpath("//div[@class='location-focused location-option']"))
+	        );
+
+	        if (!listOfProperty.isEmpty()) {
+	            Thread.sleep(2000);
+	            WebElement firstOption = listOfProperty.get(0);
+	            String selectedLocation = firstOption.getText();
+	            firstOption.click();
+	            Thread.sleep(1000);
+
+	            // Log the selected location
+	            Log.ReportEvent("PASS", "Selected Location: " + selectedLocation);
+	        } else {
+	            Log.ReportEvent("FAIL", "No options found in the dropdown.");
+	        }
+	    } catch (Exception e) {
+	        Log.ReportEvent("ERROR", "Failed to select a location: " + e.getMessage());
+	    }
 	}
+
 
 	@FindBy(xpath = "(//*[@class='app-landing-datepicker'])[1]")
 	WebElement datePickerInput;
 	
 	//Method to Select Check-In Date By Passing Two Paramenters(Date and MounthYear)
-		public void selectDate(String day, String MonthandYear) throws InterruptedException
-		{
-			TestExecutionNotifier.showExecutionPopup();
-			datePickerInput.click();
-			String Date=driver.findElement(By.xpath("(//div[@class='react-datepicker__current-month'])[1]")).getText();
-			if(Date.contentEquals(MonthandYear))
-			{
-				Thread.sleep(4000);
-				driver.findElement(By.xpath("(//div[@class='react-datepicker__month-container'])[1]//div[text()='"+day+"' and @aria-disabled='false']")).click();
-				Thread.sleep(4000);
-			}else {
-				while(!Date.contentEquals(MonthandYear))
-				{
-					Thread.sleep(500);
-					driver.findElement(By.xpath("//button[@aria-label='Next Month']")).click();
-					if(driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::h2)[1]")).getText().contentEquals(MonthandYear))
-					{
-						driver.findElement(By.xpath("(//div[@class='react-datepicker__month-container'])[1]//div[text()='"+day+"' and @aria-disabled='false']")).click();
-						break;
-					}
+	public void selectDate(String day, String MonthandYear,Log Log) throws InterruptedException {
+	    TestExecutionNotifier.showExecutionPopup();
 
-				}
-			}
-		}
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    datePickerInput.click();
+
+	    // Wait until the calendar is visible and get the current month & year
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(
+	        By.xpath("//div[@class='react-datepicker__header ']//div[@class='react-datepicker__current-month']")
+	    ));
+
+	    String currentMonthYear = driver.findElement(
+	        By.xpath("//div[@class='react-datepicker__header ']//div[@class='react-datepicker__current-month']")
+	    ).getText();
+
+	    // Loop to navigate to the desired month
+	    while (!currentMonthYear.equals(MonthandYear)) {
+	        driver.findElement(By.xpath("//button[@aria-label='Next Month']")).click();
+	        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+	            By.xpath("//div[@class='react-datepicker__header ']//div[@class='react-datepicker__current-month']"),
+	            MonthandYear
+	        ));
+
+	        currentMonthYear = driver.findElement(
+	            By.xpath("//div[@class='react-datepicker__header ']//div[@class='react-datepicker__current-month']")
+	        ).getText();
+	    }
+
+	    // Once the correct month is displayed, select the day
+	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
+	        By.xpath("//div[contains(@class,'react-datepicker__day') and text()='" + day + "' and not(contains(@class,'--outside-month')) and not(contains(@class,'--disabled'))]")
+	    ));
+
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
+	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
+
+	    Log.ReportEvent("INFO", "Selected Date: " + day + " " + MonthandYear);
+	}
 
 		//Method to Click on Check-Out  Date
 		public void clickOnReturnDate()
@@ -113,27 +132,37 @@ public class SkyTravelers_Hotels_SearchPage {
 		}
 		
 		//Method to Select Return Date By Passing Two Paramenters(Date and MounthYear)
-		public void selectReturnDate(String returnDate, String returnMonthAndYear) throws InterruptedException
-		{
-			clickOnReturnDate();
-			String Date=driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::div)[1]")).getText();
-			if(Date.contentEquals(returnMonthAndYear))
-			{
-				driver.findElement(By.xpath("(//div[@class='react-datepicker__month-container'])[1]//div[text()='"+returnDate+"' and @aria-disabled='false']")).click();
-				Thread.sleep(4000);
-			}else {
-				while(!Date.contentEquals(returnMonthAndYear))
-				{
-					Thread.sleep(500);
-					driver.findElement(By.xpath("//button[@aria-label='Next Month']")).click();
-					if(driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::div)[1]")).getText().contentEquals(returnMonthAndYear))
-					{
-						driver.findElement(By.xpath("//div[text()='"+returnDate+"']")).click();
-						break;
-					}
-				}
-			}
+		public void selectReturnDate(String returnDate, String returnMonthAndYear,Log Log) throws InterruptedException {
+		    // Log the attempt to select the return date
+		    Log.ReportEvent("INFO", "Attempting to select return date: " + returnDate + " " + returnMonthAndYear);
+
+		    clickOnReturnDate();
+		    String currentMonthYear = driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::div)[1]")).getText();
+
+		    // Log the current month and year displayed in the date picker
+
+		    if (currentMonthYear.contentEquals(returnMonthAndYear)) {
+		        driver.findElement(By.xpath("(//div[@class='react-datepicker__month-container'])[1]//div[text()='" + returnDate + "' and @aria-disabled='false']")).click();
+		        Thread.sleep(4000);
+
+		        // Log the selected return date
+		    } else {
+		        while (!currentMonthYear.contentEquals(returnMonthAndYear)) {
+		            Thread.sleep(500);
+		            driver.findElement(By.xpath("//button[@aria-label='Next Month']")).click();
+		            currentMonthYear = driver.findElement(By.xpath("(//div[@class='react-datepicker__header ']/child::div)[1]")).getText();
+
+		            // Log the navigation to the next month
+		            Log.ReportEvent("INFO", "Navigated to: " + currentMonthYear);
+		        }
+
+		        driver.findElement(By.xpath("//div[text()='" + returnDate + "']")).click();
+
+		        // Log the selected return date
+		        Log.ReportEvent("INFO", "Selected return date: " + returnDate + " " + returnMonthAndYear);
+		    }
 		}
+
 		
 		//Method to add room, adt and child
 		public void addRoom(int roomcount, int adultCount , int childCount, int childAge) throws InterruptedException {
@@ -239,81 +268,169 @@ public class SkyTravelers_Hotels_SearchPage {
 		}
 		
 		//Method to Select Room and Adult Details
-		public void fillRoomDetails(String roomCountStr, String adultCountStr, String childCountStr, String childAgesStr) {
+//		public void fillRoomDetails(String roomCountStr, String adultCountStr, String childCountStr, String childAgesStr) {
+//		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		    JavascriptExecutor js = (JavascriptExecutor) driver;
+//		    int roomCount = Integer.parseInt(roomCountStr.trim());
+//		    String[] adultArray = adultCountStr.split(",");
+//		    String[] childArray = (childCountStr != null && !childCountStr.isEmpty()) ? childCountStr.split(",") : null;
+//		    String[] roomChildAges = (childAgesStr != null && !childAgesStr.isEmpty()) ? childAgesStr.split(";") : null;
+//		    // Open Room & Guest popup
+//		    WebElement roomGuestElement = wait.until(ExpectedConditions.elementToBeClickable(
+//		          By.xpath("//span[text()='Room & Guest']")));
+//		    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", roomGuestElement);
+//		    roomGuestElement.click();
+//		    int k = 1;
+//		    for (int i = 0; i < roomCount; i++) {
+//		       if (i > 0) {
+//		          WebElement addRoomButton = wait.until(ExpectedConditions.elementToBeClickable(
+//		                By.xpath("//button[contains(text(), 'Add Room')]")));
+//		          js.executeScript("arguments[0].scrollIntoView({block: 'center'});", addRoomButton);
+//		          addRoomButton.click();
+//		       }
+//		       int adults = Integer.parseInt(adultArray[i].trim());
+//		       // Select adults
+//		       List<WebElement> adultOptions = driver.findElements(By.xpath(
+//		             "//span[text()='Room " + k + ":']/parent::div//span[text()='Adults(12y+)']/parent::div//li"));
+//		       for (WebElement option : adultOptions) {
+//		          if (Integer.parseInt(option.getText().trim()) == adults) {
+//		             js.executeScript("arguments[0].scrollIntoView({block: 'center'});", option);
+//		             option.click();
+//		             break;
+//		          }
+//		       }
+//		       int children = 0;
+//		       String[] currentRoomChildAges = null;
+//		       if (childArray != null && childArray.length > i) {
+//		          children = Integer.parseInt(childArray[i].trim());
+//		          // Select children count
+//		          List<WebElement> childOptions = driver.findElements(By.xpath(
+//		                "//span[text()='Room " + k + ":']/parent::div//span[text()='Child']/parent::div//li"));
+//		          for (WebElement option : childOptions) {
+//		             if (Integer.parseInt(option.getText().trim()) == children) {
+//		                js.executeScript("arguments[0].scrollIntoView({block: 'center'});", option);
+//		                option.click();
+//		                break;
+//		             }
+//		          }
+//		          if (roomChildAges != null && roomChildAges.length > i) {
+//		             currentRoomChildAges = roomChildAges[i].split(",");
+//		          }
+//		          // Wait for dropdowns to render
+//		          if (children > 0 && currentRoomChildAges != null) {
+//		             try {
+//		                Thread.sleep(500);
+//		             } catch (InterruptedException e) {
+//		                e.printStackTrace();
+//		             }
+//		             List<WebElement> childAgeDropdowns = driver.findElements(By.xpath(
+//		                   "//span[text()='Room " + k + ":']/parent::div//select[starts-with(@name, 'child')]"));
+//		             for (int j = 0; j < children && j < childAgeDropdowns.size(); j++) {
+//		                String age = currentRoomChildAges.length > j ? currentRoomChildAges[j].trim() : "5"; // fallback
+//		                WebElement dropdown = childAgeDropdowns.get(j);
+//		                js.executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
+//		                Select select = new Select(dropdown);
+//		                select.selectByVisibleText(age);
+//		             }
+//		          }
+//		       }
+//		       k++;
+//		    }
+//		    // Click Done
+//		    WebElement doneButton = wait.until(ExpectedConditions.elementToBeClickable(
+//		          By.xpath("//button[contains(text(), 'Done')]")));
+//		    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", doneButton);
+//		    doneButton.click();
+//		}
+//		 
+
+		public void fillRoomDetails(String roomCountStr, String adultCountStr, String childCountStr, String childAgesStr,Log Log) {
 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		    JavascriptExecutor js = (JavascriptExecutor) driver;
 		    int roomCount = Integer.parseInt(roomCountStr.trim());
 		    String[] adultArray = adultCountStr.split(",");
 		    String[] childArray = (childCountStr != null && !childCountStr.isEmpty()) ? childCountStr.split(",") : null;
 		    String[] roomChildAges = (childAgesStr != null && !childAgesStr.isEmpty()) ? childAgesStr.split(";") : null;
+
 		    // Open Room & Guest popup
 		    WebElement roomGuestElement = wait.until(ExpectedConditions.elementToBeClickable(
-		          By.xpath("//span[text()='Room & Guest']")));
+		            By.xpath("//span[text()='Room & Guest']")));
 		    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", roomGuestElement);
 		    roomGuestElement.click();
+
 		    int k = 1;
 		    for (int i = 0; i < roomCount; i++) {
-		       if (i > 0) {
-		          WebElement addRoomButton = wait.until(ExpectedConditions.elementToBeClickable(
-		                By.xpath("//button[contains(text(), 'Add Room')]")));
-		          js.executeScript("arguments[0].scrollIntoView({block: 'center'});", addRoomButton);
-		          addRoomButton.click();
-		       }
-		       int adults = Integer.parseInt(adultArray[i].trim());
-		       // Select adults
-		       List<WebElement> adultOptions = driver.findElements(By.xpath(
-		             "//span[text()='Room " + k + ":']/parent::div//span[text()='Adults(12y+)']/parent::div//li"));
-		       for (WebElement option : adultOptions) {
-		          if (Integer.parseInt(option.getText().trim()) == adults) {
-		             js.executeScript("arguments[0].scrollIntoView({block: 'center'});", option);
-		             option.click();
-		             break;
-		          }
-		       }
-		       int children = 0;
-		       String[] currentRoomChildAges = null;
-		       if (childArray != null && childArray.length > i) {
-		          children = Integer.parseInt(childArray[i].trim());
-		          // Select children count
-		          List<WebElement> childOptions = driver.findElements(By.xpath(
-		                "//span[text()='Room " + k + ":']/parent::div//span[text()='Child']/parent::div//li"));
-		          for (WebElement option : childOptions) {
-		             if (Integer.parseInt(option.getText().trim()) == children) {
+		        if (i > 0) {
+		            WebElement addRoomButton = wait.until(ExpectedConditions.elementToBeClickable(
+		                    By.xpath("//button[contains(text(), 'Add Room')]")));
+		            js.executeScript("arguments[0].scrollIntoView({block: 'center'});", addRoomButton);
+		            addRoomButton.click();
+		        }
+
+		        int adults = Integer.parseInt(adultArray[i].trim());
+		        // Select adults
+		        List<WebElement> adultOptions = driver.findElements(By.xpath(
+		                "//span[text()='Room " + k + ":']/parent::div//span[text()='Adults(12y+)']/parent::div//li"));
+		        for (WebElement option : adultOptions) {
+		            if (Integer.parseInt(option.getText().trim()) == adults) {
 		                js.executeScript("arguments[0].scrollIntoView({block: 'center'});", option);
 		                option.click();
+		                // Log the selected adult count
+		                Log.ReportEvent("INFO", "Room " + k + ": Selected " + adults + " adults.");
 		                break;
-		             }
-		          }
-		          if (roomChildAges != null && roomChildAges.length > i) {
-		             currentRoomChildAges = roomChildAges[i].split(",");
-		          }
-		          // Wait for dropdowns to render
-		          if (children > 0 && currentRoomChildAges != null) {
-		             try {
-		                Thread.sleep(500);
-		             } catch (InterruptedException e) {
-		                e.printStackTrace();
-		             }
-		             List<WebElement> childAgeDropdowns = driver.findElements(By.xpath(
-		                   "//span[text()='Room " + k + ":']/parent::div//select[starts-with(@name, 'child')]"));
-		             for (int j = 0; j < children && j < childAgeDropdowns.size(); j++) {
-		                String age = currentRoomChildAges.length > j ? currentRoomChildAges[j].trim() : "5"; // fallback
-		                WebElement dropdown = childAgeDropdowns.get(j);
-		                js.executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
-		                Select select = new Select(dropdown);
-		                select.selectByVisibleText(age);
-		             }
-		          }
-		       }
-		       k++;
+		            }
+		        }
+
+		        int children = 0;
+		        String[] currentRoomChildAges = null;
+		        if (childArray != null && childArray.length > i) {
+		            children = Integer.parseInt(childArray[i].trim());
+		            // Select children count
+		            List<WebElement> childOptions = driver.findElements(By.xpath(
+		                    "//span[text()='Room " + k + ":']/parent::div//span[text()='Child']/parent::div//li"));
+		            for (WebElement option : childOptions) {
+		                if (Integer.parseInt(option.getText().trim()) == children) {
+		                    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", option);
+		                    option.click();
+		                    // Log the selected children count
+		                    Log.ReportEvent("INFO", "Room " + k + ": Selected " + children + " children.");
+		                    break;
+		                }
+		            }
+
+		            if (roomChildAges != null && roomChildAges.length > i) {
+		                currentRoomChildAges = roomChildAges[i].split(",");
+		            }
+
+		            // Wait for dropdowns to render
+		            if (children > 0 && currentRoomChildAges != null) {
+		                try {
+		                    Thread.sleep(500);
+		                } catch (InterruptedException e) {
+		                    e.printStackTrace();
+		                }
+		                List<WebElement> childAgeDropdowns = driver.findElements(By.xpath(
+		                        "//span[text()='Room " + k + ":']/parent::div//select[starts-with(@name, 'child')]"));
+		                for (int j = 0; j < children && j < childAgeDropdowns.size(); j++) {
+		                    String age = currentRoomChildAges.length > j ? currentRoomChildAges[j].trim() : "5"; // fallback
+		                    WebElement dropdown = childAgeDropdowns.get(j);
+		                    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", dropdown);
+		                    Select select = new Select(dropdown);
+		                    select.selectByVisibleText(age);
+		                    // Log the selected child age
+		                    Log.ReportEvent("INFO", "Room " + k + ": Selected child " + (j + 1) + " age: " + age);
+		                }
+		            }
+		        }
+		        k++;
 		    }
+
 		    // Click Done
 		    WebElement doneButton = wait.until(ExpectedConditions.elementToBeClickable(
-		          By.xpath("//button[contains(text(), 'Done')]")));
+		            By.xpath("//button[contains(text(), 'Done')]")));
 		    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", doneButton);
 		    doneButton.click();
 		}
-		 
 
 
 		//method to click on search hotels
@@ -636,30 +753,60 @@ public class SkyTravelers_Hotels_SearchPage {
 		
 		//Method to get the amenities from result page
 	
+//		public String getFacilitiesTitleTextFromResultpage(Log Log) {
+//		    try {
+//		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//
+//		        WebElement facilitiesDiv = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//		            By.xpath("//div[contains(@class, 'd-flex justify-content-start flex-column') and @title]")));
+//		        
+//
+//		        // Get the title attribute value
+//		        String facilitiesTitle = facilitiesDiv.getAttribute("title").trim();
+//
+//		        
+//		        System.out.println("Facilities Title Text: " + facilitiesTitle);
+//		        Log.ReportEvent("INFO", "Facilities Title Text: "+facilitiesTitle);
+//
+//
+//		        return facilitiesTitle;
+//
+//		    } catch (Exception e) {
+//		        System.out.println("Error retrieving facilities title text: " + e.getMessage());
+//		        return "";
+//		    }
+//		}
+//		
+		
 		public String getFacilitiesTitleTextFromResultpage(Log Log) {
 		    try {
 		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-		        WebElement facilitiesDiv = wait.until(ExpectedConditions.visibilityOfElementLocated(
-		            By.xpath("//div[contains(@class, 'd-flex justify-content-start flex-column') and @title]")));
-		        
+		        // Try to find the element without throwing an exception if not found
+		        List<WebElement> facilitiesElements = driver.findElements(
+		            By.xpath("//div[contains(@class, 'd-flex justify-content-start flex-column') and @title]")
+		        );
 
-		        // Get the title attribute value
-		        String facilitiesTitle = facilitiesDiv.getAttribute("title").trim();
+		        if (facilitiesElements.size() > 0) {
+		            WebElement facilitiesDiv = facilitiesElements.get(0);
+		            String facilitiesTitle = facilitiesDiv.getAttribute("title").trim();
 
-		        
-		        System.out.println("Facilities Title Text: " + facilitiesTitle);
-		        Log.ReportEvent("INFO", "Facilities Title Text: "+facilitiesTitle);
-
-
-		        return facilitiesTitle;
+		            System.out.println("Facilities Title Text: " + facilitiesTitle);
+		            Log.ReportEvent("INFO", "Facilities Title Text: " + facilitiesTitle);
+		            return facilitiesTitle;
+		        } else {
+		            System.out.println("Amenities not there");
+		            Log.ReportEvent("INFO", "Amenities not there");
+		            return "Amenities not there";
+		        }
 
 		    } catch (Exception e) {
-		        System.out.println("Error retrieving facilities title text: " + e.getMessage());
+		        System.out.println("Unexpected error: " + e.getMessage());
+		        Log.ReportEvent("ERROR", "Unexpected error while retrieving facilities: " + e.getMessage());
 		        return "";
 		    }
 		}
-		
+
 		
 		public void validateFacilitiesTitleWithClickedFacility(Log Log, ScreenShots ScreenShots) {
 		    String facilitiesTitleText = getFacilitiesTitleTextFromResultpage(Log);
@@ -969,7 +1116,7 @@ public class SkyTravelers_Hotels_SearchPage {
 				            }
 				        }
 
-				        Log.ReportEvent("PASS", "Prices are sorted low to high: " );
+				        Log.ReportEvent("PASS", "Prices are sorted low to high " );
 				        return true;
 
 				    } catch (Exception e) {
@@ -1009,7 +1156,7 @@ public class SkyTravelers_Hotels_SearchPage {
 				            }
 				        }
 
-				        Log.ReportEvent("PASS", "Prices are sorted high to low: " );
+				        Log.ReportEvent("PASS", "Prices are sorted high to low " );
 				        return true;
 
 				    } catch (Exception e) {
@@ -1041,7 +1188,7 @@ public class SkyTravelers_Hotels_SearchPage {
 				        Collections.sort(sorted); // ascending
 
 				        if (starCounts.equals(sorted)) {
-				            Log.ReportEvent("PASS", "Star ratings are sorted from low to high: ");
+				            Log.ReportEvent("PASS", "Star ratings are sorted from low to high ");
 				            return true;
 				        } else {
 				            Log.ReportEvent("FAIL", "Star ratings are NOT sorted from low to high: " + starCounts);
@@ -1078,7 +1225,7 @@ public class SkyTravelers_Hotels_SearchPage {
 				        sorted.sort(Collections.reverseOrder());
 
 				        if (starCounts.equals(sorted)) {
-				            Log.ReportEvent("PASS", "Star ratings are sorted from high to low: " );
+				            Log.ReportEvent("PASS", "Star ratings are sorted from high to low " );
 				            return true;
 				        } else {
 				            Log.ReportEvent("FAIL", "Star ratings are NOT sorted from high to low: " + starCounts);
