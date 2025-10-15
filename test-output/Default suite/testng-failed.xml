@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1">
+      <class name="NewDesign_Trips.TCNDTR_2_CreateTripsForBuses">
         <methods>
           <include name="launchApplication"/>
-          <include name="tearDown"/>
           <include name="myTest"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1 -->
+      </class> <!-- NewDesign_Trips.TCNDTR_2_CreateTripsForBuses -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

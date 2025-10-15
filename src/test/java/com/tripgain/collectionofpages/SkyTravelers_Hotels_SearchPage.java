@@ -118,7 +118,6 @@ public class SkyTravelers_Hotels_SearchPage {
 	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
 	        By.xpath("//div[contains(@class,'react-datepicker__day') and text()='" + day + "' and not(contains(@class,'--outside-month')) and not(contains(@class,'--disabled'))]")
 	    ));
-
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
 

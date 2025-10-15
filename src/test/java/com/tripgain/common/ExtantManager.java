@@ -44,7 +44,7 @@ public class ExtantManager {
                 extent.attachReporter(sparkReporter);
                 extent.setSystemInfo("Environment", "QA");
                 extent.setSystemInfo("Tester Name", "Snehalatha M");
-                extent.setSystemInfo("Test URL", "https://v3.tripgain.com/login");
+                extent.setSystemInfo("Test URL", "https://tgdev.tripgain.com/login");
 
                 try {
                     InetAddress localHost = InetAddress.getLocalHost();

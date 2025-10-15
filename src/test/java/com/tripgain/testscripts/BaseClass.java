@@ -35,11 +35,12 @@ public class BaseClass{
 	        } else {
 	            throw new IllegalArgumentException("Unsupported browser: " + browser);
 	        }
-		    driver.get("https://uaev2.skytravellers.com/login");
+		    driver.get("https://tgdev.tripgain.com/");
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 			return driver;
 	    }
+		
 		
 		@AfterSuite
 		public void tearDown()

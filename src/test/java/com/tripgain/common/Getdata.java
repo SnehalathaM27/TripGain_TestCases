@@ -19,7 +19,9 @@ public class Getdata {
 	    	Thread.sleep(3000);
 	       // FileInputStream FileInputStream = new FileInputStream("C:\\Users\\LENOVO\\OneDrive - tripgain.com\\Documents\\EntireTestCases_automation\\Auto\\src\\test\\resources\\testdata\\Logincred.xlsx");
 	        File classpathRoot = new File(System.getProperty("user.dir"));
-	        File app = new File(classpathRoot.getAbsolutePath() + "\\src\\test\\resources\\testdata\\Logincred.xlsx");
+	       File app = new File(classpathRoot.getAbsolutePath() + "\\src\\test\\resources\\testdata\\Logincred.xlsx");
+		    //   File app = new File(classpathRoot.getAbsolutePath() + "\\src\\test\\resources\\testdata\\NewDesignLoginCred.xlsx");
+
 	        String fileName = app.toString();
 	        
 //	        FileInputStream FileInputStream = new FileInputStream(fileName);            

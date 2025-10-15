@@ -27,6 +27,7 @@ public class getDataExcel {
          
          File app = new File(classpathRoot, "\\src\\test\\resources\\testdata\\HotelsScripts_Skytravelers.xlsx");   
 
+
         String fileName = app.toString();
 
         try (FileInputStream fis = new FileInputStream(fileName);

@@ -227,13 +227,20 @@
  
  
                        <!--skytravelers (hotels)-->
-        <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1"/>
-    <class name="SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown"/>
+    <!--class name="SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown"/>
     <class name="SkyTravellers_Hotels.TCHO_3_verifyHotelsSearchwithStarRating"/>
     <class name="SkyTravellers_Hotels.TCHO_4_verifyHotelsSearchwithFacilities"/>
+        <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1"/-->
 
-    
-   
+       
+       
+    <!--class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/>
+           <class name="NewDesign_Hotels.TCND_1_verifyHotelsSearch1"/-->
+           
+               <!--class name="NewDesign_Trips.TCNDTR_1_CreateTripsForHotels"/>
+               <class name="NewDesign_Trips.TCNDTR_2_CreateTripsForBuses"/-->
+
+     <class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses"/>
 
      </classes>
      
@@ -298,6 +305,7 @@
      <class name="com.tripgain.testscripts.TC_170_FlightSearchAndSearchFunctionality"/>
      <class name="com.tripgain.testscripts.TC_171_FlightSearchAndSearchFunctionality"/>
      <class name="com.tripgain.testscripts.TC_172_validatingRegistrationPage"/-->
+
 
 
     </classes>

@@ -196,10 +196,8 @@ public class TCHO_1_verifyHotelsSearch1 extends BaseClass{
 		SkyTravelersHotelsDescriptionPage.clcikAmenitiesOnDescPage();
 		String descPageAmenities = SkyTravelersHotelsDescriptionPage.getAmenitiesFromDescPage();
   // SkyTravelersHotelsSearchPage.validateFacilitiesTitleWithDescPageAmenities(facilitiesTitleText, descPageAmenities, Log, screenShots);
-		Thread.sleep(2000);
 		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(1, Log); 
 		
-		Thread.sleep(2000);
 
 		
 		

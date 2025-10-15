@@ -174,7 +174,7 @@ public class TCHO_2_verifyHotelsSearchWithLocationDropdown extends BaseClass{
 		String[] DescRoomDetails = SkyTravelersHotelsDescriptionPage.clickOnBookButtonForRoomsOnDescPage(1, Log); 
 		Thread.sleep(2000);
 
-		
+		System.out.println("Successfully clicked on Book Button");
 		
 		
 		
