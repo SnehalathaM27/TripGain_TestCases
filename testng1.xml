@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite" thread-count="5" parallel="tests">
+<suite name="Suite" thread-count="7" parallel="tests">
  <!-- You can change this to "firefox" or others -->
   <test name="test">
   <parameter name="browser" value="chrome"/>
@@ -13,7 +13,7 @@
       <class name="com.tripgain.testscripts.TC_121_DateselectionFunctionality"/>
       <class name="com.tripgain.testscripts.TC_122_TravelerSelectionFunctionality"/>
       <class name="com.tripgain.testscripts.TC_123_TravelerMaxLimit"/>
-      <class name="com.tripgain.testscripts.TC_124_OnewaySearchwithInternationaldestination"/>
+      <class name="com.tripgain.testscripts.TC_124_OnewaySearchwithIn2ternationaldestination"/>
       <class name="com.tripgain.testscripts.TC_125_VerifyHorizontaldatepickerisVisible"/>
       <class name="com.tripgain.testscripts.TC_126_VerifysuggestedHorizontalDatesAreDisplayed"/>
        <class name="com.tripgain.testscripts.TC_127_VerifyDefaultPriceRange"/>
@@ -104,12 +104,7 @@
                <class name="com.tripgain.testscripts.TC_213_ComplexTestCase4_Oneway"/-->
 
 
-
-
-
-
-
-                                        <!--Round Trip-->
+                                      <!--Round Trip-->
  
            <!--class name="com.tripgain.testscripts.RoundTrip.TC_1_VerifyRoundTripFlightSearch"/>
       <class name="com.tripgain.testscripts.RoundTrip.TC_2_Searchingforminimumtraveler"/>
@@ -202,7 +197,8 @@
                 
     
 
-
+                                               <!--expense-->
+                                               
 <!--class name="com.tripgain.testscripts.Expenses.TCE_1_VerifyExpensesModule"/>
  <class name="com.tripgain.testscripts.Expenses.TCE_2_VerifyExpensesModule_AddMileage"/>
    <class name="com.tripgain.testscripts.Expenses.TCE_3_VerifyExpensesModule_Automate"/>
@@ -210,7 +206,7 @@
    <class name="com.tripgain.testscripts.Expenses.TCE_5_VerifyExpenseByCreatingReport_MonthlyAllowanceReimbursementReport"/>
    <class name="com.tripgain.testscripts.Expenses.TCE_6_VerifyExpenseByCreatingReport_MonthlyAllowanceReimbursementReport"/-->
 
-                      <!--Grades-->
+                                        <!--Grades-->
                                           
  <!--class name="L1_L1GRADE.TC_021_L1_L1Grade_InPolicy"/>
   <class name="L1_L1GRADE.TC_022_L1_L1Grade_OutOfPolicy"/>
@@ -226,27 +222,40 @@
  <!--class name="com.tripgain.testscripts.TripPlanner.TCTP_01_VerifyCompleteTripCreationWithAllServicesFlights"/-->     
  
  
-                       <!--skytravelers (hotels)-->
+                                 <!--skytravelers (hotels)-->
+                                 
     <!--class name="SkyTravellers_Hotels.TCHO_2_verifyHotelsSearchWithLocationDropdown"/>
     <class name="SkyTravellers_Hotels.TCHO_3_verifyHotelsSearchwithStarRating"/>
     <class name="SkyTravellers_Hotels.TCHO_4_verifyHotelsSearchwithFacilities"/>
         <class name="SkyTravellers_Hotels.TCHO_1_verifyHotelsSearch1"/-->
 
-       
-       
-    <!--class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/>
-           <class name="NewDesign_Hotels.TCND_1_verifyHotelsSearch1"/-->
-           
-               <!--class name="NewDesign_Trips.TCNDTR_1_CreateTripsForHotels"/>
-               <class name="NewDesign_Trips.TCNDTR_2_CreateTripsForBuses"/-->
-
-     <class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses"/>
-
+                              <!--New design Hotels and buses-->
+    
+           <!--class name="NewDesign_Hotels.TCND_1_verifyHotelsSearch1"/-->
+                        <!--class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/-->
+                    <!--class name="NewDesign_Trips.TCNDTR_1_CreateTripsForHotels"/>
+               <class name="NewDesign_Trips.TCNDTR_2_CreateTripsForBuses"/>
+     <class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses"/-->
+     
+                                   <!--Implementation -->
+     
+      <class name="Implementation.Imp_1_Xpheno_TravelPolicyTesting01"/>
+      <!--class name="Implementation.Imp_2_Xpheno_TravelPolicyTestingForHeadGrade"/-->
      </classes>
      
                     
      
   </test> <!-- Test -->
+  
+   <test name="test2">
+   <parameter name="browser" value="chrome"/>
+    <classes>
+    <class name="Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc"/>
+
+    </classes>
+  </test>
+   
+
  
 
  <test name="test1">

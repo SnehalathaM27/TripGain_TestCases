@@ -2,13 +2,17 @@ package com.tripgain.testscripts;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -46,18 +50,20 @@ public class TC_196_TripgainRegisteration extends BaseClass {
     Log Log;  // Declare Log object
     ScreenShots screenShots;  // Declare Log object
     ExtantManager extantManager;
+  
+ // ThreadLocal to store Excel data per test thread
+ 	static ThreadLocal<Map<String, String>> excelDataThread = new ThreadLocal<>();
     int number=1;
 
-  
-    private WebDriverWait wait;
 
     @Test(dataProvider = "sheetBasedData", dataProviderClass = DataProviderUtils.class)
-    public void myTest(Map<String, String> excelData) throws InterruptedException, IOException, AWTException {
+    public void myTest(Map<String, String> excelData) throws InterruptedException, IOException, ParseException, TimeoutException {
         System.out.println("Running test with: " + excelData);
-	    String[] data = Getdata.getexceldata();
-        String userName = data[0]; 
-        String password = data[1];
-        number++;
+try {	    
+    String userName = excelData.get("userName");
+    String password = excelData.get("password");
+
+number++;
         String[] dates=GenerateDates.GenerateDatesToSelectFlights();
         String fromDate=dates[0];
        String fromMonthYear=dates[2];
@@ -87,23 +93,48 @@ public class TC_196_TripgainRegisteration extends BaseClass {
 		
         Thread.sleep(2000); 
 		driver.quit();
-       }
-	
-	@BeforeClass
-	@Parameters("browser")
-	public void launchApplication(String browser)
-	{
-		extantManager=new ExtantManager();
-		extantManager.setUpExtentReporter(browser);
-        className = this.getClass().getSimpleName();
-        extantManager.createTest(className);  // Get the ExtentTest instance
-        test=ExtantManager.getTest();
-        extent=extantManager.getReport();
-        test.log(Status.INFO, "Execution Started Successful");	
-        driver=launchBrowser(browser);      
-        Log = new Log(driver, test);
-        screenShots=new ScreenShots(driver, test);
-	}
-	
-	
+}catch (Exception e)
+{
+	String errorMessage = "Exception occurred: " + e.toString();
+	Log.ReportEvent("FAIL", errorMessage);
+	screenShots.takeScreenShot();
+	e.printStackTrace();  // You already have this, good for console logs
+	Assert.fail(errorMessage);
 }
+ 
+}
+
+@BeforeMethod(alwaysRun = true)
+@Parameters("browser")
+public void launchApplication(String browser, Method method, Object[] testDataObjects) {
+// Get test data passed from DataProvider
+@SuppressWarnings("unchecked")
+Map<String, String> testData = (Map<String, String>) testDataObjects[0];
+excelDataThread.set(testData);  // Set it early!
+
+String url = (testData != null && testData.get("URL") != null) ? testData.get("URL") : "https://defaulturl.com";
+
+extantManager = new ExtantManager();
+extantManager.setUpExtentReporter(browser);
+className = this.getClass().getSimpleName();
+String testName = className + "_" + number;
+extantManager.createTest(testName);
+test = ExtantManager.getTest();
+extent = extantManager.getReport();
+test.log(Status.INFO, "Execution Started Successfully");
+
+driver = launchBrowser(browser, url);
+Log = new Log(driver, test);
+screenShots = new ScreenShots(driver, test);
+}
+
+@AfterMethod
+public void tearDown() {
+if (driver != null) {
+	driver.quit();
+	extantManager.flushReport();
+}
+}
+
+  		
+       }

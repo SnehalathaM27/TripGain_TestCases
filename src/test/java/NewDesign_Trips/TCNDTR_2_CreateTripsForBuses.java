@@ -2,6 +2,7 @@ package NewDesign_Trips;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -49,28 +51,31 @@ import com.tripgain.common.ScreenShots;
 import com.tripgain.testscripts.BaseClass;
 
 public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
-	WebDriver driver;
+	WebDriver driver;    
 	ExtentReports extent;
-	ExtentTest test;
-	String className = "";
-	Log Log; // Declare Log object
-	ScreenShots screenShots; // Declare Log object
-	ExtantManager extantManager;
+    ExtentTest test;
+    String className = "";
+    Log Log;  // Declare Log object
+    ScreenShots screenShots;  // Declare Log object
+    ExtantManager extantManager;
+  
+ // ThreadLocal to store Excel data per test thread
+ 	static ThreadLocal<Map<String, String>> excelDataThread = new ThreadLocal<>();
+    int number=1;
 
-	int number = 1;
 
-	private WebDriverWait wait;
+    @Test(dataProvider = "sheetBasedData", dataProviderClass = DataProviderUtils.class)
+    public void myTest(Map<String, String> excelData) throws InterruptedException, IOException, ParseException, TimeoutException {
+        System.out.println("Running test with: " + excelData);
+try {	    
+        String username = excelData.get("UserName");
+        String pwd = excelData.get("Password");
+        
+        System.out.println(username);
+        System.out.println(pwd);
+        number++;
 
-	@Test(dataProvider = "sheetBasedData", dataProviderClass = DataProviderUtils.class)
-	public void myTest(Map<String, String> excelData)
-			throws InterruptedException, IOException, ParseException, TimeoutException {
-		System.out.println("Running test with: " + excelData);
-		String[] data = Getdata.getexceldata();
-		String userName = data[0];
-		String password = data[1];
-		System.out.println(userName);
-		System.out.println(password);
-		number++;
+
 
 		String origin = excelData.get("Origin");
 		System.out.println(origin);
@@ -89,8 +94,8 @@ public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
 		NewDesign_Login NewDesignLogin = new NewDesign_Login(driver);
 
 		SkyTravelers_Hotels_Login SkyTravelersHotelsLogin = new SkyTravelers_Hotels_Login(driver);
-		NewDesignLogin.enterUserName(userName);
-		NewDesignLogin.enterPasswordName(password);
+		NewDesignLogin.enterUserName(username);
+		NewDesignLogin.enterPasswordName(pwd);
 		NewDesignLogin.clickButton();
 		Log.ReportEvent("PASS", "Enter UserName and Password is Successful");
 		Thread.sleep(4000);
@@ -122,7 +127,7 @@ public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
 		String[] tripIdFromPop = NewDesignTrips.getTripIdFromPopup(Log);
 		NewDesignTrips.clickOnContinueToAddServicesBtn();
 
-		String[] TripIdFromNextPage = NewDesignTrips.getTripIdFromTripDetailsPage();
+		String[] TripIdFromNextPage = NewDesignTrips.getTripIdFromTripDetailsPage(Log);
 
 		String[] TripDatesFromSearchPg = NewDesignTrips.getDatesFromTripDetailsPage();
 		
@@ -213,10 +218,10 @@ public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
 			NewDesignBusesBookingPage.validatePriceFromresultToBookingPage(BookingPgPrice, SeatSelectionPrice, Log, screenShots);
 			
 		//	NewDesignBusesBookingPage.enterEmailForBuses("abc@gmail.com");
-		NewDesignBusesBookingPage.enterLastNameForBuses("traveller");
-			//NewDesignBusesBookingPage.enterPhNoForBuses("98765432190");
-			NewDesignBusesBookingPage.enetrIdCardNumber("1234567");
-			NewDesignBusesBookingPage.clickOnIdCardType();
+//		NewDesignBusesBookingPage.enterLastNameForBuses("traveller");
+//			//NewDesignBusesBookingPage.enterPhNoForBuses("98765432190");
+//			NewDesignBusesBookingPage.enetrIdCardNumber("1234567");
+//			NewDesignBusesBookingPage.clickOnIdCardType();
 			NewDesignBusesBookingPage.clcikOnAddTripAndContinueButton();
 			Thread.sleep(3000);
 			NewDesignBusesBookingPage.clcikOnDownButtonInBusesDesclaimer();
@@ -235,7 +240,7 @@ public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
 			String[] BusPolicyAfterSelected = NewDesignBusesBookingPage.getBusPolicyFromSelectedInBusDetailsPg();
 			
 			
-			NewDesignBusesBookingPage.validateBusNameFromBusBookingToDetailspageAfterAdd(BookingPgBusName, BusNameAfterSelected, Log, screenShots);
+			NewDesignBusesBookingPage.validateBusNameFromBusBookingToDetailsPageAfterAdd(BookingPgBusName, BusNameAfterSelected, Log, screenShots);
 			NewDesignBusesBookingPage.validateBusTypeFromBookingToDetailspageAfterAdd(BookingPgSeater, BusTypeAfterSelected, Log, screenShots);
 			NewDesignBusesBookingPage.validateFromLocationBetweenBookingAndDetailsAfterAdd(BookingPgorigin, BusFromLocAfterSelected, Log, screenShots);
 			NewDesignBusesBookingPage.validateToLocationBetweenBookingAndDetailsAfterAdd(BookingDest, BusToLocAfterSelected, Log, screenShots);
@@ -255,30 +260,51 @@ public class TCNDTR_2_CreateTripsForBuses extends BaseClass {
 		// tripgainhomepage.logOutFromApplication(Log, screenShots);
 		//driver.quit();
 
-	}
+}catch (Exception e)
+{
+	String errorMessage = "Exception occurred: " + e.toString();
+	Log.ReportEvent("FAIL", errorMessage);
+	screenShots.takeScreenShot();
+	e.printStackTrace();  // You already have this, good for console logs
+	Assert.fail(errorMessage);
+}
+ 
+}
 
-	@BeforeMethod
-	@Parameters("browser")
-	public void launchApplication(String browser) {
-		extantManager = new ExtantManager();
-		extantManager.setUpExtentReporter(browser);
-		className = this.getClass().getSimpleName();
-		String testName = className + "_" + number;
-		extantManager.createTest(testName); // Get the ExtentTest instance
-		test = ExtantManager.getTest();
-		extent = extantManager.getReport();
-		test.log(Status.INFO, "Execution Started Successful");
-		driver = launchBrowser(browser);
-		Log = new Log(driver, test);
-		screenShots = new ScreenShots(driver, test);
-	}
 
-	@AfterMethod
-	public void tearDown() {
-		if (driver != null) {
-			// driver.quit();
-			extantManager.flushReport();
-		}
-	}
+@BeforeMethod(alwaysRun = true)
+@Parameters("browser")
+public void launchApplication(String browser, Method method, Object[] testDataObjects) {
+// Get test data passed from DataProvider
+@SuppressWarnings("unchecked")
+Map<String, String> testData = (Map<String, String>) testDataObjects[0];
+excelDataThread.set(testData);  // Set it early!
+
+String url = (testData != null && testData.get("URL") != null) ? testData.get("URL") : "https://defaulturl.com";
+
+extantManager = new ExtantManager();
+extantManager.setUpExtentReporter(browser);
+className = this.getClass().getSimpleName();
+String testName = className + "_" + number;
+extantManager.createTest(testName);
+test = ExtantManager.getTest();
+extent = extantManager.getReport();
+test.log(Status.INFO, "Execution Started Successfully");
+
+driver = launchBrowser(browser, url);
+Log = new Log(driver, test);
+screenShots = new ScreenShots(driver, test);
+}
+
+@AfterMethod
+public void tearDown() {
+if (driver != null) {
+	driver.quit();
+	extantManager.flushReport();
+}
+}
+
+
+
 
 }

@@ -38,6 +38,19 @@ public class NewDesign_Hotels_DescPage {
 	    return new String[]{hotelName};
 	}	
 	
+
+	public void waitUntilDescriptionCardVisibleOrFail(WebDriver driver, int timeoutSeconds,Log log) {
+	    String xpath = "//*[contains(@class,'tg-hl-description-card')]";
+	    try {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+	        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+	        // Element is visible, proceed
+	    } catch (Exception e) {
+	        log.ReportEvent("FAIL", "Page is not loaded");
+	        throw new RuntimeException("Test failed: Element with xpath '" + xpath + "' not visible after timeout.", e);
+	    }
+	}
+	
 	public String[] getAddressFromDescPg() {
 	    try {
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -91,14 +104,43 @@ public class NewDesign_Hotels_DescPage {
 	    return "N/A";
 	}
 	
-	public String[] getCheckInAfterFromDescPg() {
-	    String checkInAfter = driver.findElement(By.xpath("//div[contains(@class,'tg-hl-checkintime ')]")).getText();
+	public String[] getCheckInAfterFromDescPg() throws InterruptedException {
+		Thread.sleep(3000);
+	    String checkInAfter = driver.findElement(By.xpath("//div[text()='Check In after']/following-sibling::div")).getText();
         System.out.println("checkInAfter from Description Page: " + checkInAfter);
-
 	    return new String[]{checkInAfter};
 	}	
+	
+	public void goToTop() throws InterruptedException {
+		 // Scroll to top
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+        Thread.sleep(2000); 
+
+		
+	}
+
+	
+//	public String[] getCheckInAfterFromDescPg() throws InterruptedException {
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+//	    By locator = By.xpath("//div[contains(@class,'tg-hl-checkintime')]");
+//
+//	    WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+//
+//	    JavascriptExecutor js = (JavascriptExecutor) driver;
+//	    js.executeScript("arguments[0].scrollIntoView(true);", element);
+//
+//	    Thread.sleep(1000);
+//
+//	    String text = element.getText();
+//	    System.out.println("checkInAfter from Description Page: " + text);
+//	    return new String[]{text};
+//	}
+
+	
+	
+
 	public String[] getCheckOutTimeFromDescPg() {
-	    String checkOutTime = driver.findElement(By.xpath("//div[contains(@class,'tg-hl-checkouttime ')]")).getText();
+	    String checkOutTime = driver.findElement(By.xpath("//div[text()='Check Out Before']/following-sibling::div")).getText();
         System.out.println("hotel checkOutTime from Description Page: " + checkOutTime);
 
 	    return new String[]{checkOutTime};
@@ -137,7 +179,7 @@ public class NewDesign_Hotels_DescPage {
 
 	
 	public String[] getPolicyFromDescPg() {
-	    List<WebElement> elements = driver.findElements(By.xpath("//div[contains(@class,'tg-policy')]"));
+	    List<WebElement> elements = driver.findElements(By.xpath("(//div[contains(@class,'tg-policy')])[1]"));
 	    StringBuilder amenities = new StringBuilder();
 
 	    for (WebElement el : elements) {
@@ -145,7 +187,7 @@ public class NewDesign_Hotels_DescPage {
 	    }
 
 	    String result = amenities.toString().trim();
-	    System.out.println("hotel amenities from Description Page: " + result);
+	    System.out.println("hotel policy from Description Page: " + result);
 	    return new String[]{result};
 	}
 
@@ -479,7 +521,7 @@ public class NewDesign_Hotels_DescPage {
 	        String refundableText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-label_sm')]", "Refundable text");
 	        String labelText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-label_md')]", "Label text");
 	        String roomType = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-hl-roomtype')]", "Room type");
-	        String policyText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-policy pointer')]", "Policy");
+	        String policyText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-policy')]", "Policy");
 	        String priceText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-hl-roomprice')]", "Price")
 	                                .replaceAll("\\n.*", "").trim();
 	        String perNightPriceText = getTextFromCard(selectedCard, ".//div[contains(@class,'tg-hl-roomprice') and contains(@class,'subtitle')]", "Per Night Price");
@@ -499,7 +541,7 @@ public class NewDesign_Hotels_DescPage {
 	        }
 
 	        // Debug logging
-	        System.out.println("\n✅ Random room selected from first group (" + (randomIndex + 1) + "/" + selectableCards.size() + "):");
+	        System.out.println("\n Random room selected from first group (" + (randomIndex + 1) + "/" + selectableCards.size() + "):");
 	        System.out.println(" - Hotel Name: " + hotelName);
 	        System.out.println(" - Meals: " + meals);
 	        System.out.println(" - Refundable: " + refundableText);

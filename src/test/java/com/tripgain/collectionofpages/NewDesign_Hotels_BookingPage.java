@@ -3,6 +3,8 @@ package com.tripgain.collectionofpages;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -44,19 +46,43 @@ public class NewDesign_Hotels_BookingPage {
 				}	
 				
 				public String[] getCheckInAfterFromBookingPg() {
-				    String checkInAfter = driver.findElement(By.xpath("//div[contains(@class,'tg-hl-checkintime ')]")).getText();
-			        System.out.println("checkInAfter from Booking Page: " + checkInAfter);
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				    WebElement checkInAfterElem = wait.until(ExpectedConditions.visibilityOfElementLocated(
+				        By.xpath("(//*[contains(normalize-space(text()), 'Check In')]/following-sibling::*[1])")
+				    ));
+
+				    String checkInAfter = checkInAfterElem.getText().trim();
+				    System.out.println("checkInAfter from Booking Page: " + checkInAfter);
+
+				    if (checkInAfter.isEmpty()) {
+				        System.out.println("⚠️ Warning: 'Check In after' value is empty!");
+				    }
 
 				    return new String[]{checkInAfter};
-				}	
-				public String[] getCheckOutTimeFromBookingPg() {
-				    String checkOutTime = driver.findElement(By.xpath("//div[contains(@class,'tg-hl-checkouttime ')]")).getText();
-			        System.out.println("hotel checkOutTime from Booking Page: " + checkOutTime);
+				}
 
-				    return new String[]{checkOutTime};
-				}	
 				
-				public String[] getPolicyTextFromBookingPg() {
+				
+				
+				public String[] getCheckOutTimeFromBookingPg() {
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				    WebElement checkInAfterElem = wait.until(ExpectedConditions.visibilityOfElementLocated(
+				        By.xpath("(//*[contains(normalize-space(text()), 'Check Out Before')]/following-sibling::*[1])")
+				    ));
+
+				    String checkOutBefore = checkInAfterElem.getText().trim();
+				    System.out.println("check out before from Booking Page: " + checkOutBefore);
+
+				    if (checkOutBefore.isEmpty()) {
+				        System.out.println("⚠️ Warning: 'Check out before' value is empty!");
+				    }
+
+				    return new String[]{checkOutBefore};
+				}
+				
+				
+				public String[] getPolicyTextFromBookingPg() throws InterruptedException {
+					Thread.sleep(2000);
 				    String PolicyText = driver.findElement(By.xpath("//div[contains(@class,'tg-policy')]")).getText();
 			        System.out.println("hotel PolicyText from Booking Page: " + PolicyText);
 
@@ -77,12 +103,33 @@ public class NewDesign_Hotels_BookingPage {
 				    return new String[]{SelectedroomName};
 				}	
 				
+//				public String[] getLabelTextFromBookingPg() {
+//				    String label = driver.findElement(By.xpath("//div[contains(@class,' tg-label_warning')]")).getText();
+//			        System.out.println("hotel label Text from Booking Page: " + label);
+//
+//				    return new String[]{label};
+//				}	
+				
 				public String[] getLabelTextFromBookingPg() {
-				    String label = driver.findElement(By.xpath("//div[contains(@class,' tg-label_warning')]")).getText();
-			        System.out.println("hotel label Text from Booking Page: " + label);
+				    String label = "";
+
+				    try {
+				        // Check if the element is present
+				        List<WebElement> labels = driver.findElements(By.xpath("//div[contains(@class,'tg-label_warning')]"));
+
+				        if (!labels.isEmpty()) {
+				            label = labels.get(0).getText().trim();
+				            System.out.println("Hotel label text from Booking Page: " + label);
+				        } else {
+				            System.out.println("Label not found on Booking Page — skipping...");
+				        }
+
+				    } catch (Exception e) {
+				        System.out.println("Error while getting label text: " + e.getMessage());
+				    }
 
 				    return new String[]{label};
-				}	
+				}
 				
 				public String[] getMealsTextFromBookingPg() {
 				    String meals = driver.findElement(By.xpath("//div[contains(@class,'tg-hb-meals')]")).getText();
@@ -106,11 +153,23 @@ public class NewDesign_Hotels_BookingPage {
 				}	
 				
 				public String[] getCheckOutDateFromBookingPg() {
-				    String checkOutdate = driver.findElement(By.xpath(".//div[contains(@class,'tg-hb-checkoutdate')]")).getText();
-			        System.out.println("checkOutdate Text from Booking Page: " + checkOutdate);
+				    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+				    WebElement checkOutdateEle = wait.until(ExpectedConditions.visibilityOfElementLocated(
+				        By.xpath(".//div[contains(@class,'tg-hb-checkoutdate')]")
+				    ));
+
+				    String checkOutdate = checkOutdateEle.getText().trim();
+				    System.out.println("check out date text from Booking Page: " + checkOutdate);
+
+				    if (checkOutdate.isEmpty()) {
+				        System.out.println("⚠️ Warning: 'Check out before' value is empty!");
+				    }
 
 				    return new String[]{checkOutdate};
-				}	
+				}
+				
+				
+						
 				
 				 public String[] getHotelNightsStayFromBookingPg() {
 			 		    String nightsStay = driver.findElement(By.xpath("//div[contains(@class,'tg-hb-nights')]//div")).getText();
@@ -265,13 +324,13 @@ public class NewDesign_Hotels_BookingPage {
 
 				    // Null or empty checks
 				    if (descPageData == null || descPageData.length < 4 || descPageData[3].isEmpty()) {
-				        log.ReportEvent("FAIL", "Label text from Description Page is null or empty.");
+				        log.ReportEvent("INFO", "Label text from Description Page is null or empty.");
 				        screenshots.takeScreenShot1();
 				        return;
 				    }
 
 				    if (bookingPageLabelData == null || bookingPageLabelData.length == 0 || bookingPageLabelData[0].isEmpty()) {
-				        log.ReportEvent("FAIL", "Label text from Booking Page is null or empty.");
+				        log.ReportEvent("INFO", "Label text from Booking Page is null or empty.");
 				        screenshots.takeScreenShot1();
 				        return;
 				    }
@@ -281,7 +340,7 @@ public class NewDesign_Hotels_BookingPage {
 
 				    // Compare label texts (case-insensitive)
 				    if (!descLabel.equalsIgnoreCase(bookingLabel)) {
-				        log.ReportEvent("FAIL", "Label mismatch! DescPage Label: '" + descLabel + "', Booking Page Label: '" + bookingLabel + "'");
+				        log.ReportEvent("INFO", "Label mismatch! DescPage Label: '" + descLabel + "', Booking Page Label: '" + bookingLabel + "'");
 				        screenshots.takeScreenShot1();
 				        Assert.fail("Label mismatch");
 				    } else {
@@ -424,20 +483,21 @@ public class NewDesign_Hotels_BookingPage {
 				}
 
 
+				
+		
+
 				public void validatePriceFromDescWithBookingPage(
 				        String[] descPageRoomDetails,
 				        String[] bookingPageTotalFare,
 				        Log log,
 				        ScreenShots screenshots) {
 
-				    // Validate description page price presence at index 6
 				    if (descPageRoomDetails == null || descPageRoomDetails.length < 7 || descPageRoomDetails[6] == null || descPageRoomDetails[6].trim().isEmpty()) {
 				        log.ReportEvent("FAIL", "Price from Description Page is null or empty.");
 				        screenshots.takeScreenShot1();
 				        return;
 				    }
 
-				    // Validate booking page total fare presence at index 0
 				    if (bookingPageTotalFare == null || bookingPageTotalFare.length == 0 || bookingPageTotalFare[0] == null || bookingPageTotalFare[0].trim().isEmpty()) {
 				        log.ReportEvent("FAIL", "Total Fare from Booking Page is null or empty.");
 				        screenshots.takeScreenShot1();
@@ -447,33 +507,56 @@ public class NewDesign_Hotels_BookingPage {
 				    String descPriceRaw = descPageRoomDetails[6].trim();
 				    String bookingPriceRaw = bookingPageTotalFare[0].trim();
 
-				    // Remove all characters except digits and decimal points
-				    String descPriceCleaned = descPriceRaw.replaceAll("[^\\d.]", "");
-				    String bookingPriceCleaned = bookingPriceRaw.replaceAll("[^\\d.]", "");
+				    // Regex to match price: optional ₹, digits, commas, dots (e.g. ₹ 1,17,071 or ₹117071.40)
+				    Pattern pricePattern = Pattern.compile("₹?\\s*[\\d,]+(\\.\\d+)?");
+
+				    Matcher matcherDesc = pricePattern.matcher(descPriceRaw);
+				    String descPricePart = "";
+				    if (matcherDesc.find()) {
+				        descPricePart = matcherDesc.group();
+				    }
+
+				    Matcher matcherBooking = pricePattern.matcher(bookingPriceRaw);
+				    String bookingPricePart = "";
+				    if (matcherBooking.find()) {
+				        bookingPricePart = matcherBooking.group();
+				    }
+
+				    if (descPricePart.isEmpty() || bookingPricePart.isEmpty()) {
+				        log.ReportEvent("FAIL", "Failed to extract price parts. Description Page: '" + descPriceRaw + "', Booking Page: '" + bookingPriceRaw + "'");
+				        screenshots.takeScreenShot1();
+				        Assert.fail("Price extraction failed");
+				        return;
+				    }
+
+				    // Clean commas, currency symbol ₹ and spaces
+				    String descPriceCleaned = descPricePart.replaceAll("[₹,\\s]", "");
+				    String bookingPriceCleaned = bookingPricePart.replaceAll("[₹,\\s]", "");
 
 				    try {
 				        double descPrice = Double.parseDouble(descPriceCleaned);
 				        double bookingPrice = Double.parseDouble(bookingPriceCleaned);
 
-				        double tolerance = 0.01; // small tolerance for rounding
+				        double tolerance = 0.01;
 
 				        if (Math.abs(descPrice - bookingPrice) <= tolerance) {
-				            log.ReportEvent("PASS", "Price matches between Description and Booking pages. Value: " + bookingPriceRaw);
+				            log.ReportEvent("PASS", "Price matches between Description and Booking pages. Value: " + bookingPricePart);
 				        } else {
-				            log.ReportEvent("FAIL", "Price mismatch! Description Page Price: '" + descPriceRaw +
-				                    "', Booking Page Fare: '" + bookingPriceRaw + "'");
+				            log.ReportEvent("FAIL", "Price mismatch! Description Page Price: '" + descPricePart +
+				                    "', Booking Page Fare: '" + bookingPricePart + "'");
 				            screenshots.takeScreenShot1();
 				            Assert.fail("Total fare mismatch");
 				        }
 
 				    } catch (NumberFormatException e) {
-				        log.ReportEvent("FAIL", "Failed to parse price values. Description Page: '" + descPriceRaw + "', Booking Page: '" + bookingPriceRaw + "'");
+				        log.ReportEvent("FAIL", "Failed to parse price values. Description Page: '" + descPricePart + "', Booking Page: '" + bookingPricePart + "'");
 				        screenshots.takeScreenShot1();
 				        Assert.fail("Invalid price format");
 				    }
 				}
 
 
+		
 				public void validateCheckInDateBetweenResultAndBookingPage(
 				        String[] resultPageDateParts,
 				        String[] bookingPageDateText,

@@ -281,7 +281,14 @@ public class NewDesign_Trips {
 
 				    if (currentMonthYear.equals(MonthandYear)) {
 				        By dayLocator = By.xpath("//div[@class='react-datepicker__month-container']//span[text()='" + day + "']");
-				        wait.until(ExpectedConditions.elementToBeClickable(dayLocator)).click();
+				       // wait.until(ExpectedConditions.elementToBeClickable(dayLocator)).click();
+				        WebElement dayElement = wait.until(ExpectedConditions.elementToBeClickable(dayLocator));
+				        try {
+				            dayElement.click();
+				        } catch (Exception e) {
+				            js.executeScript("arguments[0].click();", dayElement);
+				        }
+
 				    } else {
 				        while (!currentMonthYear.equals(MonthandYear)) {
 				            driver.findElement(By.xpath("(//button[contains(@class,'nav-arrow')])[2]")).click();
@@ -402,7 +409,7 @@ public class NewDesign_Trips {
 		//get the selected services text from your trip crerated succesfully popup
 			 	    public List<String> getSelectedServicesTextFromPopup() {
 			 	       List<WebElement> serviceElements = driver.findElements(By.xpath(
-			 	           "//div[@class='create-trip_success-conatiner']//button[contains(@class, 'selected-service')]//span[@class='text']"
+			 	           "//div[contains(@class, 'triplayout_service-tab')]//div[contains(@class, 'tg-start')]"
 			 	       ));
 			 	       
 			 	       List<String> serviceTexts = new ArrayList<>();
@@ -412,8 +419,27 @@ public class NewDesign_Trips {
 			 	       
 			 	       return serviceTexts;
 			 	   }
-
-
+			 	    
+			 	 			 	    
+			 	   public List<String> getSelectedServicesTextFromPopupAfterTripCreated() {
+			 		    // Wait for the success container to be visible first
+			 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			 		    wait.until(ExpectedConditions.visibilityOfElementLocated(
+			 		        By.xpath("//div[contains(@class,'create-trip_success-conatiner')]")
+			 		    ));
+			 		    
+			 		    List<WebElement> serviceElements = driver.findElements(By.xpath(
+			 		        "//div[contains(@class,'create-trip_success-conatiner')]//button[contains(@class,'selected-service')]//span[@class='text']"
+			 		    ));
+			 		    
+			 		    List<String> serviceTexts = new ArrayList<>();
+			 		    for (WebElement element : serviceElements) {
+			 		        serviceTexts.add(element.getText().trim());
+			 		    }
+			 		    
+			 		    return serviceTexts;
+			 		}
+			 	   
 //Method for to clcik continue to add services btn
 			 	     public void clickOnContinueToAddServicesBtn() {
 			 	    	 driver.findElement(By.xpath("//button[text()='Continue to Add Services']")).click();
@@ -463,11 +489,18 @@ public class NewDesign_Trips {
 			 		    return new String[]{tripid};
 			 		}	
 			 	   
-			 	  public String[] getTripIdFromTripDetailsPage() {
+			 	  public String[] getTripIdFromTripDetailsPage(Log log) {
 			 		    String tripid = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_ fs-12 fw-500 d-flex gap-2 tg-typography_text-info')]")).getText();
 			 	        System.out.println("tripid from Nextpage : " + tripid);
+			 		    log.ReportEvent("INFO", "tripid :"+ tripid);
+
 			 		    return new String[]{tripid};
+			 		    
+			 		    
 			 		}
+			 	  
+			 	  
+			 		
 			 	  
 			 	  //Method to get dates from 
 			 	  public String[] getDatesFromTripDetailsPage() {
@@ -645,6 +678,16 @@ public class NewDesign_Trips {
 			 	        System.out.println("tripHotelName from Nextpage : " + tripHotelname);
 			 		    return new String[]{tripHotelname};
 			 		}
+				  
+				  public String[] getTripCityTxtFromTripsDetailPg(Log log) {
+					    String TripCityText = driver.findElement(By.xpath("//div[text()='Trip City :']/following-sibling::div")).getText();
+					    System.out.println("Trip City Text from trips detail Page: " + TripCityText);
+				        log.ReportEvent("INFO", "Trip City Text from trips detail Page: " + TripCityText);
+
+					    return new String[]{TripCityText};
+					}
+				  
+				  
 				  
 				  public String[] getCheckInAndOutDateFromTripDetailsPageForHotelsAfterAdd() {
 					    try {
@@ -865,19 +908,19 @@ public class NewDesign_Trips {
 
 				  //Method to click on down button in hotels desclaimerpage after add hotel to trip
 				  public void clcikOnDownButtonInHotelsDesclaimer() {
-					  driver.findElement(By.xpath("(//button[text()='Change Hotel']/following-sibling::div)[2]")).click();
+					  driver.findElement(By.xpath("//div[@class='tg-triprequest-hb-view-unview-hotel-details']")).click();
 					  
 				  }
 				  
 				  //Method to get the hotel details data from tripn details page 
 				  public String[] getHotelNameTextFromTripDetailsPage() {
-			 		    String Hotelname = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-5 fw-600 tg-typography_default')]")).getText();
+			 		    String Hotelname = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-hb-selected-hotel')]")).getText();
 			 	        System.out.println("Hotelname from trip details page : " + Hotelname);
 			 		    return new String[]{Hotelname};
 			 		}
 				  
 				  public String[] getHotelAddressTextFromTripDetailsPage() {
-			 		    String HotelAddress = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-7 fw-400 label-color tg-typography_default')]")).getText();
+			 		    String HotelAddress = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-hb-hotel-address')]")).getText();
 			 	        System.out.println("HotelAddress from trip details page : " + HotelAddress);
 			 		    return new String[]{HotelAddress};
 			 		}
@@ -889,13 +932,13 @@ public class NewDesign_Trips {
 			 		}
 				  
 				  public String[] gethotelRoomTextFromTripDetailsPage() {
-			 		    String roomText = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7 fw-500 tg-typography_default')])[2]")).getText();
+			 		    String roomText = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-hb-room-details')]")).getText();
 			 	        System.out.println("roomText from trip details page : " + roomText);
 			 		    return new String[]{roomText};
 			 		}
 				  
 				  public String[] getHotelMealsTextFromTripDetailsPage() {
-			 		    String mealsText = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-7 fw-400 tg-typography_default')]")).getText();
+			 		    String mealsText = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-hb-meal-details')]")).getText();
 			 	        System.out.println("mealsText from trip details page : " + mealsText);
 			 		    return new String[]{mealsText};
 			 		}
@@ -1245,7 +1288,7 @@ public class NewDesign_Trips {
 
 					 
 					  public String[] getTripBusDatesFromTripDetailsPageAfterAdd() {
-				 		    String busDate = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-7 fw-400 label-color tg-typography_default')]")).getText();
+				 		    String busDate = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-booking-date')]")).getText();
 				 	        System.out.println("Bus date from details page : " + busDate);
 				 		    return new String[]{busDate};
 				 		}
@@ -1352,5 +1395,333 @@ public class NewDesign_Trips {
 					        return displayedDate; // Return original if parsing fails
 					    }
 					}
-				  
+					
+					
+		//Method to clcik on awaiting approval
+					public void clickOnAwaitingApproval() throws InterruptedException {
+						driver.findElement(By.xpath("//span[text()='Awaiting Approval']")).click();
+						Thread.sleep(3000);
+					}
+					
+					//Method to enetr data in search in awaiting apporoval page 
+					
+					public void clickOnsearchTripsInAwaitingApprovalPg(String[] searchText, Log log, ScreenShots screenshots) {
+					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+					    try {
+					        // Wait for search field
+					        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+					            By.xpath("//input[@placeholder='Search']")
+					        ));
+
+					        // Convert array to single string
+					        String searchString = String.join("", searchText); // or String.join(" ", searchText) if you want spaces
+					        
+					        // Clear and enter text
+					        searchField.clear();
+					        searchField.sendKeys(searchString);
+					        Thread.sleep(3000);
+
+					        log.ReportEvent("INFO", "Entered search text in Awaiting Approval page: " + searchString);
+					        System.out.println("Entered search text in Awaiting Approval page: " + searchString);
+
+					    } catch (Exception e) {
+					        String searchString = String.join("", searchText);
+					        log.ReportEvent("FAIL", "Failed to enter search text in Awaiting Approval page: " + searchString);
+					        screenshots.takeScreenShot1();
+					        Assert.fail("Failed to enter search text in Awaiting Approval page: " + searchString);
+					    }
+					}
+					
+					public void clickOnsearchForCreateTripsInAwaitingApprovalPg(String searchText, Log log, ScreenShots screenshots) {
+					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+					    try {
+					        // Wait for search field
+					        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+					            By.xpath("//input[@placeholder='Search Trips']")
+					        ));
+
+					        // Clear and enter text
+					        searchField.clear();
+					        searchField.sendKeys(searchText);
+					        Thread.sleep(3000);
+
+					       // log.ReportEvent("INFO", "Entered search text in Awaiting Approval page: " + searchText);
+					        System.out.println("Entered search text in Awaiting Approval page: " + searchText);
+
+					    } catch (Exception e) {
+					        log.ReportEvent("FAIL", "Failed to enter search text in Awaiting Approval page: " + searchText);
+					        screenshots.takeScreenShot1();
+					        Assert.fail("Failed to enter search text in Awaiting Approval page: " + searchText);
+					    }
+					}
+
+					//Method to get the ststaus 
+			
+					public String[] getStatusInAwaitingApprovalForBuses(Log log) {
+					    String status = driver.findElement(By.xpath("//div[contains(@class,'tg-hb-status')]")).getText();
+					    System.out.println("status from Awaiting Approval Page: " + status);
+					    log.ReportEvent("INFO", "status from Awaiting Approval Screen."+ status);
+
+
+					    return new String[]{status};
+					}
+					
+					public String[] getStatusInAwaitingApprovalForBusesInPendingStatys(Log log) {
+					    String status = driver.findElement(By.xpath("(//div[contains(@class,'tg-label')])[2]")).getText();
+					    System.out.println("status from Awaiting Approval Page: " + status);
+					    log.ReportEvent("INFO", "status from Awaiting Approval Screen."+ status);
+
+
+					    return new String[]{status};
+					}
+					
+					
+					
+					public String[] getStatusInAwaitingApprovalForHotels(Log log) {
+					    String status = driver.findElement(By.xpath("//div[contains(@class,'tg-label')]")).getText();
+					    System.out.println("status from Awaiting Approval Page: " + status);
+					    log.ReportEvent("INFO", "status from Awaiting Approval Screen for hotels."+ status);
+
+
+					    return new String[]{status};
+					}
+					
+					public String[] getStatusInSecondApproverForHotels(Log log) {
+					    String status = driver.findElement(By.xpath("//div[contains(@class,'tg-hb-status')]")).getText();
+					    System.out.println("status from Awaiting Approval Page: " + status);
+					    log.ReportEvent("INFO", "status from second Approver  Screen for hotels."+ status);
+
+
+					    return new String[]{status};
+					}
+					
+					public void clickOnApprovalDetailsForCreateTrip() {
+						driver.findElement(By.xpath("//div[text()='Approval Details']")).click();
+					}
+					
+					public String[] getApproverRemarksInTripsPage(Log log) {
+					    String remarks = driver.findElement(By.xpath("(//div[contains(text(), 'Remarks :')]//div)[1]")).getText();
+					    System.out.println("Approver remarks from trips Page: " + remarks);
+					 //   log.ReportEvent("INFO", "status from Awaiting Approval Screen for hotels."+ status);
+
+
+					    return new String[]{remarks};
+					}
+					
+				
+				
+						
+						
+						public String[] getApproverEmailsFromtravellerScreen(Log log) {
+						    // Locate all email cells in the table
+						    List<WebElement> emailElements = driver.findElements(By.xpath(
+						        "//table[contains(@class,'MuiTable-root')]//tbody//tr//td[3]"
+						    ));
+
+						    // If no emails found
+						    if (emailElements.isEmpty()) {
+						        log.ReportEvent("INFO", "No approver emails found in the approval table.");
+						        return new String[0]; // empty array
+						    }
+
+						    // Extract text from all email cells
+						    String[] emails = new String[emailElements.size()];
+						    for (int i = 0; i < emailElements.size(); i++) {
+						        emails[i] = emailElements.get(i).getText().trim();
+						    }
+
+						    log.ReportEvent("INFO", emails.length + " approver emails found: " + String.join(", ", emails));
+						    return emails;
+						}
+
+					public String[] getSecondApproverRemarksInTripsPage(Log log) {
+					    String remarks = driver.findElement(By.xpath("(//div[contains(text(), 'Remarks :')]//div)[2]")).getText();
+					    System.out.println("Approver remarks from trips Page: " + remarks);
+					 //   log.ReportEvent("INFO", "status from Awaiting Approval Screen for hotels."+ status);
+
+
+					    return new String[]{remarks};
+					}
+					
+					//Method to validate status from traveller to approver 
+						public void validateStatusFromTravellerToApprover(String[] travellerStatus, String[] approverStatus, Log log, ScreenShots screenshots) {
+						    if (approverStatus == null || approverStatus.length == 0) {
+						        log.ReportEvent("FAIL", "Status from Approver Page is missing.");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status from Approver Page is missing.");
+						        return;
+						    }
+						    if (travellerStatus == null || travellerStatus.length == 0) {
+						        log.ReportEvent("FAIL", "Status from View Trip Page is missing.");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status from View Trip Page is missing.");
+						        return;
+						    }
+
+						    // Trim values
+						    String statusApprover = approverStatus[0].trim();
+						    String statusTraveller = travellerStatus[0].trim();
+
+						    // Compare
+						    if (!statusApprover.equalsIgnoreCase(statusTraveller)) {
+						        log.ReportEvent("FAIL", "Status mismatch! Travellers Page: '" + statusTraveller + "' , Approver Page: '" + statusApprover + "'");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status mismatch between Travellers and Approver pages.");
+						    } else {
+						        log.ReportEvent("PASS", "Status matches from Travellers to Approver page: " + statusApprover);
+						    }
+						}
+						
+						public void validateStatusFromApproverToSecondApprover(String[] approverStatus, String[] secondapproverStatus, Log log, ScreenShots screenshots) {
+						    if (approverStatus == null || approverStatus.length == 0) {
+						        log.ReportEvent("FAIL", "Status from Approver Page is missing.");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status from Approver Page is missing.");
+						        return;
+						    }
+						    if (secondapproverStatus == null || secondapproverStatus.length == 0) {
+						        log.ReportEvent("FAIL", "Status from View Trip Page is missing.");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status from secondapprover is missing.");
+						        return;
+						    }
+
+						    // Trim values
+						    String statusApprover = approverStatus[0].trim();
+						    String statusSecondApprover = secondapproverStatus[0].trim();
+
+						    // Compare
+						    if (!statusApprover.equalsIgnoreCase(statusSecondApprover)) {
+						        log.ReportEvent("FAIL", "Status mismatch! Approver Page: '" + statusApprover + "' , second Approver Page: '" + statusSecondApprover + "'");
+						        screenshots.takeScreenShot1();
+						        Assert.fail("Status mismatch between Approver and second Approver pages.");
+						    } else {
+						        log.ReportEvent("PASS", "Status matches from Approver to second Approver page: " + statusSecondApprover);
+						    }
+						}
+
+
+					//Method to open trip 
+						public void clickArrowToOpenTrip() {
+							driver.findElement(By.xpath("//button[contains(@class,'tg-icon-btn_small')]")).click();
+						}
+					
+			//Method to clcik on summary in awaiting page '
+			public void clcikOnApprovalDetailsonAwaitingPageForcraeteTrips() {
+				driver.findElement(By.xpath("//div[text()='Approval Details']")).click();
+			}
+			
+//			//Method to get approval details data
+//			public void getApprovalDetailsData() {
+//				WebElement ApproverDetails = driver.findElement(By.xpath(""));
+//				ApproverDetails.getText();
+//			}
+			
+			//Method to validate remarks 
+				public void validateRemarksFromFirstApproverToTravellerpg(
+				        String[] approverRemarks,
+				        String[] travellerPgRemarks,
+
+				        Log log,
+				        ScreenShots screenshots) {
+
+				    if (travellerPgRemarks == null || travellerPgRemarks.length == 0 || travellerPgRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Traveller page remarks are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    if (approverRemarks == null || approverRemarks.length == 0 || approverRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Approver remarks on Trips Page are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    String traveller = travellerPgRemarks[0].trim().toLowerCase();
+				    String approver = approverRemarks[0].trim().toLowerCase();
+
+				    // Compare remarks (allowing partial match either way)
+				    if (approver.equals(traveller) || approver.contains(traveller) || traveller.contains(approver)) {
+				        log.ReportEvent("PASS", "Remarks match between approver and traveller Trips Page.\n"
+				                + "Approver: '" + approver + "'\nTraveller Page: '" + traveller + "'");
+				    } else {
+				        log.ReportEvent("FAIL", "Remarks mismatch!\nTraveller page: '" + traveller + "'\nApprover: '" + approver + "'");
+				        screenshots.takeScreenShot1();
+				        Assert.fail("Remarks mismatch between approver and traveller Trips Page.");
+				    }
+				}
+
+				
+				//Method to validate remarks 
+				public void validateRemarksFromFirstApproverToSecondApprover(
+				        String[] approverRemarks,
+				        String[] secondapproverRemarks,
+
+				        Log log,
+				        ScreenShots screenshots) {
+
+				    if (secondapproverRemarks == null || secondapproverRemarks.length == 0 || secondapproverRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Traveller page remarks are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    if (approverRemarks == null || approverRemarks.length == 0 || approverRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Approver remarks on Trips Page are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    String secondApprover = secondapproverRemarks[0].trim().toLowerCase();
+				    String approver = approverRemarks[0].trim().toLowerCase();
+
+				    // Compare remarks (allowing partial match either way)
+				    if (approver.equals(secondApprover) || approver.contains(secondApprover) || secondApprover.contains(approver)) {
+				        log.ReportEvent("PASS", "Remarks match between approver and traveller Trips Page.\n"
+				                + "Approver: '" + approver + "'\nSecond approver Page: '" + secondApprover + "'");
+				    } else {
+				        log.ReportEvent("FAIL", "Remarks mismatch!\nsecond approver page: '" + secondApprover + "'\nApprover: '" + approver + "'");
+				        screenshots.takeScreenShot1();
+				        Assert.fail("Remarks mismatch between approver and second approver Trips Page.");
+				    }
+				}	
+				//Method to validate remarks 
+				public void validateRemarksFromSecondApproverToTravellerpg(
+				        String[] secondapproverRemarks,
+				        String[] travellerPgRemarks,
+
+				        Log log,
+				        ScreenShots screenshots) {
+
+				    if (travellerPgRemarks == null || travellerPgRemarks.length == 0 || travellerPgRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Traveller page remarks are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    if (secondapproverRemarks == null || secondapproverRemarks.length == 0 || secondapproverRemarks[0].isEmpty()) {
+				        log.ReportEvent("FAIL", "Second Approver remarks on Trips Page are null or empty.");
+				        screenshots.takeScreenShot1();
+				        return;
+				    }
+
+				    String traveller = travellerPgRemarks[0].trim().toLowerCase();
+				    String approver = secondapproverRemarks[0].trim().toLowerCase();
+
+				    // Compare remarks (allowing partial match either way)
+				    if (approver.equals(traveller) || approver.contains(traveller) || traveller.contains(approver)) {
+				        log.ReportEvent("PASS", "Remarks match between second approver and traveller Trips Page.\n"
+				                + "second Approver: '" + approver + "'\nTraveller Page: '" + traveller + "'");
+				    } else {
+				        log.ReportEvent("FAIL", "Remarks mismatch!\nTraveller page: '" + traveller + "'\nsecond Approver: '" + approver + "'");
+				        screenshots.takeScreenShot1();
+				        Assert.fail("Remarks mismatch between second approver and traveller Trips Page.");
+				    }
+				}
+		
+				
 }
+
+		

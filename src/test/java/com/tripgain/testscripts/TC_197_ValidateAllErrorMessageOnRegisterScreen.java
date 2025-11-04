@@ -2,6 +2,7 @@ package com.tripgain.testscripts;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,39 +41,60 @@ import com.tripgain.common.Getdata;
 @Listeners(com.tripgain.common.TestListener.class)
 public class TC_197_ValidateAllErrorMessageOnRegisterScreen extends BaseClass {
 
-	WebDriver driver;    
-	ExtentReports extent;
-    ExtentTest test;
-    String className = "";
-    Log Log;  // Declare Log object
-    ScreenShots screenShots;  // Declare Log object
-    ExtantManager extantManager;
-  
-  
-	@Test(retryAnalyzer=ReRunAutoMationScripts.class)
-	public void myTest() throws IOException, InterruptedException, AWTException
-	{
-	   
-		Tripgain_registrationpage tripgainregistrationpage = new Tripgain_registrationpage(driver);
-        tripgainregistrationpage.validateAllFieldsErrorMsgOnRegisterPage(Log,screenShots);
-        Thread.sleep(2000);
-		driver.quit(); 
+//	WebDriver driver;    
+//	ExtentReports extent;
+//    ExtentTest test;
+//    String className = "";
+//    Log Log;  // Declare Log object
+//    ScreenShots screenShots;  // Declare Log object
+//    ExtantManager extantManager;
+//  
+//  
+//	@Test(retryAnalyzer=ReRunAutoMationScripts.class)
+//	public void myTest() throws IOException, InterruptedException, AWTException
+//	{
+//	   
+//		Tripgain_registrationpage tripgainregistrationpage = new Tripgain_registrationpage(driver);
+//        tripgainregistrationpage.validateAllFieldsErrorMsgOnRegisterPage(Log,screenShots);
+//        Thread.sleep(2000);
+//		driver.quit(); 
+//       }
+//	
+//    
+//
+//
+//
+//@BeforeMethod(alwaysRun = true)
+//@Parameters("browser")
+//public void launchApplication(String browser, Method method, Object[] testDataObjects) {
+//// Get test data passed from DataProvider
+//@SuppressWarnings("unchecked")
+//Map<String, String> testData = (Map<String, String>) testDataObjects[0];
+//excelDataThread.set(testData);  // Set it early!
+//
+//String url = (testData != null && testData.get("URL") != null) ? testData.get("URL") : "https://defaulturl.com";
+//
+//extantManager = new ExtantManager();
+//extantManager.setUpExtentReporter(browser);
+//className = this.getClass().getSimpleName();
+//String testName = className + "_" + number;
+//extantManager.createTest(testName);
+//test = ExtantManager.getTest();
+//extent = extantManager.getReport();
+//test.log(Status.INFO, "Execution Started Successfully");
+//
+//driver = launchBrowser(browser, url);
+//Log = new Log(driver, test);
+//screenShots = new ScreenShots(driver, test);
+//}
+//
+//@AfterMethod
+//public void tearDown() {
+//if (driver != null) {
+//	driver.quit();
+//	extantManager.flushReport();
+//}
+//}
+
+  		
        }
-	
-    
-	@BeforeClass
-	@Parameters("browser")
-	public void launchApplication(String browser)
-	{
-		extantManager=new ExtantManager();
-		extantManager.setUpExtentReporter(browser);
-        className = this.getClass().getSimpleName();
-        extantManager.createTest(className);  // Get the ExtentTest instance
-        test=ExtantManager.getTest();
-        extent=extantManager.getReport();
-        test.log(Status.INFO, "Execution Started Successful");	
-        driver=launchBrowser(browser);      
-        Log = new Log(driver, test);
-        screenShots=new ScreenShots(driver, test);
-	}
-}

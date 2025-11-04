@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -152,14 +153,18 @@ public class NewDesign_Buses_SerachPage {
 	    Log.ReportEvent("INFO", "Selected Date: " + day + " " + MonthandYear);
 	}
 	
-	public void SearchBus( Log Log, ScreenShots screenshots) {
+	public void SearchBus(Log Log, ScreenShots screenshots) {
 	    driver.findElement(By.xpath("//button[text()='Search Bus']")).click();
 
-	    boolean isMessageDisplayed = driver.findElements(By.xpath("//div[text()='Start your Journey!']")).size() > 0;
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70)); // wait up to 10 seconds
 
-	    if (isMessageDisplayed) {
+	    try {
+	        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Start your Journey!']")));
+
 	        System.out.println("Message displayed: Start your Journey!");
-	    } else {
+
+	    } catch (TimeoutException e) {
+
 	        String pageText = driver.findElement(By.tagName("body")).getText();
 	        Log.ReportEvent("FAIL", "Failed to find 'Start your Journey!' message after clicking 'Search Bus'. Current page text: " + pageText);
 	        screenshots.takeScreenShot1();

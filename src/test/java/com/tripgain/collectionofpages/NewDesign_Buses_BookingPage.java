@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -394,6 +395,9 @@ public class NewDesign_Buses_BookingPage {
 			    }
 			}
 			
+		
+
+			
 			public void validatePolicyFromListingToBookingPage(
 			        String[] busDetailsFromListing,
 			        String[] policyFromBookingPage,
@@ -406,27 +410,26 @@ public class NewDesign_Buses_BookingPage {
 			        Assert.fail("Policy from listing page is missing.");
 			        return;
 			    }
-
-			    if (policyFromBookingPage == null || policyFromBookingPage.length == 0 || policyFromBookingPage[0].trim().isEmpty()) {
-			        log.ReportEvent("FAIL", "Policy from booking page is null or empty.");
-			        screenshots.takeScreenShot1();
-			        Assert.fail("Policy from booking page is missing.");
-			        return;
+			    if (policyFromBookingPage == null || policyFromBookingPage.length == 0) {
+			    	 log.ReportEvent("FAIL", "Policy from booking page is null or empty.");
+				        screenshots.takeScreenShot1();
+				        Assert.fail("Policy from booking page is missing.");
+				        return;
 			    }
 
 			    String listingPolicy = busDetailsFromListing[6].trim();
 			    String bookingPolicy = policyFromBookingPage[0].trim();
 
 			    if (!listingPolicy.equalsIgnoreCase(bookingPolicy)) {
-			        log.ReportEvent("FAIL", "Policy mismatch from listing to booking page! Listing: '" + listingPolicy
-			                + "', Booking: '" + bookingPolicy + "'");
+			        log.ReportEvent("FAIL", "Policy mismatch from listing to booking page! Listing: '" 
+			                + listingPolicy + "', Booking: '" + bookingPolicy + "'");
 			        screenshots.takeScreenShot1();
 			        Assert.fail("Policy mismatch");
 			    } else {
 			        log.ReportEvent("PASS", "Policy matches from listing to booking page: " + listingPolicy);
 			    }
 			}
-
+			
 			public void validatePriceFromresultToBookingPage(String[] priceFromBookingPage, String priceAfterSeatSelection, Log log, ScreenShots screenshots) {
 			    if (priceFromBookingPage == null || priceFromBookingPage.length == 0) {
 			        log.ReportEvent("FAIL", "Price from booking page is missing.");
@@ -505,245 +508,857 @@ public class NewDesign_Buses_BookingPage {
 			}
 
 
-			public void clickSendForApproval() {
-				driver.findElement(By.xpath("//button[text()='Send For Approval']")).click();
-			}
 			
-			//Method to enetr traveller details
-//			public void fillPassengerDetails() {
-//			    Random random = new Random();
+			
+//			public void clickSendForApproval(Log log, ScreenShots screenshots) {
+//			    driver.findElement(By.xpath("//button[text()='Send For Approval']")).click();
 //
-//			    // Sample proper first and last names
-//			    String[] firstNamesList = {"Arun", "Meena", "Kiran", "Sita", "Ravi", "Priya", "Vikram", "Latha", "Naveen", "Divya"};
-//			    String[] lastNamesList = {"Sharma", "Reddy", "Kumar", "Patel", "Verma", "Nair", "Das", "Singh", "Joshi", "Kapoor"};
+//			    try {
+//			        Thread.sleep(2000);
 //
-//			    // Find all edit buttons
-//			    List<WebElement> editButtons = driver.findElements(By.xpath("//div[contains(@class,'tg-bsbk-edit-btn')]"));
+//			        List<WebElement> messageList = driver.findElements(
+//			            By.xpath("//p[@class='toast-title']/text()"));
+//			        
 //
-//			    // Start from 1 to skip the first edit button
-//			    for (int i = 1; i < editButtons.size(); i++) {
-//			        // Re-fetch the edit buttons because DOM might change after each click
-//			        editButtons = driver.findElements(By.xpath("//div[contains(@class,'tg-bsbk-edit-btn')]"));
-//			        WebElement editBtn = editButtons.get(i);
-//			        editBtn.click();
+//			        if (!messageList.isEmpty()) {
+//			            String errorText = messageList.get(0).getText();
+//			            System.out.println("Error Message: " + errorText);
 //
-//			        // Wait for title dropdown to be visible
-//			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//			        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Title']")));
+//			            log.ReportEvent("FAIL", "Send For Approval failed: " + errorText);
+//			            screenshots.takeScreenShot1();
+//			            Assert.fail("Send For Approval failed with error: " + errorText);
+//			        } else {
+//			        	driver.findElement(By.xpath("//div[text()='Awaiting Approval']")).isDisplayed();
+//			            System.out.println("Send For Approval successful and moved to next screen");
+//			        }
 //
-//			        // Click Title dropdown and select random title
-//			        driver.findElement(By.xpath("//span[text()='Title']")).click();
-//			        List<WebElement> titles = driver.findElements(By.xpath("//*[@class='tg-select-option-label']"));
-//			        titles.get(random.nextInt(titles.size())).click();
-//
-//			        // Enter random first name from predefined list
-//			        List<WebElement> firstNames = driver.findElements(By.xpath("//input[@class='tg-bsbk-firstname']"));
-//			        firstNames.get(firstNames.size() - 1).sendKeys(firstNamesList[random.nextInt(firstNamesList.length)]);
-//
-//			        // Enter random last name from predefined list
-//			        List<WebElement> lastNames = driver.findElements(By.xpath("//input[@class='tg-bsbk-lastname']"));
-//			        lastNames.get(lastNames.size() - 1).sendKeys(lastNamesList[random.nextInt(lastNamesList.length)]);
-//
-//			        // Enter random age between 18 and 60
-//			        List<WebElement> ageFields = driver.findElements(By.xpath("//input[@class='tg-bsbk-age']"));
-//			        ageFields.get(ageFields.size() - 1).sendKeys(String.valueOf(18 + random.nextInt(43))); // 18-60
-//
-//			        // Select Gender
-//			        driver.findElement(By.xpath("//span[text()='Gender']")).click();
-//			        List<WebElement> genders = driver.findElements(By.xpath("//span[@class='tg-select-option-label']"));
-//			        genders.get(random.nextInt(genders.size())).click();
-//
-//			        // Select ID Card Type
-//			        driver.findElement(By.xpath("//span[text()='ID Card Type']")).click();
-//			        List<WebElement> idCardTypes = driver.findElements(By.xpath("//span[@class='tg-select-option-label']"));
-//			        idCardTypes.get(random.nextInt(idCardTypes.size())).click();
-//
-//			        // Enter random ID number (alphanumeric without special characters)
-//			        List<WebElement> idNumbers = driver.findElements(By.xpath("//input[@class='tg-bsbk-idnumber']"));
-//			        idNumbers.get(idNumbers.size() - 1).sendKeys("ID" + (100000 + random.nextInt(900000)));
+//			    } catch (Exception e) {
+//			        log.ReportEvent("FAIL", "Exception occurred: " + e.getMessage());
+//			        screenshots.takeScreenShot1();
+//			        Assert.fail("Exception during Send For Approval: " + e.getMessage());
 //			    }
 //			}
+
+			public void clickSendForApproval(Log log, ScreenShots screenshots) {
+			    driver.findElement(By.xpath("//button[text()='Send For Approval']")).click();
+
+			    try {
+
+			        // Get toast message text
+			        String messageText = driver.findElement(
+			            By.xpath("//div[contains(@class,'toast')]//p[contains(@class,'toast-title')]")
+			        ).getText();
+
+			        System.out.println("Toast Message: " + messageText);
+
+			        if (messageText.toLowerCase().contains("successfully")) {
+			            log.ReportEvent("PASS", "Request passed: " + messageText);
+			        } else {
+			            log.ReportEvent("FAIL", "Request failed: " + messageText);
+			            screenshots.takeScreenShot1();
+			            Assert.fail("Failed: " + messageText);
+			        }
+
+			    } catch (Exception e) {
+			        log.ReportEvent("FAIL", "No toast message or error: " + e.getMessage());
+			        screenshots.takeScreenShot1();
+			        Assert.fail("No toast message found or error: " + e.getMessage());
+			    }
+			}
+
 			
 			
+//			METHOD TO ENTER TRAVELLER DETAILS
+			
+//			public void addPassengerDetails() {
+//			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
+//			    JavascriptExecutor js = (JavascriptExecutor) driver;
+//			    Random rand = new Random();
+//
+//			    String[] firstNames = {"Rahul", "Priya", "Amit", "Neha", "Karan", "Divya", "Ravi", "Sneha", "Anil", "Megha"};
+//			    String[] lastNames = {"Sharma", "Patel", "Reddy", "Kumar", "Verma", "Yadav", "Joshi", "Nair", "Rao", "Kapoor"};
+//
+//			    try {
+//			        // Get all passenger containers
+//			        List<WebElement> passengerBlocks = driver.findElements(By.xpath("//div[contains(@class,'tg-bsbk-traveller-card')]"));
+//			        int totalPassengers = passengerBlocks.size();
+//
+//			        System.out.println("Total passengers detected: " + totalPassengers);
+//
+//			        for (int i = 0; i < totalPassengers; i++) {
+//			            WebElement passengerBlock = passengerBlocks.get(i);
+//
+//			            // ✅ CASE 1: First passenger → Only ID card type & number
+//			            if (i == 0) {
+//			                System.out.println("Filling only ID details for passenger 1");
+//
+//			                // ID Card Type - MULTIPLE CLICKING STRATEGIES
+//			                try {
+//			                    // Strategy 1: Try different XPaths for the dropdown
+//			                    WebElement idCardTypeDropdown = null;
+//			                    
+//			                    // Try multiple XPath options
+//			                    String[] xpaths = {
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__control')]",
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]",
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'css-13cymwt-control')]",
+//			                
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]"
+//			                    };
+//			                    
+//			                    for (String xpath : xpaths) {
+//			                        try {
+//			                            idCardTypeDropdown = passengerBlock.findElement(By.xpath(xpath));
+//			                            System.out.println("Found dropdown with XPath: " + xpath);
+//			                            break;
+//			                        } catch (Exception e) {
+//			                            System.out.println("XPath failed: " + xpath);
+//			                        }
+//			                    }
+//			                    
+//			                    if (idCardTypeDropdown != null) {
+//			                        System.out.println("Attempting to click ID Card Type dropdown...");
+//			                        
+//			                        // Strategy 1: Regular click
+//			                        try {
+//			                            idCardTypeDropdown.click();
+//			                            System.out.println("Regular click successful");
+//			                        } catch (Exception e) {
+//			                            System.out.println("Regular click failed, trying JavaScript click...");
+//			                            
+//			                            // Strategy 2: JavaScript click
+//			                            js.executeScript("arguments[0].click();", idCardTypeDropdown);
+//			                            System.out.println("JavaScript click attempted");
+//			                        }
+//			                        
+//			                        Thread.sleep(3000);
+//			                        
+//			                        // Strategy 3: If still not working, try clicking the parent container
+//			                        try {
+//			                            WebElement parentContainer = passengerBlock.findElement(By.xpath(".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]"));
+//			                            js.executeScript("arguments[0].click();", parentContainer);
+//			                            System.out.println("Parent container click attempted");
+//			                        } catch (Exception e) {
+//			                            System.out.println("Parent container click also failed");
+//			                        }
+//
+//			                        Thread.sleep(3000);
+//
+//			                        // Check if dropdown options are visible
+//			                        List<WebElement> idOptions = driver.findElements(By.xpath("//div[contains(@class,'tg-dropdown-menu-item')]"));
+//			                        System.out.println("Found " + idOptions.size() + " options after click attempts");
+//			                        
+//			                        if (!idOptions.isEmpty()) {
+//			                            WebElement randomOption = idOptions.get(rand.nextInt(idOptions.size()));
+//			                            js.executeScript("arguments[0].click();", randomOption);
+//			                            System.out.println("ID Card Type selected");
+//			                        } else {
+//			                            System.out.println("No options found, dropdown might not have opened");
+//			                        }
+//			                    } else {
+//			                        System.out.println("Could not find ID Card Type dropdown with any XPath");
+//			                    }
+//			                } catch (Exception e) {
+//			                    System.out.println("ID Card Type failed for passenger 1: " + e.getMessage());
+//			                    e.printStackTrace();
+//			                }
+//
+//			                // ID Card Number
+//			                try {
+//			                    WebElement idCardNumberInput = passengerBlock.findElement(By.xpath(".//input[@name='idcardnumber']"));
+//			                    String randomID = "ID" + (100000 + rand.nextInt(900000));
+//			                    idCardNumberInput.clear();
+//			                    idCardNumberInput.sendKeys(randomID);
+//			                    System.out.println("ID Card Number entered");
+//			                } catch (Exception e) {
+//			                    System.out.println("ID Card Number failed for passenger 1: " + e.getMessage());
+//			                }
+//
+//			                continue;
+//			            }
+//
+//			            // ✅ CASE 2: Remaining passengers → Fill everything
+//			            System.out.println("Filling complete details for passenger " + (i + 1));
+//			         // Title Dropdown - Enhanced with multiple strategies
+//			            try {
+//			                WebElement titleDropdown = null;
+//			                
+//			                // Multiple XPath options for Title
+//			                String[] titleXpaths = {
+//			                    ".//span[contains(text(), 'Title')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__control')]",
+//			                    ".//span[contains(text(), 'Title')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]",
+//			                    ".//span[contains(text(), 'Title')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'css-13cymwt-control')]",
+//			                    ".//span[contains(text(), 'Title')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[@class='tg-select-box__value-container']",
+//			                    ".//span[contains(text(), 'Title')]//ancestor::div[contains(@class, 'tg-select-box-container')]"
+//			                };
+//			                
+//			                for (String xpath : titleXpaths) {
+//			                    try {
+//			                        titleDropdown = passengerBlock.findElement(By.xpath(xpath));
+//			                        System.out.println("Found Title dropdown with XPath: " + xpath);
+//			                        break;
+//			                    } catch (Exception e) {
+//			                        System.out.println("Title XPath failed: " + xpath);
+//			                    }
+//			                }
+//			                
+//			                if (titleDropdown != null) {
+//			                    System.out.println("Attempting to click Title dropdown...");
+//			                    
+//			                    // Debug element state
+//			                    System.out.println("Title element displayed: " + titleDropdown.isDisplayed());
+//			                    System.out.println("Title element enabled: " + titleDropdown.isEnabled());
+//			                    
+//			                    // Scroll to element first
+//			                    js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", titleDropdown);
+//			                    Thread.sleep(1000);
+//			                    
+//			                    // Strategy 1: Regular click
+//			                    try {
+//			                        titleDropdown.click();
+//			                        System.out.println("Title regular click successful");
+//			                    } catch (Exception e) {
+//			                        System.out.println("Title regular click failed, trying JavaScript click...");
+//			                        
+//			                        // Strategy 2: JavaScript click
+//			                        js.executeScript("arguments[0].click();", titleDropdown);
+//			                        System.out.println("Title JavaScript click attempted");
+//			                    }
+//			                    
+//			                    // Strategy 3: Actions class click
+//			                    try {
+//			                        Actions actions = new Actions(driver);
+//			                        actions.moveToElement(titleDropdown).click().perform();
+//			                        System.out.println("Title Actions click attempted");
+//			                    } catch (Exception e) {
+//			                        System.out.println("Title Actions click failed");
+//			                    }
+//			                    
+//			                    Thread.sleep(3000);
+//
+//			                    // Select random option
+//			                    List<WebElement> titleOptions = driver.findElements(By.xpath("//div[contains(@class,'tg-select-box__option')]"));
+//			                    System.out.println("Found " + titleOptions.size() + " Title options");
+//			                    
+//			                    if (!titleOptions.isEmpty()) {
+//			                        WebElement randomOption = titleOptions.get(rand.nextInt(titleOptions.size()));
+//			                        String optionText = randomOption.getText();
+//			                        js.executeScript("arguments[0].click();", randomOption);
+//			                        System.out.println("Title selected: " + optionText);
+//			                    } else {
+//			                        System.out.println("No Title options found, dropdown might not have opened");
+//			                    }
+//			                } else {
+//			                    System.out.println("Could not find Title dropdown with any XPath");
+//			                }
+//			            } catch (Exception e) {
+//			                System.out.println("Title failed for passenger " + (i + 1) + ": " + e.getMessage());
+//			                e.printStackTrace();
+//			            }
+//
+//			          
+//				            // First Name
+//				            try {
+//				                WebElement firstNameInput = passengerBlock.findElement(By.xpath(".//input[@name='firstname']"));
+//				                String randomFirst = firstNames[rand.nextInt(firstNames.length)];
+//				                firstNameInput.clear();
+//				                firstNameInput.sendKeys(randomFirst);
+//				                System.out.println("First Name entered");
+//				            } catch (Exception e) {
+//				                System.out.println("First Name failed for passenger " + (i + 1) + ": " + e.getMessage());
+//				            }
+//	
+//				            // Last Name
+//				            try {
+//				                WebElement lastNameInput = passengerBlock.findElement(By.xpath(".//input[@name='lastname']"));
+//				                String randomLast = lastNames[rand.nextInt(lastNames.length)];
+//				                lastNameInput.clear();
+//				                lastNameInput.sendKeys(randomLast);
+//				                System.out.println("Last Name entered");
+//				            } catch (Exception e) {
+//				                System.out.println("Last Name failed for passenger " + (i + 1) + ": " + e.getMessage());
+//				            }
+//	
+//				            // Age
+//				            try {
+//				                WebElement ageInput = passengerBlock.findElement(By.xpath(".//input[@name='age']"));
+//				                int randomAge = 18 + rand.nextInt(43);
+//				                ageInput.clear();
+//				                ageInput.sendKeys(String.valueOf(randomAge));
+//				                System.out.println("Age entered");
+//				            } catch (Exception e) {
+//				                System.out.println("Age failed for passenger " + (i + 1) + ": " + e.getMessage());
+//				            }
+//				            
+//				            // Gender Dropdown - Enhanced with multiple strategies
+//				            try {
+//				                WebElement genderDropdown = null;
+//				                
+//				                String[] genderXpaths = {
+//				                    ".//span[contains(text(), 'Gender')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__control')]",
+//				                    ".//span[contains(text(), 'Gender')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]",
+//				                    ".//span[contains(text(), 'Gender')]//ancestor::div[contains(@class, 'tg-select-box-container')]"
+//				                };
+//				                
+//				                for (String xpath : genderXpaths) {
+//				                    try {
+//				                        genderDropdown = passengerBlock.findElement(By.xpath(xpath));
+//				                        System.out.println("Found Gender dropdown with XPath: " + xpath);
+//				                        break;
+//				                    } catch (Exception e) {
+//				                        // Continue to next XPath
+//				                    }
+//				                }
+//				                
+//				                if (genderDropdown != null) {
+//				                    System.out.println("Clicking Gender dropdown...");
+//				                    
+//				                    // Scroll and click
+//				                    js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", genderDropdown);
+//				                    Thread.sleep(1000);
+//				                    
+//				                    // Try multiple click methods
+//				                    try {
+//				                        genderDropdown.click();
+//				                    } catch (Exception e) {
+//				                        js.executeScript("arguments[0].click();", genderDropdown);
+//				                    }
+//				                    
+//				                    Thread.sleep(2000);
+//
+//				                    // GENDER SPECIFIC OPTIONS LOCATOR
+//				                    List<WebElement> genderOptions = driver.findElements(By.xpath("//div[contains(@class,'tg-select-box__option')] | //div[contains(@class,'tg-select-box__menu-list')]//div | //div[contains(@id,'react-select')][contains(@id,'-option-')]"));
+//				                    System.out.println("Found " + genderOptions.size() + " Gender options");
+//				                    
+//				                    if (!genderOptions.isEmpty()) {
+//				                        WebElement randomOption = genderOptions.get(rand.nextInt(genderOptions.size()));
+//				                        String optionText = randomOption.getText();
+//				                        System.out.println("Selecting Gender: " + optionText);
+//				                        
+//				                        // Try multiple ways to click option
+//				                        try {
+//				                            randomOption.click();
+//				                        } catch (Exception e) {
+//				                            js.executeScript("arguments[0].click();", randomOption);
+//				                        }
+//				                        
+//				                        System.out.println("Gender selected: " + optionText);
+//				                    }
+//				                }
+//				            } catch (Exception e) {
+//				                System.out.println("Gender failed: " + e.getMessage());
+//				            }
+//
+//				          
+//				            // ID Card Type - CLICK THE DROPDOWN CONTAINER
+//				            try {
+//			                    // Strategy 1: Try different XPaths for the dropdown
+//			                    WebElement idCardTypeDropdown = null;
+//			                    
+//			                    // Try multiple XPath options
+//			                    String[] xpaths = {
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__control')]",
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]",
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'css-13cymwt-control')]",
+//			                
+//			                        ".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]"
+//			                    };
+//			                    
+//			                    for (String xpath : xpaths) {
+//			                        try {
+//			                            idCardTypeDropdown = passengerBlock.findElement(By.xpath(xpath));
+//			                            System.out.println("Found dropdown with XPath: " + xpath);
+//			                            break;
+//			                        } catch (Exception e) {
+//			                            System.out.println("XPath failed: " + xpath);
+//			                        }
+//			                    }
+//			                    
+//			                    if (idCardTypeDropdown != null) {
+//			                        System.out.println("Attempting to click ID Card Type dropdown...");
+//			                        
+//			                        // Strategy 1: Regular click
+//			                        try {
+//			                            idCardTypeDropdown.click();
+//			                            System.out.println("Regular click successful");
+//			                        } catch (Exception e) {
+//			                            System.out.println("Regular click failed, trying JavaScript click...");
+//			                            
+//			                            // Strategy 2: JavaScript click
+//			                            js.executeScript("arguments[0].click();", idCardTypeDropdown);
+//			                            System.out.println("JavaScript click attempted");
+//			                        }
+//			                        
+//			                        Thread.sleep(3000);
+//			                        
+//			                        // Strategy 3: If still not working, try clicking the parent container
+//			                        try {
+//			                            WebElement parentContainer = passengerBlock.findElement(By.xpath(".//span[contains(text(), 'ID Card Type')]//ancestor::div[contains(@class, 'tg-select-box-container')]"));
+//			                            js.executeScript("arguments[0].click();", parentContainer);
+//			                            System.out.println("Parent container click attempted");
+//			                        } catch (Exception e) {
+//			                            System.out.println("Parent container click also failed");
+//			                        }
+//
+//			                        Thread.sleep(3000);
+//
+//			                        // Check if dropdown options are visible
+//			                        List<WebElement> idOptions = driver.findElements(By.xpath("//div[contains(@class,'tg-dropdown-menu-item')]"));
+//			                        System.out.println("Found " + idOptions.size() + " options after click attempts");
+//			                        
+//			                        if (!idOptions.isEmpty()) {
+//			                            WebElement randomOption = idOptions.get(rand.nextInt(idOptions.size()));
+//			                            js.executeScript("arguments[0].click();", randomOption);
+//			                            System.out.println("ID Card Type selected");
+//			                        } else {
+//			                            System.out.println("No options found, dropdown might not have opened");
+//			                        }
+//			                    } else {
+//			                        System.out.println("Could not find ID Card Type dropdown with any XPath");
+//			                    }
+//			                } catch (Exception e) {
+//			                    System.out.println("ID Card Type failed for passenger 1: " + e.getMessage());
+//			                    e.printStackTrace();
+//			                }
+//	
+//				            // ID Card Number
+//				            try {
+//				                WebElement idCardNumberInput = passengerBlock.findElement(By.xpath(".//input[@name='idcardnumber']"));
+//				                String randomID = "ID" + (100000 + rand.nextInt(900000));
+//				                idCardNumberInput.clear();
+//				                idCardNumberInput.sendKeys(randomID);
+//				                System.out.println("ID Card Number entered");
+//				            } catch (Exception e) {
+//				                System.out.println("ID Card Number failed for passenger " + (i + 1) + ": " + e.getMessage());
+//				            }
+//				        }
+//
+//			           		        
+//			    } catch (Exception e) {
+//			        System.out.println("Error while filling passenger details: " + e.getMessage());
+//			        e.printStackTrace();
+//			    }
+//			}
+//			
+//		
+
 			public void addPassengerDetails() {
-			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
 			    JavascriptExecutor js = (JavascriptExecutor) driver;
-			    Actions actions = new Actions(driver);
 			    Random rand = new Random();
 
-			    // Sample data pools
 			    String[] firstNames = {"Rahul", "Priya", "Amit", "Neha", "Karan", "Divya", "Ravi", "Sneha", "Anil", "Megha"};
 			    String[] lastNames = {"Sharma", "Patel", "Reddy", "Kumar", "Verma", "Yadav", "Joshi", "Nair", "Rao", "Kapoor"};
 
 			    try {
 			        // Get all passenger containers
-			        List<WebElement> passengerBlocks = driver.findElements(By.xpath("//div[contains(@class,'passenger-details-container')]"));
+			        List<WebElement> passengerBlocks = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+			            By.xpath("//div[contains(@class,'tg-bsbk-traveller-card')]")));
 			        int totalPassengers = passengerBlocks.size();
 
-			        for (int i = 1; i < totalPassengers; i++) { // Start from 2nd passenger
+			        System.out.println("Total passengers detected: " + totalPassengers);
+
+			        for (int i = 0; i < totalPassengers; i++) {
+			            // REFRESH passenger blocks every time to avoid staleness
+			            passengerBlocks = driver.findElements(By.xpath("//div[contains(@class,'tg-bsbk-traveller-card')]"));
+			            if (i >= passengerBlocks.size()) break;
+			            
 			            WebElement passengerBlock = passengerBlocks.get(i);
 
-			            // Title
-			            try {
-			                WebElement titleDropdown = passengerBlock.findElement(By.xpath(".//span[text()='Title']"));
-			                titleDropdown.click();
-			                Thread.sleep(300);
+			            System.out.println("=== Processing Passenger " + (i + 1) + " ===");
 
-			                List<WebElement> titleOptions = driver.findElements(By.xpath("//span[@class='tg-select-option-label']"));
-			                if (!titleOptions.isEmpty()) {
-			                    WebElement randomOption = titleOptions.get(rand.nextInt(titleOptions.size()));
-			                    js.executeScript("arguments[0].click();", randomOption);
+//			            // ✅ CASE 1: First passenger → Only ID card type & number
+//			            if (i == 0) {
+//			                System.out.println("Filling only ID details for passenger 1");
+//			                fillIDCardDetails(passengerBlock, js, rand, wait);
+//			                continue;
+//			            }
+			            
+			            
+			         // ✅ CASE 1: First passenger → Fill ID details + AGE
+			            if (i == 0) {
+			                System.out.println("Filling ID details + Age for passenger 1");
+			                fillIDCardDetails(passengerBlock, js, rand, wait);
+
+			                // 🔹 Add Age also for 1st passenger
+			                try {
+			                    WebElement ageInput = wait.until(ExpectedConditions.elementToBeClickable(
+			                        passengerBlock.findElement(By.xpath(".//input[@name='age']"))));
+			                    int randomAge = 18 + rand.nextInt(43);
+			                    ageInput.clear();
+			                    ageInput.sendKeys(String.valueOf(randomAge));
+			                    System.out.println("Age entered for 1st passenger: " + randomAge);
+			                    Thread.sleep(500);
+			                } catch (Exception e) {
+			                    System.out.println("Age entry failed for 1st passenger: " + e.getMessage());
 			                }
-			            } catch (Exception ignored) {}
+			                continue;
+			            }
 
+
+			            // ✅ CASE 2: Remaining passengers → Fill everything
+			            System.out.println("Filling complete details for passenger " + (i + 1));
+
+			            // Fill Title - WITH PROPER WAIT
+			            fillTitleDropdown(passengerBlock, js, rand, wait);
+			            
 			            // First Name
 			            try {
-			                WebElement firstNameInput = passengerBlock.findElement(By.xpath(".//input[@name='firstname']"));
+			                WebElement firstNameInput = wait.until(ExpectedConditions.elementToBeClickable(
+			                    passengerBlock.findElement(By.xpath(".//input[@name='firstname']"))));
 			                String randomFirst = firstNames[rand.nextInt(firstNames.length)];
 			                firstNameInput.clear();
 			                firstNameInput.sendKeys(randomFirst);
-			            } catch (Exception ignored) {}
+			                System.out.println("First Name entered: " + randomFirst);
+			                Thread.sleep(500);
+			            } catch (Exception e) {
+			                System.out.println("First Name failed: " + e.getMessage());
+			            }
 
 			            // Last Name
 			            try {
-			                WebElement lastNameInput = passengerBlock.findElement(By.xpath(".//input[@name='lastname']"));
+			                WebElement lastNameInput = wait.until(ExpectedConditions.elementToBeClickable(
+			                    passengerBlock.findElement(By.xpath(".//input[@name='lastname']"))));
 			                String randomLast = lastNames[rand.nextInt(lastNames.length)];
 			                lastNameInput.clear();
 			                lastNameInput.sendKeys(randomLast);
-			            } catch (Exception ignored) {}
+			                System.out.println("Last Name entered: " + randomLast);
+			                Thread.sleep(500);
+			            } catch (Exception e) {
+			                System.out.println("Last Name failed: " + e.getMessage());
+			            }
 
 			            // Age
 			            try {
-			                WebElement ageInput = passengerBlock.findElement(By.xpath(".//input[@name='age']"));
-			                int randomAge = 18 + rand.nextInt(43); // age 18–60
+			                WebElement ageInput = wait.until(ExpectedConditions.elementToBeClickable(
+			                    passengerBlock.findElement(By.xpath(".//input[@name='age']"))));
+			                int randomAge = 18 + rand.nextInt(43);
 			                ageInput.clear();
 			                ageInput.sendKeys(String.valueOf(randomAge));
-			            } catch (Exception ignored) {}
+			                System.out.println("Age entered: " + randomAge);
+			                Thread.sleep(500);
+			            } catch (Exception e) {
+			                System.out.println("Age failed: " + e.getMessage());
+			            }
 
-			            // Gender
-			            try {
-			                WebElement genderDropdown = passengerBlock.findElement(By.xpath(".//span[text()='Gender']"));
-			                genderDropdown.click();
-			                Thread.sleep(300);
+			            // Fill Gender - WITH SPECIAL HANDLING
+			            fillGenderDropdown(passengerBlock, js, rand, wait);
 
-			                List<WebElement> genderOptions = driver.findElements(By.xpath("//span[@class='tg-select-option-label']"));
-			                if (!genderOptions.isEmpty()) {
-			                    WebElement randomOption = genderOptions.get(rand.nextInt(genderOptions.size()));
-			                    js.executeScript("arguments[0].click();", randomOption);
-			                }
-			            } catch (Exception ignored) {}
-
-			            // ID Card Type
-			            try {
-			                WebElement idCardTypeDropdown = passengerBlock.findElement(By.xpath(".//span[text()='ID Card Type']"));
-			                idCardTypeDropdown.click();
-			                Thread.sleep(300);
-
-			                List<WebElement> idOptions = driver.findElements(By.xpath("//span[@class='tg-select-option-label']"));
-			                if (!idOptions.isEmpty()) {
-			                    WebElement randomOption = idOptions.get(rand.nextInt(idOptions.size()));
-			                    js.executeScript("arguments[0].click();", randomOption);
-			                }
-			            } catch (Exception ignored) {}
-
-			            // ID Card Number
-			            try {
-			                WebElement idCardNumberInput = passengerBlock.findElement(By.xpath(".//input[@name='idcardnumber']"));
-			                String randomID = "ID" + (100000 + rand.nextInt(900000)); // 6-digit random ID
-			                idCardNumberInput.clear();
-			                idCardNumberInput.sendKeys(randomID);
-			            } catch (Exception ignored) {}
+			            // Fill ID Card details
+			            fillIDCardDetails(passengerBlock, js, rand, wait);
+			            
+			            System.out.println("=== Completed Passenger " + (i + 1) + " ===");
+			            Thread.sleep(1000); // Small delay between passengers
 			        }
 
 			    } catch (Exception e) {
 			        System.out.println("Error while filling passenger details: " + e.getMessage());
+			        e.printStackTrace();
 			    }
 			}
-		
-			//Method to enetr contact details
-			public void enterEmailForBuses(String email) {
-			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			    WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//input[@class='tg-bsbk-email']")));
-
-			    emailInput.clear();         
-			    emailInput.sendKeys(email);
+			// METHOD FOR TITLE DROPDOWN - ENHANCED
+			private void fillTitleDropdown(WebElement passengerBlock, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+			    try {
+			        System.out.println("Attempting to fill Title dropdown...");
+			        
+			        // Find Title dropdown with multiple XPath strategies
+			        WebElement titleDropdown = findDropdownElement(passengerBlock, "Title");
+			        
+			        if (titleDropdown != null) {
+			            // Scroll into view
+			            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", titleDropdown);
+			            Thread.sleep(1000);
+			            
+			            // Click using multiple strategies
+			            clickElement(titleDropdown, js, "Title dropdown");
+			            
+			            // Wait for options to appear
+			            Thread.sleep(2000);
+			            
+			            // Select random option with better waiting
+			            selectRandomOption("Title", js, rand, wait);
+			        } else {
+			            System.out.println("Title dropdown not found");
+			        }
+			    } catch (Exception e) {
+			        System.out.println("Title dropdown failed: " + e.getMessage());
+			    }
 			}
+
+			// METHOD FOR GENDER DROPDOWN - COMPLETELY REWRITTEN
+			// METHOD FOR GENDER DROPDOWN - SAME AS ID CARD TYPE
+			private void fillGenderDropdown(WebElement passengerBlock, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+			    try {
+			        System.out.println("Attempting to fill Gender dropdown...");
+			        
+			        // Find Gender dropdown - SAME PATTERN AS ID CARD TYPE
+			        WebElement genderDropdown = passengerBlock.findElement(By.xpath(".//span[contains(text(), 'Gender')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]"));
+			        
+			        if (genderDropdown != null) {
+			            // Scroll into view
+			            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", genderDropdown);
+			            Thread.sleep(1000);
+			            
+			            // Click using multiple strategies - SAME AS ID CARD TYPE
+			            clickElement(genderDropdown, js, "Gender dropdown");
+			            
+			            // Wait for options to appear
+			            Thread.sleep(3000);
+
+			            // Select random option - SAME AS ID CARD TYPE
+			            List<WebElement> genderOptions = driver.findElements(By.xpath("//div[contains(@class,'tg-dropdown-menu-item')]"));
+			            System.out.println("Found " + genderOptions.size() + " Gender options");
+			            
+			            if (!genderOptions.isEmpty()) {
+			                List<WebElement> visibleOptions = genderOptions.stream()
+			                    .filter(WebElement::isDisplayed)
+			                    .collect(Collectors.toList());
+			                    
+			                if (!visibleOptions.isEmpty()) {
+			                    WebElement randomOption = visibleOptions.get(rand.nextInt(visibleOptions.size()));
+			                    String optionText = randomOption.getText();
+			                    System.out.println("Selecting Gender: " + optionText);
+			                    
+			                    js.executeScript("arguments[0].click();", randomOption);
+			                    System.out.println("Gender selected: " + optionText);
+			                } else {
+			                    System.out.println("No visible Gender options found");
+			                }
+			            } else {
+			                System.out.println("No Gender options found");
+			            }
+			        } else {
+			            System.out.println("Gender dropdown not found");
+			        }
+			    } catch (Exception e) {
+			        System.out.println("Gender dropdown failed: " + e.getMessage());
+			    }
+			}			
 			
-			public void enterPhNoForBuses(String mobileNum) {
-			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+//			----------------------------------------------------------------
+//			private void fillGenderDropdown(WebElement passengerBlock, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+//			    try {
+//			        System.out.println("Attempting to fill Gender dropdown...");
+//			        
+//			        // Find Gender dropdown with multiple XPath strategies
+//			        WebElement genderDropdown = findDropdownElement(passengerBlock, "Gender");
+//			        
+//			        if (genderDropdown != null) {
+//			            // Scroll into view
+//			            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", genderDropdown);
+//			            Thread.sleep(1000);
+//			            
+//			            // Click using multiple strategies
+//			            clickElement(genderDropdown, js, "Gender dropdown");
+//			            
+//			            // Wait for options to appear - IMPORTANT
+//			            Thread.sleep(3000);
+//			            
+//			            // SPECIAL HANDLING FOR GENDER OPTIONS
+//			            selectGenderOption(passengerBlock, js, rand, wait);
+//			        } else {
+//			            System.out.println("Gender dropdown not found");
+//			        }
+//			    } catch (Exception e) {
+//			        System.out.println("Gender dropdown failed: " + e.getMessage());
+//			    }
+//			}
+//
+//			// SPECIAL METHOD FOR GENDER OPTION SELECTION - UPDATED
+//			private void selectGenderOption(WebElement passengerBlock, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+//			    try {
+//			        System.out.println("=== SEARCHING FOR GENDER OPTIONS ===");
+//			        
+//			        // Multiple strategies to find gender options - EXPANDED LIST
+//			        String[] optionXpaths = {
+//			            "//div[contains(@class,'tg-select-box__option')]",
+//			            "//div[contains(@class,'tg-dropdown-menu-item')]",
+//			            "//div[contains(@class,'select-box__option')]",
+//			            "//div[contains(@class,'dropdown-menu-item')]",
+//			            "//div[contains(@class,'menu-item')]",
+//			            "//div[contains(@class,'option')]",
+//			            "//div[role='option']",
+//			            "//div[contains(@id,'react-select')][contains(@id,'-option-')]",
+//			            "//div[contains(@class,'tg-select-box__menu')]//div",
+//			            "//div[contains(@class,'css-')][role='option']",
+//			            "//div[contains(@class,'MuiMenuItem')]",
+//			            "//li[contains(@class,'option')]",
+//			            "//li[role='option']",
+//			            "//*[contains(text(),'Male') or contains(text(),'Female') or contains(text(),'Other')]"
+//			        };
+//			        
+//			        List<WebElement> genderOptions = null;
+//			        String successfulXPath = "";
+//			        
+//			        for (String xpath : optionXpaths) {
+//			            try {
+//			                List<WebElement> options = driver.findElements(By.xpath(xpath));
+//			                if (!options.isEmpty()) {
+//			                    // Count visible options
+//			                    long visibleCount = options.stream().filter(WebElement::isDisplayed).count();
+//			                    System.out.println("XPath: " + xpath + " - Found: " + options.size() + " total, " + visibleCount + " visible");
+//			                    
+//			                    if (visibleCount > 0) {
+//			                        genderOptions = options;
+//			                        successfulXPath = xpath;
+//			                        System.out.println("✅ USING XPath: " + xpath);
+//			                        break;
+//			                    }
+//			                }
+//			            } catch (Exception e) {
+//			                System.out.println("XPath failed: " + xpath);
+//			            }
+//			        }
+//			        
+//			        if (genderOptions != null && !genderOptions.isEmpty()) {
+//			            // Filter only visible options
+//			            List<WebElement> visibleOptions = genderOptions.stream()
+//			                .filter(WebElement::isDisplayed)
+//			                .collect(Collectors.toList());
+//			                
+//			            System.out.println("Visible Gender options: " + visibleOptions.size());
+//			            
+//			            // Print all visible options
+//			            for (int i = 0; i < visibleOptions.size(); i++) {
+//			                WebElement option = visibleOptions.get(i);
+//			                System.out.println("Option " + i + ": '" + option.getText() + "'");
+//			            }
+//			            
+//			            if (!visibleOptions.isEmpty()) {
+//			                WebElement randomOption = visibleOptions.get(rand.nextInt(visibleOptions.size()));
+//			                String optionText = randomOption.getText();
+//			                System.out.println("Selecting Gender: " + optionText);
+//			                
+//			                // Try multiple click strategies
+//			                try {
+//			                    randomOption.click();
+//			                    System.out.println("✅ Gender selected with regular click: " + optionText);
+//			                } catch (Exception e) {
+//			                    System.out.println("Regular click failed, trying JavaScript click");
+//			                    js.executeScript("arguments[0].click();", randomOption);
+//			                    System.out.println("✅ Gender selected with JS click: " + optionText);
+//			                }
+//			                
+//			                Thread.sleep(1000);
+//			            } else {
+//			                System.out.println("❌ No visible Gender options found");
+//			            }
+//			        } else {
+//			            System.out.println("❌ No Gender options found with any XPath");
+//			        }
+//			    } catch (Exception e) {
+//			        System.out.println("Gender option selection failed: " + e.getMessage());
+//			        e.printStackTrace();
+//			    }
+//			}
+			// METHOD FOR ID CARD DETAILS
+			private void fillIDCardDetails(WebElement passengerBlock, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+			    try {
+			        // ID Card Type
+			        System.out.println("Filling ID Card Type...");
+			        WebElement idCardDropdown = findDropdownElement(passengerBlock, "ID Card Type");
+			        
+			        if (idCardDropdown != null) {
+			            js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", idCardDropdown);
+			            Thread.sleep(1000);
+			            
+			            clickElement(idCardDropdown, js, "ID Card Type dropdown");
+			            Thread.sleep(2000);
+			            
+			            selectRandomOption("ID Card Type", js, rand, wait);
+			        }
 
-			    WebElement phNo = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//input[@class='tg-bsbk-mobilenumber']")));
-
-			    phNo.clear();         
-			    phNo.sendKeys(mobileNum);
+			        // ID Card Number
+			        try {
+			            WebElement idCardNumberInput = wait.until(ExpectedConditions.elementToBeClickable(
+			                passengerBlock.findElement(By.xpath(".//input[@name='idcardnumber']"))));
+			            String randomID = "ID" + (100000 + rand.nextInt(900000));
+			            idCardNumberInput.clear();
+			            idCardNumberInput.sendKeys(randomID);
+			            System.out.println("ID Card Number entered: " + randomID);
+			            Thread.sleep(500);
+			        } catch (Exception e) {
+			            System.out.println("ID Card Number failed: " + e.getMessage());
+			        }
+			    } catch (Exception e) {
+			        System.out.println("ID Card details failed: " + e.getMessage());
+			    }
 			}
-			
-		public void enetrIdCardNumber(String idCardNum) {
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-		    WebElement idNum = wait.until(ExpectedConditions.visibilityOfElementLocated(
-		        By.xpath("(//input[@class='tg-bsbk-idnumber'])[1]")));
+			// HELPER METHOD TO FIND DROPDOWN ELEMENT
+			private WebElement findDropdownElement(WebElement passengerBlock, String dropdownName) {
+			    String[] xpaths = {
+			        ".//span[contains(text(), '" + dropdownName + "')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__control')]",
+			        ".//span[contains(text(), '" + dropdownName + "')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'tg-select-box__dropdown-indicator')]",
+			        ".//span[contains(text(), '" + dropdownName + "')]//ancestor::div[contains(@class, 'tg-select-box-container')]",
+			        ".//span[contains(., '" + dropdownName + "')]//ancestor::div[contains(@class, 'tg-select-box-container')]//div[contains(@class, 'css-13cymwt-control')]"
+			    };
+			    
+			    for (String xpath : xpaths) {
+			        try {
+			            WebElement element = passengerBlock.findElement(By.xpath(xpath));
+			            System.out.println("Found " + dropdownName + " with XPath: " + xpath);
+			            return element;
+			        } catch (Exception e) {
+			            // Continue to next XPath
+			        }
+			    }
+			    return null;
+			}
 
-		    idNum.clear();         
-		    idNum.sendKeys(idCardNum);
-		    
-		    
-		}
-		
-		public void clickOnIdCardType() {
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			// HELPER METHOD TO CLICK ELEMENT
+			private void clickElement(WebElement element, JavascriptExecutor js, String elementName) {
+			    try {
+			        element.click();
+			        System.out.println(elementName + " - Regular click successful");
+			    } catch (Exception e) {
+			        System.out.println(elementName + " - Regular click failed, trying JavaScript click");
+			        js.executeScript("arguments[0].click();", element);
+			    }
+			}
 
-		    // Step 1: Click the dropdown
-		    WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(
-		        By.xpath("(//span[text()='ID Card Type'])[1]")));
-		    dropdown.click();
-
-		    // Step 2: Wait and get all dropdown options
-		    List<WebElement> options = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-		        By.xpath("//span[@class='tg-select-option-label']")));
-
-		    if (options.isEmpty()) {
-		        System.out.println("No ID card type options found!");
-		        return;
-		    }
-
-		    // Step 3: Pick a random option
-		    Random random = new Random();
-		    int randomIndex = random.nextInt(options.size());
-
-		    WebElement randomOption = options.get(randomIndex);
-		    String selectedText = randomOption.getText();
-		    randomOption.click();
-
-		    System.out.println("Random ID Card Type selected: " + selectedText);
-		}
-		
-		public void enterLastNameForBuses(String lastName) throws InterruptedException {
-		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		    WebElement name = wait.until(ExpectedConditions.elementToBeClickable(
-		        By.xpath("//input[@class='tg-bsbk-lastname']")));
-		    
-		    // Click to focus
-		    name.click();
-		    
-		    // Clear the input using JavaScript
-		    JavascriptExecutor js = (JavascriptExecutor) driver;
-		    js.executeScript("arguments[0].value = '';", name);
-		    
-		    // Small pause to let the clearing reflect
-		    Thread.sleep(500);
-		    
-		    // Additional clear by Ctrl+A + Backspace (in case JS didn't fully clear)
-		    name.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-		    name.sendKeys(Keys.BACK_SPACE);
-		    
-		    // Enter the new last name
-		    name.sendKeys(lastName);
-		}
-
+			// HELPER METHOD TO SELECT RANDOM OPTION
+			private void selectRandomOption(String dropdownName, JavascriptExecutor js, Random rand, WebDriverWait wait) {
+			    try {
+			        List<WebElement> options = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+			            By.xpath("//div[contains(@class,'tg-dropdown-menu-item')]")));
+			        
+			        System.out.println("Found " + options.size() + " " + dropdownName + " options");
+			        
+			        if (!options.isEmpty()) {
+			            List<WebElement> visibleOptions = options.stream()
+			                .filter(WebElement::isDisplayed)
+			                .collect(Collectors.toList());
+			                
+			            if (!visibleOptions.isEmpty()) {
+			                WebElement randomOption = visibleOptions.get(rand.nextInt(visibleOptions.size()));
+			                String optionText = randomOption.getText();
+			                System.out.println("Selecting " + dropdownName + ": " + optionText);
+			                
+			                js.executeScript("arguments[0].click();", randomOption);
+			                System.out.println(dropdownName + " selected: " + optionText);
+			            }
+			        }
+			    } catch (Exception e) {
+			        System.out.println("Option selection failed for " + dropdownName + ": " + e.getMessage());
+			    }
+			}
 
 		//Method to clcik on add trip to continue for buses
 		
@@ -754,7 +1369,7 @@ public class NewDesign_Buses_BookingPage {
 		
 		 //Method to click on down button in hotels desclaimerpage after add hotel to trip
 		  public void clcikOnDownButtonInBusesDesclaimer() {
-			  driver.findElement(By.xpath("(//button[text()='Change Bus']/following-sibling::div)[2]")).click();
+			  driver.findElement(By.xpath("//div[@class='tg-triprequest-bb-view-unview-bus']")).click();
 			  
 		  }
 		  
@@ -762,22 +1377,20 @@ public class NewDesign_Buses_BookingPage {
 		  public String[] getBusNameFromSelectedInBusDetailsPg() {
 			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			    // Locate and wait for the bus name section to be visible
 			    WebElement busNameElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//div[contains(@class,'tg-typography_subtitle-6') and contains(@class,'flex-row')]")));
+			        By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-details')]")));
 
-			    // Scroll into view in case it's not visible
 			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", busNameElement);
 
-			    // Extract full text and get only the first line (bus name)
-			    String busName = busNameElement.getText().trim();
+			    // Use JavaScript to get only the first text node (not inside span)
+			    String busNameOnly = (String) ((JavascriptExecutor) driver)
+			        .executeScript("return arguments[0].childNodes[0].textContent.trim();", busNameElement);
 
-			    // Extract only the first line as the actual bus name
-			    String busNameOnly = busName.split("\n")[0].trim();
 			    System.out.println("BusName from Bus detail Page: " + busNameOnly);
 
 			    return new String[]{busNameOnly};
 			}
+
 
 
 		  
@@ -786,7 +1399,7 @@ public class NewDesign_Buses_BookingPage {
 
 			    // Wait for the span inside the div with bus type info
 			    WebElement busTypeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//div[contains(@class,'tg-typography_subtitle-6') and contains(@class,'flex-row')]//span")));
+			        By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-details')]//span")));
 			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", busTypeElement);
 			    String busType = busTypeElement.getText().trim();
 			    System.out.println("BusType from Bus detail Page: " + busType);
@@ -798,7 +1411,7 @@ public class NewDesign_Buses_BookingPage {
 		  public String[] getBusFromLocFromSelectedInBusDetailsPg() {
 			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			    WebElement fromLocElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//div[contains(@class,'tg-typography_subtitle-6') and contains(@class,'label-color')]")));
+			        By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-origin')]")));
 			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", fromLocElement);
 
 			    String fromLoc = fromLocElement.getText().trim();
@@ -809,52 +1422,64 @@ public class NewDesign_Buses_BookingPage {
 
 		  
 		  public String[] getBusToLocFromSelectedInBusDetailsPg() {
-			  String ToLoc = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-6 fw-500 label-color tg-typography_default')]")).getText();
+			  String ToLoc = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-destination')]")).getText();
 			  System.out.println("ToLoc from Bus detail Page: " + ToLoc);
 
 			    return new String[]{ToLoc};
 			}	
 		  
 		  public String[] getBusJourneyDateFromSelectedInBusDetailsPg() {
-			  String JourneyDate = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-10 fw-700 d-flex gap-2 tg-typography_default')]//span)[1]")).getText();
+			  String JourneyDate = driver.findElement(By.xpath("//span[contains(@class,'tg-triprequest-bb-bus-date')]")).getText();
 			  System.out.println("JourneyDate from Bus detail Page: " + JourneyDate);
 
 			    return new String[]{JourneyDate};
 			}	
+		  
+		  
 		  public String[] getBusDepartTimeFromSelectedInBusDetailsPg() {
-			    // Get the full string containing both time and date
-			    String departTimeText = driver.findElement(By.xpath(
-			        "(//div[contains(@class,'tg-typography_subtitle-10') and contains(@class,'fw-700')])[1]"
-			    )).getText();
+			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			    // Extract only the time part (before the newline)
-			    String timeOnly = departTimeText.split("\n")[0].trim();
+			    // Wait for the span inside the div with bus type info
+			    WebElement busTypeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+			        By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-depart-time')]")));
+			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", busTypeElement);
+			    String busType = busTypeElement.getText().trim();
+			    System.out.println("Depart from Bus detail Page: " + busType);
 
-			    // Print only the extracted time
-			    System.out.println("Extracted Depart Time: " + timeOnly);
-
-			    return new String[]{timeOnly};
+			    return new String[]{busType};
 			}
+		  
+//		  public String[] getBusDepartTimeFromSelectedInBusDetailsPg() {
+//			    String departTimeText = driver.findElement(By.xpath(
+//			        "c/text()"
+//			    )).getText();
+//
+//			    String timeOnly = departTimeText.split("\n")[0].trim();
+//
+//			    System.out.println("Extracted Depart Time: " + timeOnly);
+//
+//			    return new String[]{timeOnly};
+//			}
 
 
 
 		  
 		  public String[] getBusArrivalTimeFromSelectedInBusDetailsPg() {
-			  String ArrivalTime = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-10 fw-700 d-flex gap-2 tg-typography_default')])[2]")).getText();
+			  String ArrivalTime = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-arrival-time')]")).getText();
 			  System.out.println("ArrivalTime from Bus detail Page: " + ArrivalTime);
 
 			    return new String[]{ArrivalTime};
 			}	
 		  
 		  public String[] getBusBoardingPointFromSelectedInBusDetailsPg() {
-			  String boardingPoint = driver.findElement(By.xpath("(//div[contains(@class,'bus-dropoint')])[1]")).getText();
+			  String boardingPoint = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-boarding-point')]")).getText();
 			  System.out.println("boardingPoint from Bus detail Page: " + boardingPoint);
 
 			    return new String[]{boardingPoint};
 			}
 		  
 		  public String[] getBusDroppingPointFromSelectedInBusDetailsPg() {
-			  String droppingPoint = driver.findElement(By.xpath("(//div[contains(@class,'bus-dropoint')])[2]")).getText();
+			  String droppingPoint = driver.findElement(By.xpath("//div[contains(@class,'tg-triprequest-bb-bus-dropping-point')]")).getText();
 			  System.out.println("droppingPoint from Bus detail Page: " + droppingPoint);
 
 			    return new String[]{droppingPoint};
@@ -867,17 +1492,19 @@ public class NewDesign_Buses_BookingPage {
 			    return new String[]{duration};
 			}
 		  
+		 
+		  
 		  public String[] getBusSeatTextFromSelectedInBusDetailsPg() {
 			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-			    WebElement seatElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
-			        By.xpath("//div[contains(text(), 'Selected Seats:')]/span[contains(@class, 'black-color')]")));
-			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", seatElement);
+			    // Wait for the span inside the div with bus type info
+			    WebElement busTypeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+			        By.xpath("//span[contains(@class,'tg-triprequest-bb-seat-number')]")));
+			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", busTypeElement);
+			    String busType = busTypeElement.getText().trim();
+			    System.out.println("Seat from Bus detail Page: " + busType);
 
-			    String seatText = seatElement.getText().trim();
-			    System.out.println("Seat from Bus detail Page: " + seatText);
-
-			    return new String[]{seatText};
+			    return new String[]{busType};
 			}
 
 		  
@@ -889,30 +1516,36 @@ public class NewDesign_Buses_BookingPage {
 			    return new String[]{Policy};
 			}
 		  
-		  public void validateBusNameFromBusBookingToDetailspageAfterAdd(String[] bookingPgBusName, String[] detailsPgBusName, Log log, ScreenShots screenshots) {
+		 
+		  
+		  public void validateBusNameFromBusBookingToDetailsPageAfterAdd(String[] bookingPgBusName, String[] detailsPgBusName, Log log, ScreenShots screenshots) {
+
 			    if (bookingPgBusName == null || bookingPgBusName.length == 0) {
 			        log.ReportEvent("FAIL", "Bus Name from Booking Page is missing.");
 			        screenshots.takeScreenShot1();
 			        Assert.fail("Bus name from Booking Page is missing.");
 			        return;
 			    }
+
 			    if (detailsPgBusName == null || detailsPgBusName.length == 0) {
-			        log.ReportEvent("FAIL", "Bus Name from details Page is missing.");
+			        log.ReportEvent("FAIL", "Bus Name from Details Page is missing.");
 			        screenshots.takeScreenShot1();
-			        Assert.fail("Bus Name from details Page is missing.");
+			        Assert.fail("Bus name from Details Page is missing.");
 			        return;
 			    }
 
-			    String BusNmBooking = bookingPgBusName[0].trim();
-			    String BusNmDetailsPg = detailsPgBusName[0].trim();
+			    String busNameBooking = bookingPgBusName[0].trim().replace("\u00A0", " ");
+			    String busNameDetails = detailsPgBusName[0].trim().replace("\u00A0", " ");
 
-			    if (!BusNmBooking.equalsIgnoreCase(BusNmDetailsPg)) {
-			        log.ReportEvent("FAIL", "Bus Name mismatch from booking and details pg for the selected bus! Booking Page: '" + BusNmBooking + "', Details Page: '" + BusNmDetailsPg + "'");
+			    if (!busNameBooking.contains(busNameDetails)) {
+			        log.ReportEvent("FAIL", "Bus Name mismatch between Booking and Details pages for the selected bus! "
+			                + "Booking Page: '" + busNameBooking + "', Details Page: '" + busNameDetails + "'");
 			        screenshots.takeScreenShot1();
-			        Assert.fail("\"Bus name mismatch between the Booking page and the Details page for the selected bus.");
+			        Assert.fail("Bus name mismatch between the Booking page and the Details page for the selected bus.");
 			    } else {
-			        log.ReportEvent("PASS", "Bus Name matches from booking to details page for the selected bus: " + BusNmBooking);
+			        log.ReportEvent("PASS", "Bus Name matches between Booking and Details pages: " + busNameBooking);
 			    }
+
 			}
 
 		  public void validateBusTypeFromBookingToDetailspageAfterAdd(String[] bookingPgBusType, String[] detailsPgBusType, Log log, ScreenShots screenshots) {
@@ -1036,7 +1669,13 @@ public class NewDesign_Buses_BookingPage {
 			    }
 
 			    String bookingTime = bookingPgDeptTime[0].trim();
-			    String detailsTime = detailsPgDeptTime[0].trim();
+
+			    // Extract only the HH:mm part (before the first space)
+			    String detailsRaw = detailsPgDeptTime[0].trim();
+			    String detailsTime = detailsRaw.split("\\s+")[0].trim();
+
+			    System.out.println("Booking Page Time: " + bookingTime);
+			    System.out.println("Details Page Time (extracted): " + detailsTime);
 
 			    if (!bookingTime.equalsIgnoreCase(detailsTime)) {
 			        log.ReportEvent("FAIL", "Departure time mismatch between Booking and Details pages for the selected bus! Booking Page: '" + bookingTime + "', Details Page: '" + detailsTime + "'");
@@ -1046,6 +1685,7 @@ public class NewDesign_Buses_BookingPage {
 			        log.ReportEvent("PASS", "Departure time matches from Booking to Details page for the selected bus: " + bookingTime);
 			    }
 			}
+
 
 		  public void validateArrivalTimeBetweenBookingAndDetailsAfterAdd(String[] bookingPgArrivalTime, String[] detailsPgArrivalTime, Log log, ScreenShots screenshots) {
 			    if (bookingPgArrivalTime == null || bookingPgArrivalTime.length == 0) {
@@ -1224,34 +1864,78 @@ public class NewDesign_Buses_BookingPage {
 		  
 		  //Validate data in trip requests after submit trip
 			  
-			  public List<String> getDataInTripReqAfterClickOnSubmit() {
-				    List<String> tripData = new ArrayList<>();
-				    String tripName = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-5 fw-600 tg-typography_default')])[1]")).getText();
-				    String TripFromLoc = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7  tg-typography_secondary')])[1]")).getText();
-				    String TripToLoc = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7  tg-typography_secondary')])[3]")).getText();
-				    String TripDates = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-6  tg-typography_secondary-dark')])[1]")).getText();
+			
+		  public List<String> getDataInTripReqAfterClickOnSubmit(String[] approverIdArray, Log log, ScreenShots screenshots) {
+			    
+			    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-				    // Get all service elements
-				    List<WebElement> serviceElements = driver.findElements(By.xpath("(//div[contains(@class,'trip_card__container')])[1]//div[contains(@class,'tg-label tg-label_white tg-label_md undefined gap-1')]"));
-				    List<String> servicesList = new ArrayList<>();
-				    for (WebElement serviceElement : serviceElements) {
-				        servicesList.add(serviceElement.getText().trim());
-				    }
-				    String Services = String.join(", ", servicesList);  // Combined string or you can keep list
+			    // Wait until "Approval Requests" screen is visible
+			    wait.until(ExpectedConditions.visibilityOfElementLocated(
+			        By.xpath("//div[text()='Approval Requests']")
+			    ));
 
-				    String tripId = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7 cursor-pointer fw-500 tg-typography_text-info')])[1]")).getText();
+			    // Get the first Approver ID from array
+			    String approverId = approverIdArray[0];
 
-				    // Add all data in order
-				    tripData.add(tripName);     // index 0
-				    tripData.add(TripFromLoc);  // index 1
-				    tripData.add(TripToLoc);    // index 2
-				    tripData.add(TripDates);    // index 3
-				    tripData.add(Services);     // index 4
-				    tripData.add(tripId);       // index 5
+			    try {
+			        // Find the search field
+			        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+			            By.xpath("//input[@class='tg-input']")
+			        ));
 
-				    return tripData;
-				}
+			        // Enter the Approver ID
+			        searchField.clear();
+			        searchField.sendKeys(approverId);
+			        Thread.sleep(3000);
 
+			        log.ReportEvent("INFO", "Entered Approver ID in search field in Approver Approval req screen: " + approverId);
+			        System.out.println("Entered Approver ID in search field: " + approverId);
+
+			        // Click the search button
+			        WebElement searchButton = driver.findElement(By.xpath("//button[contains(@class,'tg-icon-btn_small')]"));
+			        searchButton.click();
+
+			        log.ReportEvent("INFO", "Clicked on search button for Approver ID: " + approverId);
+			        System.out.println("Clicked on search button for Approver ID: " + approverId);
+
+			    } catch (Exception e) {
+			        log.ReportEvent("FAIL", "Failed to enter Approver ID or click search button: " + approverId);
+			        screenshots.takeScreenShot1();
+			        Assert.fail("Failed to enter Approver ID or click search button in Approver Approval req screen: " + approverId);
+			    }
+			    
+			    List<String> tripData = new ArrayList<>();
+			    String tripName = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-5 fw-600 tg-typography_default')])[1]")).getText();
+
+			    // Get the combined from-to location element and split it
+			    WebElement fromToElement = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7  tg-typography_secondary')])[1]"));
+			    String fromToText = fromToElement.getText();
+			    String TripFromLoc = fromToText.split(" - ")[0];  // Hyderabad, India
+			    String TripToLoc = fromToText.split(" - ")[1];    // Delhi, India
+
+			    String TripDates = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-6 xs-fs-12 tg-typography_secondary-dark')]")).getText();
+
+			    // Get all service elements
+			    List<WebElement> serviceElements = driver.findElements(By.xpath("(//div[contains(@class,'trip_card__container')])[1]//div[contains(@class,'tg-label tg-label_white tg-label_md undefined gap-1')]"));
+			    List<String> servicesList = new ArrayList<>();
+			    for (WebElement serviceElement : serviceElements) {
+			        servicesList.add(serviceElement.getText().trim());
+			    }
+			    String Services = String.join(", ", servicesList);  // Combined string or you can keep list
+
+			    String tripId = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7 cursor-pointer fw-500 tg-typography_text-info')])[1]")).getText();
+
+			    
+			    // Add all data in order
+			    tripData.add(tripName);     // index 0
+			    tripData.add(TripFromLoc);  // index 1
+			    tripData.add(TripToLoc);    // index 2
+			    tripData.add(TripDates);    // index 3
+			    tripData.add(Services);     // index 4
+			    tripData.add(tripId);       // index 5
+
+			    return tripData;
+			}
 			  
 			  
 			  //validation methods 

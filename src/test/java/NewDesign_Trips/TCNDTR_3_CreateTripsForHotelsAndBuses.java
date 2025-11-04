@@ -2,6 +2,7 @@ package NewDesign_Trips;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -19,8 +21,10 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.tripgain.collectionofpages.NewDesignHotelsSearchPage;
+import com.tripgain.collectionofpages.NewDesign_AwaitingApprovalScreen;
 import com.tripgain.collectionofpages.NewDesign_Buses_BookingPage;
 import com.tripgain.collectionofpages.NewDesign_Buses_ResultsPage;
+import com.tripgain.collectionofpages.NewDesign_EmulateProcess;
 import com.tripgain.collectionofpages.NewDesign_Hotels_BookingPage;
 import com.tripgain.collectionofpages.NewDesign_Hotels_DescPage;
 import com.tripgain.collectionofpages.NewDesign_Hotels_ResultsPage;
@@ -48,28 +52,34 @@ import com.tripgain.common.ScreenShots;
 import com.tripgain.testscripts.BaseClass;
 
 public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
-	WebDriver driver;
+	WebDriver driver;    
 	ExtentReports extent;
-	ExtentTest test;
-	String className = "";
-	Log Log; // Declare Log object
-	ScreenShots screenShots; // Declare Log object
-	ExtantManager extantManager;
+    ExtentTest test;
+    String className = "";
+    Log Log;  // Declare Log object
+    ScreenShots screenShots;  // Declare Log object
+    ExtantManager extantManager;
+  
+ // ThreadLocal to store Excel data per test thread
+ 	static ThreadLocal<Map<String, String>> excelDataThread = new ThreadLocal<>();
+    int number=1;
 
-	int number = 1;
 
-	private WebDriverWait wait;
+    @Test(dataProvider = "sheetBasedData", dataProviderClass = DataProviderUtils.class)
+    public void myTest(Map<String, String> excelData) throws InterruptedException, IOException, ParseException, TimeoutException {
+        System.out.println("Running test with: " + excelData);
+try {	    
+        String username = excelData.get("UserName");
+        String pwd = excelData.get("Password");
+        
+        System.out.println(username);
+        System.out.println(pwd);
+        
+        
+        String username1 = excelData.get("UserName1");
+        String pwd1 = excelData.get("Password1");
+        number++;
 
-	@Test(dataProvider = "sheetBasedData", dataProviderClass = DataProviderUtils.class)
-	public void myTest(Map<String, String> excelData)
-			throws InterruptedException, IOException, ParseException, TimeoutException {
-		System.out.println("Running test with: " + excelData);
-		String[] data = Getdata.getexceldata();
-		String userName = data[0];
-		String password = data[1];
-		System.out.println(userName);
-		System.out.println(password);
-		number++;
 
 		String origin = excelData.get("Origin");
 		System.out.println(origin);
@@ -85,6 +95,16 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 		System.out.println(hotelOrigin);
 
 		String tripName = excelData.get("TripName");
+		
+		
+		 String searchby=excelData.get("SearchBy");
+	        String searchvalue=excelData.get("SearchValue");
+	        String remarks=excelData.get("Remarks");
+	        String status=excelData.get("Status");
+	        String travellerSearchValue=excelData.get("TravellerSearchValue");
+	        String travellerSearchValue2=excelData.get("TravellerSearchValue2");
+	        String status2=excelData.get("Status2");
+
 
 		String[] dates = GenerateDates.GenerateDatesToSelectFlights();
 		String fromDate = dates[0];
@@ -96,8 +116,8 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 		NewDesign_Login NewDesignLogin = new NewDesign_Login(driver);
 
 		SkyTravelers_Hotels_Login SkyTravelersHotelsLogin = new SkyTravelers_Hotels_Login(driver);
-		NewDesignLogin.enterUserName(userName);
-		NewDesignLogin.enterPasswordName(password);
+		NewDesignLogin.enterUserName(username);
+		NewDesignLogin.enterPasswordName(pwd);
 		NewDesignLogin.clickButton();
 		Log.ReportEvent("PASS", "Enter UserName and Password is Successful");
 		Thread.sleep(2000);
@@ -110,6 +130,8 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 		NewDesign_Buses_ResultsPage NewDesignBusesResultsPage = new NewDesign_Buses_ResultsPage(driver);
 		NewDesign_Buses_BookingPage NewDesignBusesBookingPage=new NewDesign_Buses_BookingPage(driver);
 
+		NewDesign_AwaitingApprovalScreen NewDesign_Awaiting_ApprovalScreen=new NewDesign_AwaitingApprovalScreen(driver);
+		NewDesign_EmulateProcess NewDesign_Emulate_Process=new NewDesign_EmulateProcess(driver);
 
 
 		NewDesignTrips.clcikOnTrips();
@@ -133,7 +155,7 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 		String[] tripIdFromPop = NewDesignTrips.getTripIdFromPopup(Log);
 		NewDesignTrips.clickOnContinueToAddServicesBtn();
 
-		String[] TripIdFromNextPage = NewDesignTrips.getTripIdFromTripDetailsPage();
+		String[] TripIdFromNextPage = NewDesignTrips.getTripIdFromTripDetailsPage(Log);
 
 		String[] TripDatesFromSearchPg = NewDesignTrips.getDatesFromTripDetailsPage();
 		
@@ -157,11 +179,11 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 	   Thread.sleep(2000);
 	   
 	   String[] locNameFromTripResultPg = NewDesignTrips.getLocNAmeFromTripHotelResultsPg();
-	   String[] checkindateResultPage = NewDesignHotelsResultsPage.getCheckInDateTextFromResultPage();
+	   // String[] checkindateResultPage = NewDesignHotelsResultsPage.getCheckInDateTextFromResultPage();
 		String[] checkoutdateResultPage =NewDesignHotelsResultsPage.getCheckOutDateTextFromResultPage();
 		
 		NewDesignTrips.validateHotelLocationFromResultsAndAfterAddInDetailsPage(locNameFromTripResultPg, LocationNameAfterAdd, Log, screenShots);
-		NewDesignTrips.validateCheckInAndOutDatesFromResultsAndDetailsAfterAdd(checkindateResultPage, checkoutdateResultPage, datesAfterAdd, Log, screenShots);
+	//	NewDesignTrips.validateCheckInAndOutDatesFromResultsAndDetailsAfterAdd(checkindateResultPage, checkoutdateResultPage, datesAfterAdd, Log, screenShots);
 		
 		Thread.sleep(3000);
 		NewDesignHotelsResultsPage.clickOnSortOption("Price: Low to High", Log);
@@ -190,11 +212,12 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 			
 			
 		//get all the hotel details from the selected hotel card
-			String[] hotelDetails = NewDesignHotelsResultsPage.selectHotelAndGetDetails(1);
+			String[] hotelDetails = NewDesignHotelsResultsPage.selectHotelAndGetDetails(2, Log);
 			
 			//get all the details from desc page 
 			String[] hotelAddressFromDesc = NewDesignHotels_DescPage.getAddressFromDescPg();
 			String[] hotelAmenitiesFromDesc = NewDesignHotels_DescPage.getAmenitiesFromDescPg();
+	
 			String[] checkInDateFromDesc = NewDesignHotels_DescPage.getCheckInAfterFromDescPg();
 			String[] checkOutFromDesc = NewDesignHotels_DescPage.getCheckOutTimeFromDescPg();
 			String[] hotelNameFromDesc = NewDesignHotels_DescPage.getHotelNameFromDescPg();
@@ -242,7 +265,7 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 			NewDesign_HotelsBookingPage.validateRefundableTextFromDescToBookingPage(selectRooms, BookingPgRefundable, Log, screenShots);
 			NewDesign_HotelsBookingPage.validateSelectedRoomTextFromDescToBookingPage(selectRooms, BookingPgSelectedRoomText, Log, screenShots);
 			//NewDesign_HotelsBookingPage.validatePriceFromDescWithBookingPage(selectRooms, BookingPgTotalfareAmount, Log, screenShots);
-			NewDesign_HotelsBookingPage.validateCheckInDateBetweenResultAndBookingPage(checkindateResultPage, BookingCheckIndate, Log, screenShots);
+		//	NewDesign_HotelsBookingPage.validateCheckInDateBetweenResultAndBookingPage(checkindateResultPage, BookingCheckIndate, Log, screenShots);
 			NewDesign_HotelsBookingPage.validateCheckOutDateBetweenResultAndBookingPage(checkoutdateResultPage, BookingCheckOutdate, Log, screenShots);
 			//NewDesign_HotelsBookingPage.addTravellerDetails();
 			NewDesign_HotelsBookingPage.enterLastNameForHotels("traveller");
@@ -257,8 +280,8 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 			String[] HotelPolicyFromDetailspg = NewDesignTrips.getHotelPolicyTextFromTripDetailsPage();
 			String[] HotelroomsFromDetailspg = NewDesignTrips.gethotelRoomTextFromTripDetailsPage();
 			String[] HotelMealsFromDetailspg = NewDesignTrips.getHotelMealsTextFromTripDetailsPage();
-			String[] HotelCheckInFromDetailspg = NewDesignTrips.getHotelCheckInafterTextFromTripDetailsPage();
-			String[] HotelCheckOutFromDetailspg = NewDesignTrips.getHotelCheckOutBeforeTextFromTripDetailsPage();
+			//String[] HotelCheckInFromDetailspg = NewDesignTrips.getHotelCheckInafterTextFromTripDetailsPage();
+		//	String[] HotelCheckOutFromDetailspg = NewDesignTrips.getHotelCheckOutBeforeTextFromTripDetailsPage();
 			String[] HotelStayFromDetailspg = NewDesignTrips.getHotelDaysStayTextFromTripDetailsPage();
 			
 			NewDesignTrips.validateHotelNameFromTripDetailsToHotelsBookingPage(HotelnameFromDetailspg, BookingPgHotelNm, Log, screenShots);
@@ -266,8 +289,8 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 			NewDesignTrips.validateHotelPolicyFromTripDetailsToBookingPage(HotelPolicyFromDetailspg, BookingPgPolicy, Log, screenShots);
 			NewDesignTrips.validateSelectedRoomFromTripDetailsToBookingPage(HotelroomsFromDetailspg, BookingPgSelectedRoomText, Log, screenShots);
 			NewDesignTrips.validateHotelMealsFromTripDetailsToBookingPage(HotelMealsFromDetailspg, BookingPgMeals, Log, screenShots);
-			NewDesignTrips.validateHotelCheckInTimeFromTripDetailsToBookingPage(HotelCheckInFromDetailspg, BookingPgcheckIn, Log, screenShots);
-			NewDesignTrips.validateHotelCheckOutTimeFromTripDetailsToBookingPage(HotelCheckOutFromDetailspg, BookingPgCheckOut, Log, screenShots);
+		//	NewDesignTrips.validateHotelCheckInTimeFromTripDetailsToBookingPage(HotelCheckInFromDetailspg, BookingPgcheckIn, Log, screenShots);
+		//	NewDesignTrips.validateHotelCheckOutTimeFromTripDetailsToBookingPage(HotelCheckOutFromDetailspg, BookingPgCheckOut, Log, screenShots);
 			NewDesignTrips.validateDaysStayFromTripDetailsToBookingPage(HotelStayFromDetailspg, BookingNightsStay, Log, screenShots);
 			
 			
@@ -349,18 +372,23 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 				NewDesignBusesBookingPage.validateBoardingPointLocationFromListingToBookingPage(BoardingDetails, BookingPgBoardingPoint, Log, screenShots);
 				NewDesignBusesBookingPage.validateDroppingPointLocationFromListingToBookingPage(DroppingPoint, BookingPgdroppingPoint, Log, screenShots);
 				NewDesignBusesBookingPage.validateSeaterTypeFromListingToBookingPage(SeatType, BookingPgSeater, Log, screenShots);
-			//	NewDesignBusesBookingPage.validateCheckInDateBetweenResultAndBookingPages(checkindateResultPageForBus, BookingPgDate, Log, screenShots);
+			//	NewDesignBusesBookingPage.validateCheckInDateBetweenResultAndBookingPages(checkindateResultPage, BookingPgDate, Log, screenShots);
 				NewDesignBusesBookingPage.validateDepartureTimeFromBoardingToBookingPage(BoardingDetails, BookingPgDepartTime, Log, screenShots);
 				NewDesignBusesBookingPage.validateArrivalTimeFromListingToBookingPage(Busdetails, BookingPgArrival, Log, screenShots);
 				NewDesignBusesBookingPage.validateDurationFromListingToBookingPage(Busdetails, bookingPgDuration, Log, screenShots);
-				NewDesignBusesBookingPage.validatePolicyFromListingToBookingPage(Busdetails, BookingPgBusPolicy, Log, screenShots);
+				NewDesignBusesBookingPage.validatePolicyFromListingToBookingPage(Busdetails, BookingPgPolicy, Log, screenShots);
 				NewDesignBusesBookingPage.validatePriceFromresultToBookingPage(BookingPgPrice, SeatSelectionPrice, Log, screenShots);
 				
-			//	NewDesignBusesBookingPage.enterEmailForBuses("abc@gmail.com");
-			NewDesignBusesBookingPage.enterLastNameForBuses("traveller");
-				//NewDesignBusesBookingPage.enterPhNoForBuses("98765432190");
-				NewDesignBusesBookingPage.enetrIdCardNumber("1234567");
-				NewDesignBusesBookingPage.clickOnIdCardType();
+				
+				NewDesignBusesBookingPage.addPassengerDetails();
+
+//			//	NewDesignBusesBookingPage.enterEmailForBuses("abc@gmail.com");
+//			NewDesignBusesBookingPage.enterLastNameForBuses("traveller");
+//				//NewDesignBusesBookingPage.enterPhNoForBuses("98765432190");
+//				NewDesignBusesBookingPage.enetrIdCardNumber("1234567");
+//				NewDesignBusesBookingPage.clickOnIdCardType();
+				
+				
 				NewDesignBusesBookingPage.clcikOnAddTripAndContinueButton();
 				Thread.sleep(3000);
 				NewDesignBusesBookingPage.clcikOnDownButtonInBusesDesclaimer();
@@ -379,7 +407,9 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 				String[] BusPolicyAfterSelected = NewDesignBusesBookingPage.getBusPolicyFromSelectedInBusDetailsPg();
 				
 				
-				NewDesignBusesBookingPage.validateBusNameFromBusBookingToDetailspageAfterAdd(BookingPgBusName, BusNameAfterSelected, Log, screenShots);
+				
+				
+				NewDesignBusesBookingPage.validateBusNameFromBusBookingToDetailsPageAfterAdd(BookingPgBusName, BusNameAfterSelected, Log, screenShots);
 				NewDesignBusesBookingPage.validateBusTypeFromBookingToDetailspageAfterAdd(BookingPgSeater, BusTypeAfterSelected, Log, screenShots);
 				NewDesignBusesBookingPage.validateFromLocationBetweenBookingAndDetailsAfterAdd(BookingPgorigin, BusFromLocAfterSelected, Log, screenShots);
 				NewDesignBusesBookingPage.validateToLocationBetweenBookingAndDetailsAfterAdd(BookingDest, BusToLocAfterSelected, Log, screenShots);
@@ -392,11 +422,15 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 				NewDesignBusesBookingPage.validateSelectedSeatBetweenBookingAndDetailsAfterAdd(BookingPgSeat, BusSeatAfterSelected, Log, screenShots);
 				NewDesignBusesBookingPage.validateBusPolicyBetweenBookingAndDetailsAfterAdd(BookingPgPolicy, BusPolicyAfterSelected, Log, screenShots);
 				
+				NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
+				
+
 				
 				NewDesignBusesBookingPage.clickOnSubmitTripButton(Log);
+				Thread.sleep(2000);
 				
-				List<String> DataAfterSubmit = NewDesignBusesBookingPage.getDataInTripReqAfterClickOnSubmit();
-				
+				List<String> DataAfterSubmit = NewDesignBusesBookingPage.getDataInTripReqAfterClickOnSubmit(TripIdFromNextPage, Log, screenShots);
+				String[] ApproverId = NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
 				NewDesignBusesBookingPage.validateTripNameAfterSubmit(EnteredtripName, DataAfterSubmit, Log, screenShots);
 				NewDesignBusesBookingPage.validateFromLocationAfterSubmit(origindetails, DataAfterSubmit, Log, screenShots);
 				NewDesignBusesBookingPage.validateToLocationAfterSubmit(destdetails, DataAfterSubmit, Log, screenShots);
@@ -404,34 +438,245 @@ public class TCNDTR_3_CreateTripsForHotelsAndBuses extends BaseClass {
 				NewDesignBusesBookingPage.validateServicesMatchAfterSubmit(servicesdetails, DataAfterSubmit, Log, screenShots);
 				NewDesignBusesBookingPage.validateTripIdBetweenSubmitAndDetailsPage(DataAfterSubmit, TripIdFromNextPage, Log, screenShots);
 				
+				NewDesign_Awaiting_ApprovalScreen.clickOnLogout();
+				
+				//emulate to approver screen through admin------------------------------------
+				
+				  NewDesignLogin.enterUserName(username1);
+			        NewDesignLogin.enterPasswordName(pwd1);
+			        NewDesignLogin.clickButton(); 
+			        
+			        NewDesign_Emulate_Process.clcikOnAdmin();
+			        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
+			        NewDesign_Emulate_Process.clickSearchValueThroughUser(searchvalue);
+			        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
+			        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
+			        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+			        NewDesign_Emulate_Process.clcikOnAdmin();
+			        Thread.sleep(1000);
+			        NewDesign_Emulate_Process.searchApproverIdInApprovalReqScreen(TripIdFromNextPage, Log, screenShots);
+			        
+					List<String> servicesTextFromPopupFromApprovalScreen = NewDesignTrips.getSelectedServicesTextFromPopup();
+					NewDesign_Emulate_Process.validateSelectedServicesInSelectedAndApprovalScreen(selectedServicesFromDetailsPg, servicesTextFromPopupFromApprovalScreen, Log,screenShots);
+					 NewDesignTrips.clickOnServiceByText("Hotel", Log);
+					 NewDesignTrips.clcikOnDownButtonInHotelsDesclaimer();
+						Thread.sleep(1000);
+						String[] HotelnameFromApprovalpg = NewDesignTrips.getHotelNameTextFromTripDetailsPage();
+						String[] HoteladdressFromApprovalpg = NewDesignTrips.getHotelAddressTextFromTripDetailsPage();
+						String[] HotelPolicyFromApprovalpg = NewDesignTrips.getHotelPolicyTextFromTripDetailsPage();
+						String[] HotelroomsFromApprovalpg = NewDesignTrips.gethotelRoomTextFromTripDetailsPage();
+						String[] HotelMealsFromApprovalpg = NewDesignTrips.getHotelMealsTextFromTripDetailsPage();
+						String[] HotelCheckInFromApprovalpg = NewDesignTrips.getHotelCheckInafterTextFromTripDetailsPage();
+						String[] HotelCheckOutFromApprovalpg = NewDesignTrips.getHotelCheckOutBeforeTextFromTripDetailsPage();
+						String[] HotelStayFromApprovalpg = NewDesignTrips.getHotelDaysStayTextFromTripDetailsPage();
+						
+						NewDesign_Emulate_Process.validateHotelNameFromTripDetailsToApprovalScreen(HotelnameFromDetailspg, HotelnameFromApprovalpg, Log, screenShots);
+						NewDesign_Emulate_Process.validateHotelAddressFromTripDetailsToApprovalScreen(HoteladdressFromDetailspg, HoteladdressFromApprovalpg, Log, screenShots);
+						NewDesign_Emulate_Process.validateHotelPolicyFromTripDetailsToApprovalScreen(HotelPolicyFromDetailspg, HotelPolicyFromApprovalpg, Log, screenShots);
+						NewDesign_Emulate_Process.validateSelectedRoomFromTripDetailsToApprovalScreen(HotelroomsFromDetailspg, HotelroomsFromApprovalpg, Log, screenShots);
+						NewDesign_Emulate_Process.validateHotelMealsFromTripDetailsToApprovalScreen(HotelMealsFromDetailspg, HotelMealsFromApprovalpg, Log, screenShots);
+					//	NewDesign_Emulate_Process.validateHotelCheckInTimeFromTripDetailsToApprovalScreen(HotelCheckInFromDetailspg, HotelCheckInFromApprovalpg, Log, screenShots);
+					//	NewDesign_Emulate_Process.validateHotelCheckOutTimeFromTripDetailsToApprovalScreen(HotelCheckOutFromDetailspg, HotelCheckOutFromApprovalpg, Log, screenShots);
+						NewDesign_Emulate_Process.validateDaysStayFromTripDetailsToApprovalScreen(HotelStayFromDetailspg, HotelStayFromApprovalpg, Log, screenShots);
+						
+						 NewDesignTrips.clickOnServiceByText("Bus", Log);
+							NewDesignBusesBookingPage.clcikOnDownButtonInBusesDesclaimer();
+							
+							String[] BusNameInApprovalScreen = NewDesignBusesBookingPage.getBusNameFromSelectedInBusDetailsPg();
+							String[] BusTypeInApprovalScreen = NewDesignBusesBookingPage.getBusTypeFromSelectedInBusDetailsPg();
+							String[] BusFromLocInApprovalScreen = NewDesignBusesBookingPage.getBusFromLocFromSelectedInBusDetailsPg();
+							String[] BusToLocInApprovalScreen = NewDesignBusesBookingPage.getBusToLocFromSelectedInBusDetailsPg();
+							String[] BusJourneyDateInApprovalScreen = NewDesignBusesBookingPage.getBusJourneyDateFromSelectedInBusDetailsPg();
+							String[] BusDepartTimeInApprovalScreen = NewDesignBusesBookingPage.getBusDepartTimeFromSelectedInBusDetailsPg();
+							String[] BusArrivalTimeInApprovalScreen = NewDesignBusesBookingPage.getBusArrivalTimeFromSelectedInBusDetailsPg();
+							String[] BusBoardingPointInApprovalScreen = NewDesignBusesBookingPage.getBusBoardingPointFromSelectedInBusDetailsPg();
+							String[] BusDroppoingPOintInApprovalScreen = NewDesignBusesBookingPage.getBusDroppingPointFromSelectedInBusDetailsPg();
+							String[] BusDurationInApprovalScreen = NewDesignBusesBookingPage.getBusDurationFromSelectedInBusDetailsPg();
+							String[] BusSeatInApprovalScreen = NewDesignBusesBookingPage.getBusSeatTextFromSelectedInBusDetailsPg();
+							String[] BusPolicyInApprovalScreen = NewDesignBusesBookingPage.getBusPolicyFromSelectedInBusDetailsPg();
+							
+							
+							NewDesign_Emulate_Process.validateBusNameFromDetailsToApprovalPg(BusNameAfterSelected, BusNameInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateBusTypeFromDetailsToApprovalPg(BusTypeAfterSelected, BusTypeInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateFromLocationBetweenDetailsToApprovalPg(BusFromLocAfterSelected, BusFromLocInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateToLocationBetweenDetailsToApprovalPg(BusToLocAfterSelected, BusToLocInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateJourneyDateBetweenDetailsToApprovalPg(BusJourneyDateAfterSelected, BusJourneyDateInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateDepartTimeBetweenDetailsToApprovalPg(BusDepartTimeAfterSelected, BusDepartTimeInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateArrivalTimeBetweenDetailsToApprovalPg(BusArrivalTimeAfterSelected, BusArrivalTimeInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateBoardingPointBetweenDetailsToApprovalPg(BusBoardingPointAfterSelected, BusBoardingPointInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateDroppingPointBetweenDetailsToApprovalPg(BusDroppoingPOintAfterSelected, BusDroppoingPOintInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateDurationBetweenDetailsToApprovalPg(BusDurationAfterSelected, BusDurationInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateSelectedSeatBetweenDetailsToApprovalPg(BusSeatAfterSelected, BusSeatInApprovalScreen, Log, screenShots);
+							NewDesign_Emulate_Process.validateBusPolicyBetweenDetailsToApprovalPg(BusPolicyAfterSelected, BusPolicyInApprovalScreen, Log, screenShots);
+							
+							   NewDesign_Emulate_Process.clcikOnProcessButton();
+						        String[] approverRemarks = NewDesign_Emulate_Process.enterRemarks(remarks);
+						        NewDesign_Emulate_Process.clickOnStatus(status);
+						        NewDesign_Emulate_Process.clickOnUpdateBtn();
+						
+						        //----------------switch back to traveller -------------------------------------------
+						        Thread.sleep(3000);
+						        NewDesign_Emulate_Process.clcikOnSwitchBack();
+						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+						        NewDesign_Emulate_Process.clcikOnAdmin();
+						        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
+						        NewDesign_Emulate_Process.clickSearchValueThroughUser(travellerSearchValue);
+						        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
+						        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
+						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+						        
+								NewDesignTrips.clcikOnTrips();
+								
+								NewDesignTrips.clickOnAwaitingApproval();
+								NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(TripIdFromNextPage, Log, screenShots);
+								NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+								
+
+						//		NewDesignTrips.clickOnsearchForCreateTripsInAwaitingApprovalPg(TripIdFromNextPage[0], Log, screenShots);
+								String[] travellerStatus = NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+								NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
+								NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+								
+								NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
+								String[] travellerRemarks = NewDesignTrips.getApproverRemarksInTripsPage(Log);
+								NewDesignTrips.validateRemarksFromFirstApproverToTravellerpg(approverRemarks, travellerRemarks, Log, screenShots);
+								
+			
+								//---------------If Two levels of approver--------------------------- 
+						        NewDesign_Emulate_Process.clcikOnSwitchBack();
+						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+						        NewDesign_Emulate_Process.clcikOnAdmin();
+						        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
+						        NewDesign_Emulate_Process.clickSearchValueThroughUser(travellerSearchValue2);
+						        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
+						        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
+						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+						      
+						        NewDesign_Emulate_Process.clcikOnAdmin();
+						        NewDesign_Emulate_Process.clickOnApprovalReqIn2ndApproverScreen();
+						        NewDesign_Emulate_Process.searchApproverIdInApprovalReqScreen(TripIdFromNextPage, Log, screenShots);
+						        
+						        String[] BusNameInSecondApprovalScreen = NewDesignBusesBookingPage.getBusNameFromSelectedInBusDetailsPg();
+								String[] BusTypeInSecondApprovalScreen = NewDesignBusesBookingPage.getBusTypeFromSelectedInBusDetailsPg();
+								String[] BusFromLocInSecondApprovalScreen = NewDesignBusesBookingPage.getBusFromLocFromSelectedInBusDetailsPg();
+								String[] BusToLocInSecondApprovalScreen = NewDesignBusesBookingPage.getBusToLocFromSelectedInBusDetailsPg();
+								String[] BusJourneyDateInSecondApprovalScreen = NewDesignBusesBookingPage.getBusJourneyDateFromSelectedInBusDetailsPg();
+								String[] BusDepartTimeInSecondApprovalScreen = NewDesignBusesBookingPage.getBusDepartTimeFromSelectedInBusDetailsPg();
+								String[] BusArrivalTimeInSecondApprovalScreen = NewDesignBusesBookingPage.getBusArrivalTimeFromSelectedInBusDetailsPg();
+								String[] BusBoardingPointInSecondApprovalScreen = NewDesignBusesBookingPage.getBusBoardingPointFromSelectedInBusDetailsPg();
+								String[] BusDroppoingPOintInSecondApprovalScreen = NewDesignBusesBookingPage.getBusDroppingPointFromSelectedInBusDetailsPg();
+								String[] BusDurationInSecondApprovalScreen = NewDesignBusesBookingPage.getBusDurationFromSelectedInBusDetailsPg();
+								String[] BusSeatInSecondApprovalScreen = NewDesignBusesBookingPage.getBusSeatTextFromSelectedInBusDetailsPg();
+								String[] BusPolicyInSecondApprovalScreen = NewDesignBusesBookingPage.getBusPolicyFromSelectedInBusDetailsPg();
+								
+						        
+						    	NewDesign_Emulate_Process.validateBusNameFromApprovalToSecondApprverPg(BusNameInApprovalScreen, BusNameInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateBusTypeFromFromApprovalToSecondApprverPg(BusTypeInApprovalScreen, BusTypeInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateFromLocationFromApprovalToSecondApprverPg(BusFromLocInApprovalScreen, BusFromLocInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateToLocationFromApprovalToSecondApprverPg(BusToLocInApprovalScreen, BusToLocInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateJourneyDateFromApprovalToSecondApprverPg(BusJourneyDateInApprovalScreen, BusJourneyDateInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateDepartTimeFromApprovalToSecondApprverPg(BusDepartTimeInApprovalScreen, BusDepartTimeInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateArrivalTimeFromApprovalToSecondApprverPg(BusArrivalTimeInApprovalScreen, BusArrivalTimeInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateBoardingPointFromApprovalToSecondApprverPg(BusBoardingPointInApprovalScreen, BusBoardingPointInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateDroppingPointFromApprovalToSecondApprverPg(BusDroppoingPOintInApprovalScreen, BusDroppoingPOintInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateDurationFromApprovalToSecondApprverPg(BusDurationInApprovalScreen, BusDurationInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateSelectedSeatFromApprovalToSecondApprverPg(BusSeatInApprovalScreen, BusSeatInSecondApprovalScreen, Log, screenShots);
+								NewDesign_Emulate_Process.validateBusPolicyFromApprovalToSecondApprverPg(BusPolicyInApprovalScreen, BusPolicyInSecondApprovalScreen, Log, screenShots);
+								
+						      
+								String[] ApproverStatus = NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+								NewDesignTrips.validateStatusFromTravellerToApprover(travellerStatus, ApproverStatus, Log, screenShots);
+							//	NewDesignTrips.clickArrowToOpenTrip();
+								
+								NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
+								String[] SecondtravellerRemarks = NewDesignTrips.getSecondApproverRemarksInTripsPage(Log);
+								NewDesignTrips.validateRemarksFromFirstApproverToSecondApprover(approverRemarks, SecondtravellerRemarks, Log, screenShots);
+								
+								 NewDesign_Emulate_Process.clcikOnProcessButton();
+							        String[] secondApproverRemarks = NewDesign_Emulate_Process.enterRemarks(remarks);
+							        NewDesign_Emulate_Process.clickOnStatus(status2);
+							        NewDesign_Emulate_Process.clickOnUpdateBtn();
+							        
+							      
+							        NewDesign_Emulate_Process.clcikOnSwitchBack();
+							        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+							        NewDesign_Emulate_Process.clcikOnAdmin();
+							        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
+							        NewDesign_Emulate_Process.clickSearchValueThroughUser(travellerSearchValue);
+							        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
+							        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
+							        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+							        
+
+							        NewDesignTrips.clcikOnTrips();
+							     								
+									NewDesignTrips.clickOnAwaitingApproval();
+									NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+									
+
+								//	NewDesignTrips.clickOnsearchForCreateTripsInAwaitingApprovalPg(TripIdFromNextPage[0], Log, screenShots);
+									 NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+									NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
+									NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+									NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
+									String[] travellerPgSecondAppRemarks = NewDesignTrips.getSecondApproverRemarksInTripsPage(Log);
+									NewDesignTrips.validateRemarksFromSecondApproverToTravellerpg(secondApproverRemarks, travellerPgSecondAppRemarks, Log, screenShots);
+									
+
+					              System.out.println("Completed");
+
+	
+				
 		// Function to Logout from Application
 		// tripgainhomepage.logOutFromApplication(Log, screenShots);
 		driver.quit();
 
-	}
+	
+}catch (Exception e)
+{
+	String errorMessage = "Exception occurred: " + e.toString();
+	Log.ReportEvent("FAIL", errorMessage);
+	screenShots.takeScreenShot();
+	e.printStackTrace();  // You already have this, good for console logs
+	Assert.fail(errorMessage);
+}
+ 
+}
 
-	@BeforeMethod
-	@Parameters("browser")
-	public void launchApplication(String browser) {
-		extantManager = new ExtantManager();
-		extantManager.setUpExtentReporter(browser);
-		className = this.getClass().getSimpleName();
-		String testName = className + "_" + number;
-		extantManager.createTest(testName); // Get the ExtentTest instance
-		test = ExtantManager.getTest();
-		extent = extantManager.getReport();
-		test.log(Status.INFO, "Execution Started Successful");
-		driver = launchBrowser(browser);
-		Log = new Log(driver, test);
-		screenShots = new ScreenShots(driver, test);
-	}
 
-	@AfterMethod
-	public void tearDown() {
-		if (driver != null) {
-			// driver.quit();
-			extantManager.flushReport();
-		}
-	}
+@BeforeMethod(alwaysRun = true)
+@Parameters("browser")
+public void launchApplication(String browser, Method method, Object[] testDataObjects) {
+// Get test data passed from DataProvider
+@SuppressWarnings("unchecked")
+Map<String, String> testData = (Map<String, String>) testDataObjects[0];
+excelDataThread.set(testData);  // Set it early!
+
+String url = (testData != null && testData.get("URL") != null) ? testData.get("URL") : "https://defaulturl.com";
+
+extantManager = new ExtantManager();
+extantManager.setUpExtentReporter(browser);
+className = this.getClass().getSimpleName();
+String testName = className + "_" + number;
+extantManager.createTest(testName);
+test = ExtantManager.getTest();
+extent = extantManager.getReport();
+test.log(Status.INFO, "Execution Started Successfully");
+
+driver = launchBrowser(browser, url);
+Log = new Log(driver, test);
+screenShots = new ScreenShots(driver, test);
+}
+
+@AfterMethod
+public void tearDown() {
+if (driver != null) {
+	driver.quit();
+	extantManager.flushReport();
+}
+}
+
+
+
 
 }

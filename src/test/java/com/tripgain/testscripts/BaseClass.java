@@ -15,39 +15,59 @@ import org.testng.annotations.Parameters;
 import com.aventstack.extentreports.ExtentTest;
 import com.tripgain.common.ExtantManager;
 import com.tripgain.common.ScreenShots;
+import com.tripgain.common.TestResultTracker;
 
 public class BaseClass{
 
       
 		WebDriver driver;
-		public WebDriver launchBrowser(String browser)
-	{
-		   if (browser.equalsIgnoreCase("chrome")) {
-	            // Set the path to the ChromeDriver executable (optional if already set in system PATH)
-	            driver = new ChromeDriver();
+		public WebDriver launchBrowser(String browser,String url)
+		{
+			if (browser.equalsIgnoreCase("chrome")) {
+				// Set the path to the ChromeDriver executable (optional if already set in system PATH)
+				driver = new ChromeDriver();
 
-	        } else if (browser.equalsIgnoreCase("firefox")) {
-	            // Set the path to the GeckoDriver executable (optional if already set in system PATH)
-	            driver = new FirefoxDriver();
-	        } else if (browser.equalsIgnoreCase("edge")) {
-	            // Set the path to the EdgeDriver executable (optional if already set in system PATH)
-	            driver = new EdgeDriver();
-	        } else {
-	            throw new IllegalArgumentException("Unsupported browser: " + browser);
-	        }
-		    driver.get("https://tgdev.tripgain.com/");
+			} else if (browser.equalsIgnoreCase("firefox")) {
+				// Set the path to the GeckoDriver executable (optional if already set in system PATH)
+				driver = new FirefoxDriver();
+			} else if (browser.equalsIgnoreCase("edge")) {
+				// Set the path to the EdgeDriver executable (optional if already set in system PATH)
+				driver = new EdgeDriver();
+			} else {
+				throw new IllegalArgumentException("Unsupported browser: " + browser);
+			}
+			driver.get(url);
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 			return driver;
-	    }
-		
-		
+		}
+
 		@AfterSuite
-		public void tearDown()
-		{
-			ExtantManager extantManager=new ExtantManager();
-			extantManager.finalizeExtentReport();
-			extantManager.flushReport();	
+		public void afterSuite() throws InterruptedException {
+			ExtantManager extantManager = new ExtantManager();
+			String reportPath = extantManager.getReportFilePath();
+			int passed = TestResultTracker.passedTests;
+			int failed = TestResultTracker.failedTests;
+			int total = passed + failed;
+
+			if (reportPath != null) {
+				String toEmail = "sudheer@tripgain.com";
+				String[] ccEmails = {
+						"ranga@tripgain.com","ashutosh@tripgain.com","ramu.achala@tripgain.com","manish@tripgain.com","rajashekar@tripgain.com","arun@tripgain.com"
+				};
+				EmailUtils.sendReportByEmail(reportPath, toEmail, ccEmails, total, passed, failed);
+			} else {
+				System.out.println("❌ Report not generated. Skipping email.");
 			}
+		}
+
+
+//			@AfterClass
+//			public void tearDown()
+//			{
+//				ExtantManager extantManager=new ExtantManager();
+//				extantManager.finalizeExtentReport();
+//				extantManager.flushReport();
+//				}
 	
 }

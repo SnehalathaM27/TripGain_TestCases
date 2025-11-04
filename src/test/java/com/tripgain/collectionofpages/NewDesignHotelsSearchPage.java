@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import com.tripgain.common.Log;
 
@@ -100,45 +102,102 @@ public class NewDesignHotelsSearchPage {
 	@FindBy(xpath = "(//*[@class='custom_datepicker_input'])[1]")
 	WebElement datePickerInput;
 	
+	public void clickDate() {
+		driver.findElement(By.xpath("(//*[@class='custom_datepicker_input'])[1]")).click();
+	}
+	
 	//Method to Select Check-In Date By Passing Two Paramenters(Date and MounthYear)
-	public void selectDate(String day, String MonthandYear,Log Log) throws InterruptedException {
-	    TestExecutionNotifier.showExecutionPopup();
+//	public void selectDate(String day, String MonthandYear,Log Log) throws InterruptedException {
+//	    TestExecutionNotifier.showExecutionPopup();
+//
+//	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//	    datePickerInput.click();
+//
+//	    // Wait until the calendar is visible and get the current month & year
+//	    wait.until(ExpectedConditions.visibilityOfElementLocated(
+//	        By.xpath("//div[@class='custom-header']")
+//	    ));
+//
+//	    String currentMonthYear = driver.findElement(
+//	        By.xpath("//div[@class='custom-header']")
+//	    ).getText();
+//	    System.out.println(currentMonthYear);
+//
+//	    // Loop to navigate to the desired month
+//	    while (!currentMonthYear.equals(MonthandYear)) {
+//	        driver.findElement(By.xpath("(//button[contains(@class,'nav-arrow')])[2]")).click();
+//	        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+//	            By.xpath("//*[@class='custom-header']"),
+//	            MonthandYear
+//	        ));
+//
+//	        currentMonthYear = driver.findElement(
+//	            By.xpath("//*[@class='custom-header']")
+//	        ).getText();
+//	    }
+//
+//	    // Once the correct month is displayed, select the day
+//	    
+//	    
+//	     WebElement dateElement = driver.findElement(By.xpath("//span[text()='" + day + "']"));
+//	     dateElement.click();
+////	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
+////	        By.xpath("(//div[@class='react-datepicker'])[1]//span[text()='" + day + "']")
+////	    ));
+//
+////	    try {
+////	        Actions actions = new Actions(driver);
+////	        actions.moveToElement(dateElement).pause(Duration.ofMillis(200)).click().perform();
+////	    } catch (ElementClickInterceptedException e) {
+////	        dateElement = driver.findElement(By.xpath("(//div[@class='react-datepicker'])[1]//span[text()='" + day + "']"));
+////	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
+////	    }
+//
+//
+//
+//	    
+////	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
+////	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
+//
+//	    Log.ReportEvent("INFO", "Selected Date: " + day + " " + MonthandYear);
+//	}
+//	
+	
+	public void selectDate(String returnDate, String returnMonthAndYear, Log Log) throws InterruptedException {
+	    clickDate();
 
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	    datePickerInput.click();
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='custom-header']")));
 
-	    // Wait until the calendar is visible and get the current month & year
-	    wait.until(ExpectedConditions.visibilityOfElementLocated(
-	        By.xpath("//div[@class='custom-header']")
-	    ));
+	    String currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
+	    System.out.println("Current calendar: " + currentMonthYear);
 
-	    String currentMonthYear = driver.findElement(
-	        By.xpath("//div[@class='custom-header']")
-	    ).getText();
-
-	    // Loop to navigate to the desired month
-	    while (!currentMonthYear.equals(MonthandYear)) {
+	    // Navigate to correct month if needed
+	    while (!currentMonthYear.trim().equalsIgnoreCase(returnMonthAndYear.trim())) {
 	        driver.findElement(By.xpath("(//button[contains(@class,'nav-arrow')])[2]")).click();
 	        wait.until(ExpectedConditions.textToBePresentInElementLocated(
-	            By.xpath("//*[@class='custom-header']"),
-	            MonthandYear
+	            By.xpath("//div[@class='custom-header']"),
+	            returnMonthAndYear
 	        ));
-
-	        currentMonthYear = driver.findElement(
-	            By.xpath("//*[@class='custom-header']")
-	        ).getText();
+	        currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
 	    }
 
-	    // Once the correct month is displayed, select the day
-	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(
-	        By.xpath("(//div[@class='react-datepicker'])[1]//span[text()='" + day + "']")
-	    ));
+//	    // Now click the date safely
+//	    By dateLocator = By.xpath("//div[contains(@class,'react-datepicker__day') and text()='" + returnDate + "']");
+//	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(dateLocator));
+//
+//	    try {
+//	        dateElement.click();
+//	    } catch (ElementClickInterceptedException e) {
+//	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
+//	    }
+	    
+        driver.findElement(By.xpath("//span[text()='" + returnDate + "']")).click();
 
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dateElement);
-	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
 
-	    Log.ReportEvent("INFO", "Selected Date: " + day + " " + MonthandYear);
+	    Log.ReportEvent("INFO", "Selected date: " + returnDate + " " + returnMonthAndYear);
 	}
+
 
 		//Method to Click on Check-Out  Date
 		public void clickOnReturnDate()
@@ -168,7 +227,7 @@ public class NewDesignHotelsSearchPage {
 		            currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
 
 		            // Log the navigation to the next month
-		            Log.ReportEvent("INFO", "Navigated to: " + currentMonthYear);
+		          //  Log.ReportEvent("INFO", "Navigated to: " + currentMonthYear);
 		        }
 
 		        driver.findElement(By.xpath("//span[text()='" + returnDate + "']")).click();
@@ -402,11 +461,32 @@ public class NewDesignHotelsSearchPage {
 
 		
 	
-		public void searchHotelsBtn() {
-			driver.findElement(By.xpath("//button[text()='Search Hotels']")).click();
-		}
 		
 		
+		 public void clickOnSearchHotelBut() {
+			    try {
+			        // Click the "Search Hotel" button
+			        driver.findElement(By.xpath("//button[text()='Search Hotels']")).click();
+
+			        // Wait for the expected result section to appear
+			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+			        wait.until(ExpectedConditions.visibilityOfElementLocated(
+			            By.xpath("//div[contains(@class,'MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row css-1hkyx2d')]")
+			        ));
+
+			    } catch (Exception e) {
+			        String errorMessage;
+			        try {
+			            WebElement body = driver.findElement(By.tagName("body"));
+			            errorMessage = body.getText();
+			        } catch (Exception ex) {
+			            errorMessage = "Could not retrieve page text.";
+			        }
+
+			        Assert.fail("Expected search results were not displayed. Page message: \n" + errorMessage);
+			    }
+			}
+		  
 		
 	
 }

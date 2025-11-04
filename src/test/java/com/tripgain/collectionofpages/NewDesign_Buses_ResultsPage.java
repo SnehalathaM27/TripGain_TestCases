@@ -669,11 +669,10 @@ public class NewDesign_Buses_ResultsPage {
 	public String[] selectBoardingPoints(Log log, ScreenShots screenshots) {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	    try {
-	        // 1) Open the "Select boarding point" dropdown
-	        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(
-	            By.xpath("//span[text()='Select boarding point']")));
-	        dropdown.click();
-	        log.ReportEvent("INFO", "Clicked on 'Select boarding point' dropdown");
+	    	WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(
+	    	    By.xpath("(//div[contains(@class,'tg-select-box__indicators css-1wy0on6')])[7]")
+	    	));
+	    	dropdown.click();
 
 	        // 2) Wait for the listbox to be visible
 	        WebElement listBox = wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -699,17 +698,24 @@ public class NewDesign_Buses_ResultsPage {
 	        String time = "";
 
 	        try {
-	            // Location is first span inside the div with d-flex class
-	            location = optionToClick.findElement(By.xpath(".//div[contains(@class,'d-flex')]/span[1]")).getText().trim();
+	        	//get location text 
+	            location = optionToClick.findElement(By.xpath(".//span[contains(@class,'tg-select-option-label')]//div//span[1]")).getText().trim();
 	        } catch (Exception e) {
 	            log.ReportEvent("WARN", "Could not find location span for the option");
 	        }
 
 	        try {
-	            // Time is second span inside the div with d-flex class
-	            time = optionToClick.findElement(By.xpath(".//div[contains(@class,'d-flex')]/span[2]")).getText().trim();
+	            // get time text
+	            time = optionToClick.findElement(By.xpath(".//span[contains(@class,'tg-select-option-label')]//div//span[2]")).getText().trim();
 	        } catch (Exception e) {
 	            log.ReportEvent("WARN", "Could not find time span for the option");
+	        }
+	        
+	        try {
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", optionToClick);
+	            Thread.sleep(500); // small pause to ensure scroll completes
+	        } catch (Exception e) {
+	           // log.ReportEvent("WARN", "Scroll to boarding point failed: " + e.getMessage());
 	        }
 
 	        // 6) Click the option element itself to ensure event triggers correctly
@@ -732,14 +738,15 @@ public class NewDesign_Buses_ResultsPage {
 	    }
 	}
 
-
+	
+	
 	//Method for select dropping point
 	public String[] selectDroppingPoint(Log log, ScreenShots screenshots) {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	    try {
 	        // 1) Open the "Select dropping point" dropdown
 	        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(
-	            By.xpath("//span[text()='Select dropping point']")));
+	            By.xpath("(//div[contains(@class,'tg-select-box__indicators css-1wy0on6')])[8]")));
 	        dropdown.click();
 	        log.ReportEvent("INFO", "Clicked on 'Select dropping point' dropdown");
 
@@ -778,6 +785,12 @@ public class NewDesign_Buses_ResultsPage {
 	            log.ReportEvent("WARN", "Could not find time span for the option");
 	        }
 
+	        try {
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", optionToClick);
+	            Thread.sleep(500); // small pause to ensure scroll completes
+	        } catch (Exception e) {
+	           // log.ReportEvent("WARN", "Scroll to boarding point failed: " + e.getMessage());
+	        }
 	        // 6) Click the whole option element to ensure event triggers correctly
 	        try {
 	            optionToClick.click();
@@ -968,7 +981,7 @@ public class NewDesign_Buses_ResultsPage {
 	        WebElement selectedBusCard = busCards.get(index);
 
 	        // Click the Select button inside the selected bus card
-	        WebElement selectButton = selectedBusCard.findElement(By.xpath(".//button[text()='Select']"));
+	        WebElement selectButton = selectedBusCard.findElement(By.xpath(".//span[text()='Select']"));
 	        selectButton.click();
 
 	        // Extract required fields as Strings
