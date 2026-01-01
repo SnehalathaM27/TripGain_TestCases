@@ -73,7 +73,7 @@ public class NewDesign_Hotels_DescPage {
 	}	
 	
 	public String[] getPriceFromDescPg() {
-		WebElement priceElement = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-4 bold d-flex flex-column align-items-end fw-600 tg-typography_default')]"));
+		WebElement priceElement = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-4 d-flex flex-column align-items-end tg-typography_default')]"));
 		String fullText = priceElement.getText();
 		String mainPrice = fullText.replaceAll("\\(.*?\\)", "").trim();
 
@@ -105,11 +105,20 @@ public class NewDesign_Hotels_DescPage {
 	}
 	
 	public String[] getCheckInAfterFromDescPg() throws InterruptedException {
-		Thread.sleep(3000);
-	    String checkInAfter = driver.findElement(By.xpath("//div[text()='Check In after']/following-sibling::div")).getText();
-        System.out.println("checkInAfter from Description Page: " + checkInAfter);
+	    Thread.sleep(3000);
+	    String checkInAfter = "";
+	    List<WebElement> elements = driver.findElements(By.xpath("//div[text()='Check In after']/following-sibling::div"));
+	    
+	    if (!elements.isEmpty()) {
+	        checkInAfter = driver.findElement(By.xpath("//div[text()='Check In after']/following-sibling::div")).getText();
+	        System.out.println("checkInAfter from Description Page: " + checkInAfter);
+	    } else {
+	        System.out.println("'Check In after' element not found. Skipping...");
+	    }
+	    
 	    return new String[]{checkInAfter};
-	}	
+	}
+
 	
 	public void goToTop() throws InterruptedException {
 		 // Scroll to top
@@ -140,11 +149,19 @@ public class NewDesign_Hotels_DescPage {
 	
 
 	public String[] getCheckOutTimeFromDescPg() {
-	    String checkOutTime = driver.findElement(By.xpath("//div[text()='Check Out Before']/following-sibling::div")).getText();
-        System.out.println("hotel checkOutTime from Description Page: " + checkOutTime);
+	    String checkOutTime = "";
+	    List<WebElement> elements = driver.findElements(By.xpath("//div[text()='Check Out Before']/following-sibling::div"));
+
+	    if (!elements.isEmpty()) {
+	        checkOutTime = driver.findElement(By.xpath("//div[text()='Check Out Before']/following-sibling::div")).getText();
+	        System.out.println("hotel checkOutTime from Description Page: " + checkOutTime);
+	    } else {
+	        System.out.println("'Check Out Before' element not found. Skipping...");
+	    }
 
 	    return new String[]{checkOutTime};
-	}	
+	}
+
 	
 	public String[] getPerNightPriceFromDescPg() {
 	    String perNightprice = driver.findElement(By.xpath("//p[contains(@class,'tg-hl-pricefornight')]")).getText();
@@ -449,6 +466,12 @@ public class NewDesign_Hotels_DescPage {
 	    }
 	}
 
+	public void waitUntilHotelBookingPageDisplayed() {
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(
+	            By.xpath("//div[contains(@class,'hotel-booking-page')]")
+	    ));
+	}
 
 
 	//method to select the rooms 

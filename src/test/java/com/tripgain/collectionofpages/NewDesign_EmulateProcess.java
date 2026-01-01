@@ -69,7 +69,9 @@ public class NewDesign_EmulateProcess {
 	    searchField.sendKeys(searchValue);
 	}
 	
-	public void enterSearchValueByIndex(String[] searchValues, int index) {
+	
+	public void enterSearchValueByIndex(String[] searchValues, int index, Log log) {
+
 	    if (searchValues == null || searchValues.length == 0) {
 	        System.out.println("No search values provided.");
 	        return;
@@ -84,8 +86,11 @@ public class NewDesign_EmulateProcess {
 	    searchField.clear();
 	    searchField.sendKeys(searchValues[index]);
 
+	    log.ReportEvent("INFO", "Entered approver details for: " + searchValues[index]);
+
 	    System.out.println("Entered search value at index " + index + ": " + searchValues[index]);
 	}
+
 
 	public void enterSearchValueByIndexInFinanceApproverPg(String[] searchValues, int index) {
 	    if (searchValues == null || searchValues.length == 0) {
@@ -123,7 +128,7 @@ public class NewDesign_EmulateProcess {
 	    String messageText = "Approver screen not displayed or page still loading";
 
 	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
 	        wait.until(ExpectedConditions.visibilityOfElementLocated(
 	            By.xpath("//div[contains(text(),'Welcome')]")));
 	        
@@ -139,7 +144,7 @@ public class NewDesign_EmulateProcess {
 	//Method to clcik on search in approval request screen in test approver id
 	
 	public void searchApproverIdInApprovalReqScreen(String[] approverIdArray, Log log, ScreenShots screenshots) {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(70));
 
 	    // Wait until "Approval Requests" screen is visible
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -151,14 +156,19 @@ public class NewDesign_EmulateProcess {
 
 	    try {
 	        // Find the search field
-	        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
-	            By.xpath("//input[@class='tg-input']")
-	        ));
-
-	        // Enter the Approver ID
-	        searchField.clear();
+//	        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//	            By.xpath("//input[@class='tg-input']")
+//	        ));
+	        
+	        WebElement searchField = driver.findElement(By.xpath("//input[contains(@class,'tg-input')]"));
+	        ((JavascriptExecutor)driver).executeScript("arguments[0].click();", searchField);
 	        searchField.sendKeys(approverId);
-	        Thread.sleep(3000);
+
+
+//	        // Enter the Approver ID
+//	        searchField.clear();
+//	        searchField.sendKeys(approverId);
+        Thread.sleep(3000);
 
 	        log.ReportEvent("INFO", "Entered Approver ID in search field in Approver Approval req screen: " + approverId);
 	        System.out.println("Entered Approver ID in search field: " + approverId);
@@ -181,7 +191,9 @@ public class NewDesign_EmulateProcess {
 	//Method to get the details after clcik on view arrow 
 	
 	public String[] getLocationDetailsFromApproverApprovalReqScreen() {
-	    String text = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-location')]")).getText();
+	  //  String text = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-location')]")).getText();
+		    String text = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-3 fw-600 tg-typography_default')]")).getText();
+
 	    System.out.println("Location names from Approver Approval Req Screen: " + text);
 
 	    String[] parts = text.split("-");
@@ -271,7 +283,7 @@ public class NewDesign_EmulateProcess {
 	}
 
 	public String[] getStatusFromApproverApprovalReqScreen(Log log) {
-	    String status = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-status')]")).getText();
+	    String status = driver.findElement(By.xpath("(//div[contains(@class,'tg-label')])[2]")).getText();
 	    System.out.println("status from view trip Page: " + status);
 	    log.ReportEvent("INFO", "service status from Approver Approval Req Screen."+ status);
 

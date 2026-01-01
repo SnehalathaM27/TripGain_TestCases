@@ -142,6 +142,7 @@ try {
 
 		String journeydatedetails = NewDesignTrips.selectJourneyDate(fromDate, fromMonthYear);
 
+
 		String returndatedetails = NewDesignTrips.selectReturnDate(returnDate, returnMonthYear);
 
 		// List<String> servicesdetails = Trip_Planner.selectServices("Flight","Hotel");
@@ -149,7 +150,7 @@ try {
 
 		NewDesignTrips.clickCreateTripButton();
 
-		List<String> servicesTextFromPopup = NewDesignTrips.getSelectedServicesTextFromPopup();
+		List<String> servicesTextFromPopup = NewDesignTrips.getSelectedServicesTextFromPopupAfterTripCreated();
 
 		NewDesignTrips.validateSelectedServicesInSelectedAndPopup(servicesdetails, servicesTextFromPopup, Log,screenShots);
 		String[] tripIdFromPop = NewDesignTrips.getTripIdFromPopup(Log);
@@ -430,7 +431,7 @@ try {
 				Thread.sleep(2000);
 				
 				List<String> DataAfterSubmit = NewDesignBusesBookingPage.getDataInTripReqAfterClickOnSubmit(TripIdFromNextPage, Log, screenShots);
-				String[] ApproverId = NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+				String[] ApproverId = NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPgForTrips(Log, EnteredtripName);
 				NewDesignBusesBookingPage.validateTripNameAfterSubmit(EnteredtripName, DataAfterSubmit, Log, screenShots);
 				NewDesignBusesBookingPage.validateFromLocationAfterSubmit(origindetails, DataAfterSubmit, Log, screenShots);
 				NewDesignBusesBookingPage.validateToLocationAfterSubmit(destdetails, DataAfterSubmit, Log, screenShots);
@@ -516,7 +517,7 @@ try {
 						
 						        //----------------switch back to traveller -------------------------------------------
 						        Thread.sleep(3000);
-						        NewDesign_Emulate_Process.clcikOnSwitchBack();
+						        NewDesign_Emulate_Process.clickOnSwitchBack();
 						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 						        NewDesign_Emulate_Process.clcikOnAdmin();
 						        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
@@ -529,13 +530,13 @@ try {
 								
 								NewDesignTrips.clickOnAwaitingApproval();
 								NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(TripIdFromNextPage, Log, screenShots);
-								NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+								NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log, EnteredtripName);
 								
 
 						//		NewDesignTrips.clickOnsearchForCreateTripsInAwaitingApprovalPg(TripIdFromNextPage[0], Log, screenShots);
 								String[] travellerStatus = NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
 								NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
-								NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+								NewDesignTrips.getStatusInAwaitingApprovalForBusesInPendingStatys(Log);
 								
 								NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
 								String[] travellerRemarks = NewDesignTrips.getApproverRemarksInTripsPage(Log);
@@ -543,7 +544,7 @@ try {
 								
 			
 								//---------------If Two levels of approver--------------------------- 
-						        NewDesign_Emulate_Process.clcikOnSwitchBack();
+						        NewDesign_Emulate_Process.clickOnSwitchBack();
 						        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 						        NewDesign_Emulate_Process.clcikOnAdmin();
 						        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
@@ -598,7 +599,7 @@ try {
 							        NewDesign_Emulate_Process.clickOnUpdateBtn();
 							        
 							      
-							        NewDesign_Emulate_Process.clcikOnSwitchBack();
+							        NewDesign_Emulate_Process.clickOnSwitchBack();
 							        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 							        NewDesign_Emulate_Process.clcikOnAdmin();
 							        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
@@ -611,13 +612,13 @@ try {
 							        NewDesignTrips.clcikOnTrips();
 							     								
 									NewDesignTrips.clickOnAwaitingApproval();
-									NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+									NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log, EnteredtripName);
 									
 
 								//	NewDesignTrips.clickOnsearchForCreateTripsInAwaitingApprovalPg(TripIdFromNextPage[0], Log, screenShots);
 									 NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
 									NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
-									NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+									NewDesignTrips.getStatusInAwaitingApprovalForBusesInPendingStatys(Log);
 									NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
 									String[] travellerPgSecondAppRemarks = NewDesignTrips.getSecondApproverRemarksInTripsPage(Log);
 									NewDesignTrips.validateRemarksFromSecondApproverToTravellerpg(secondApproverRemarks, travellerPgSecondAppRemarks, Log, screenShots);

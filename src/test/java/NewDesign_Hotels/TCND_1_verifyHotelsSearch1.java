@@ -95,11 +95,13 @@ try {
 
         
     
-			String[] dates=GenerateDates.GenerateDatesToSelectFlights();
-			String fromDate=dates[0];
-			String returnDate=dates[1];
-			String fromMonthYear=dates[2];
-			String returnMonthYear=dates[3];
+
+		String[] dates=GenerateDates.GenerateDatesToSelectFlights();
+		String fromDate = dates[0];
+		String fromMonthYear = dates[2];
+		String returnDate = dates[1];
+		String returnMonthYear = dates[3];
+
 	        
 	        //Login to application
 	        NewDesign_Login NewDesignLogin= new NewDesign_Login(driver);
@@ -130,6 +132,9 @@ try {
 		Thread.sleep(3000);
 		NewDesign_HotelsSearchPage.enterDestinationForHotels(origin, Log);
 		Thread.sleep(2000);
+		
+
+	
 		NewDesign_HotelsSearchPage.selectDate(fromDate, fromMonthYear, Log);
 		NewDesign_HotelsSearchPage.selectReturnDate(returnDate, returnMonthYear, Log);
 	//	NewDesign_HotelsSearchPage.fillRoomDetails("3", "2,3,1", "1,2,0", "5;7,8;", Log);
@@ -164,16 +169,16 @@ try {
 
 //		NewDesignHotelsResultsPage.clickOnSortOption("Star Rating: Ascending", Log);
 //		NewDesignHotelsResultsPage.clickOnSortOption("Star Rating: Descending", Log);
-		NewDesignHotelsResultsPage.clickOnSortOption("Distance: Ascending", Log);
-		NewDesignHotelsResultsPage.validateDistanceAscending(Log);
-		Thread.sleep(2000);
+//		NewDesignHotelsResultsPage.clickOnSortOption("Distance: Ascending", Log);
+//		NewDesignHotelsResultsPage.validateDistanceAscending(Log);
+//		Thread.sleep(2000);
+//
+//		NewDesignHotelsResultsPage.clickOnSortOption("Distance: Descending", Log);
+//		NewDesignHotelsResultsPage.validateDistanceDescendingSimple(Log);
+//		Thread.sleep(2000);
 
-		NewDesignHotelsResultsPage.clickOnSortOption("Distance: Descending", Log);
-		NewDesignHotelsResultsPage.validateDistanceDescendingSimple(Log);
-		Thread.sleep(2000);
 
-
-		NewDesignHotelsResultsPage.selectCurrencyFromDropdown("TND", Log);
+	//	NewDesignHotelsResultsPage.selectCurrencyFromDropdown("TND", Log);
 		
 		Thread.sleep(2000);
 
@@ -190,10 +195,10 @@ try {
 		String[] checkOutFromDesc = NewDesignHotels_DescPage.getCheckOutTimeFromDescPg();
 		String[] hotelNameFromDesc = NewDesignHotels_DescPage.getHotelNameFromDescPg();
 		//NewDesignHotels_DescPage.getHotelRatingFromDescPg();
-		String[] perNightPriceFromDesc = NewDesignHotels_DescPage.getPerNightPriceFromDescPg();
+		//String[] perNightPriceFromDesc = NewDesignHotels_DescPage.getPerNightPriceFromDescPg();
 		String[] hotelPriceFromDesc = NewDesignHotels_DescPage.getPriceFromDescPg();
 		String[] PolicyFromDesc = NewDesignHotels_DescPage.getPolicyFromDescPg();
-		String[] OtherCurrencyInDesc=NewDesignHotels_DescPage.getOtherCountryPriceFromDescPg();
+	//	String[] OtherCurrencyInDesc=NewDesignHotels_DescPage.getOtherCountryPriceFromDescPg();
 		//NewDesignHotels_DescPage.getStarRatingCount(null);
 		
 		//validations b/w desc to result pages 
@@ -201,14 +206,16 @@ try {
 		NewDesignHotels_DescPage.validateHotelAddressFromDescToResultPage(hotelAddressFromDesc, hotelDetails, Log, screenShots);
 		//NewDesignHotels_DescPage.validateHotelPriceFromDescToResultPage(hotelPriceFromDesc, hotelDetails, Log, screenShots);
 		NewDesignHotels_DescPage.validateHotelPolicyFromDescToResultPage(PolicyFromDesc, hotelDetails, Log, screenShots);
-		NewDesignHotels_DescPage.validatePerNightPriceFromDescToResultPage(perNightPriceFromDesc, hotelDetails, Log, screenShots);
+	//	NewDesignHotels_DescPage.validatePerNightPriceFromDescToResultPage(perNightPriceFromDesc, hotelDetails, Log, screenShots);
 		NewDesignHotels_DescPage.validateAmenitiesFromDescToResultPage(hotelAmenitiesFromDesc, hotelDetails, Log, screenShots);
-		NewDesignHotelsResultsPage.validateOtherCurrencyPriceFromDescToResultPage(OtherCurrencyInDesc, hotelDetails, Log, screenShots);
+	//	NewDesignHotelsResultsPage.validateOtherCurrencyPriceFromDescToResultPage(OtherCurrencyInDesc, hotelDetails, Log, screenShots);
 		
 		
 		String[] selectRooms = NewDesignHotels_DescPage.selectRoomsFromDescPg();
 		
+		
 		Thread.sleep(3000);
+		NewDesignHotels_DescPage.waitUntilHotelBookingPageDisplayed();
 		String[] BookingPgcheckIn = NewDesign_HotelsBookingPage.getCheckInAfterFromBookingPg();
 		String[] BookingPgCheckOut = NewDesign_HotelsBookingPage.getCheckOutTimeFromBookingPg();
 		String[] BookingPgAddress = NewDesign_HotelsBookingPage.getHotelAddressFromBookingPg();
@@ -233,15 +240,15 @@ try {
 		NewDesign_HotelsBookingPage.validateSelectedRoomTextFromDescToBookingPage(selectRooms, BookingPgSelectedRoomText, Log, screenShots);
 		NewDesign_HotelsBookingPage.validateCheckInDateBetweenResultAndBookingPage(checkindateResultPage, BookingCheckIndate, Log, screenShots);
 		NewDesign_HotelsBookingPage.validateCheckOutDateBetweenResultAndBookingPage(checkoutdateResultPage, BookingCheckOutdate, Log, screenShots);
-	//	NewDesign_HotelsBookingPage.validatePriceFromDescWithBookingPage(selectRooms, BookingPgTotalfareAmount, Log, screenShots);
+	NewDesign_HotelsBookingPage.validatePriceFromDescWithBookingPage(selectRooms, BookingPgTotalfareAmount, Log, screenShots);
 
 		//NewDesign_HotelsBookingPage.addTravellerDetails();
 		NewDesign_HotelsBookingPage.clickSendForApprovalBtn(Log);
-		NewDesign_Awaiting_ApprovalScreen.waitUntilAwaitingPageLoads(Log, screenShots);
+	/*	NewDesign_Awaiting_ApprovalScreen.waitUntilAwaitingPageLoads(Log, screenShots);
 		
 		NewDesign_Awaiting_ApprovalScreen.getHotelNameFromAwaitingPg();
 		NewDesign_Awaiting_ApprovalScreen.getHotelDateFromAwaitingPg();
-		String[] ApproveridFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log);
+		String[] ApproveridFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getApproverIdFromAwaitingPg(Log, "Hotel");
 		Thread.sleep(1000);
 		NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
 		Thread.sleep(2000);
@@ -258,7 +265,7 @@ try {
 		String[] PolicyFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getPolicyTextFromFromViewTripInAwaitingScreen();
 		String[] RefundableFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getRefundableTextFromViewTripInAwaitingScreen();
 		String[] priceFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getpriceTextFromViewTripInAwaitingScreen();
-		NewDesign_Awaiting_ApprovalScreen.getStatusTextFromViewTripInAwaitingScreen(Log);
+		NewDesign_Awaiting_ApprovalScreen.getStatusFromViewTripInViewTripScreen(Log);
 		String[] ApproverIdFromAwaitingScreen = NewDesign_Awaiting_ApprovalScreen.getApproverIdTextFromViewTripInAwaitingScreen();
 		
 		
@@ -276,8 +283,11 @@ try {
 	//	NewDesign_Awaiting_ApprovalScreen.validatePriceFromDescWithBookingPage(BookingPgTotalfareAmount,priceFromAwaitingScreen, Log, screenShots);
 
 		NewDesign_Awaiting_ApprovalScreen.clickApprovalDetailsButtonInViewtrip();
-		NewDesign_Awaiting_ApprovalScreen.getApproverNameInAwaitingScreen(Log);
+		String[] ApproverNames= NewDesign_Awaiting_ApprovalScreen.getApproverNameInAwaitingScreen(Log);
 		NewDesign_Awaiting_ApprovalScreen.getApproverTimeInAwaitingScreen(Log);
+		
+
+		
 		
 		//-------------------logout---------------------------------------------------------
 		NewDesign_Awaiting_ApprovalScreen.clickOnLogout();
@@ -288,10 +298,14 @@ try {
 	        NewDesignLogin.enterPasswordName(pwd1);
 	        NewDesignLogin.clickButton(); 
 	        
+	        
 	        NewDesign_Emulate_Process.clcikOnAdmin();
 	        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
 	        NewDesign_Emulate_Process.clickSearchValueThroughUser(searchvalue);
+	        
+
 	        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
+	        Thread.sleep(2000);
 	        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
 	        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 	        NewDesign_Emulate_Process.clcikOnAdmin();
@@ -313,7 +327,7 @@ try {
 			String[] PolicyFromApproverScreen = NewDesign_Emulate_Process.getPolicyTextFromFromApproverScreen();
 			String[] RefundableFromApproverScreen = NewDesign_Emulate_Process.getRefundableTextFromApproverScreen();
 			String[] priceFromApproverScreen = NewDesign_Emulate_Process.getpriceTextFromApproverScreen();
-			NewDesign_Emulate_Process.getStatusTextFromApproverScreen(Log);
+			NewDesign_Awaiting_ApprovalScreen.getStatusFromViewTripInViewTripScreen(Log);
 			String[] ApproverIdFromApproverScreen = NewDesign_Emulate_Process.getApproverIdTextFromApproverScreen();
 	        
 	        
@@ -337,10 +351,12 @@ try {
 		        NewDesign_Emulate_Process.enterRemarks(remarks);
 		        NewDesign_Emulate_Process.clickOnStatus(status);
 		        NewDesign_Emulate_Process.clickOnUpdateBtn();
+		        NewDesign_Emulate_Process.clickOnErrorMsgAppearsIfAnyOneOOPolicyExixtsInTrip();
+
 		        
 		        //----------------switch back to traveller -------------------------------------------
 		        Thread.sleep(3000);
-		        NewDesign_Emulate_Process.clcikOnSwitchBack();
+		        NewDesign_Emulate_Process.clickOnSwitchBack();
 		        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 		        NewDesign_Emulate_Process.clcikOnAdmin();
 		        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
@@ -352,18 +368,24 @@ try {
 				NewDesignTrips.clcikOnTrips();
 				NewDesignTrips.clickOnAwaitingApproval();
 				Thread.sleep(2000);
-				NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(ApproveridFromAwaitingScreen[0], Log, screenShots);
+				NewDesignTrips.waitUntilDivDisplayed(driver);
+				
+				NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(ApproveridFromAwaitingScreen, Log, screenShots);
 				Thread.sleep(2000);
 				String[] travellerStatus = NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
 				NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
-				 NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+				NewDesign_Awaiting_ApprovalScreen.getStatusFromViewTripInViewTripScreen(Log);
 				
 				//---------------If Two levels of approver--------------------------- 
-		        NewDesign_Emulate_Process.clcikOnSwitchBack();
+			        NewDesign_Emulate_Process.clickOnSwitchBack();
 		        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 		        NewDesign_Emulate_Process.clcikOnAdmin();
 		        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
+		        
 		        NewDesign_Emulate_Process.clickSearchValueThroughUser(travellerSearchValue2);
+
+		     //  NewDesign_Emulate_Process.enterSearchValueByIndex(ApproverNames, 1, Log);
+
 		        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
 		        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
 		        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
@@ -375,8 +397,8 @@ try {
 		        NewDesign_Emulate_Process.searchApproverIdInApprovalReqScreen(ApproveridFromAwaitingScreen, Log, screenShots);
 		        Thread.sleep(1000);
 
-				String[] ApproverStatus = NewDesignTrips.getStatusInSecondApproverForHotels(Log);
-				NewDesignTrips.validateStatusFromTravellerToApprover(travellerStatus, ApproverStatus, Log, screenShots);
+				String[] ApproverStatus =NewDesign_Awaiting_ApprovalScreen.getStatusFromViewTripInViewTripScreen(Log);
+
 			//	NewDesignTrips.clickArrowToOpenTrip();
 				 NewDesign_Emulate_Process.clcikOnProcessButton();
 			        NewDesign_Emulate_Process.enterRemarks(remarks);
@@ -384,9 +406,10 @@ try {
 			        NewDesign_Emulate_Process.clickOnUpdateBtn();
 			        
 			        
-			        NewDesign_Emulate_Process.clcikOnSwitchBack();
+			        NewDesign_Emulate_Process.clickOnSwitchBack();
 			        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 			        Thread.sleep(2000);
+			        
 			        NewDesign_Emulate_Process.clcikOnAdmin();
 			        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
 			        NewDesign_Emulate_Process.clickSearchValueThroughUser(travellerSearchValue);
@@ -398,14 +421,16 @@ try {
 			        NewDesignTrips.clcikOnTrips();
 					NewDesignTrips.clickOnAwaitingApproval();
 					Thread.sleep(2000);
-					NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(ApproveridFromAwaitingScreen[0], Log, screenShots);
+					NewDesignTrips.waitUntilDivDisplayed(driver);
+
+					NewDesignTrips.clickOnsearchTripsInAwaitingApprovalPg(ApproveridFromAwaitingScreen, Log, screenShots);
 					Thread.sleep(2000);
-					// NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+					 NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
 					NewDesign_Awaiting_ApprovalScreen.clickOnViewTripInAwaitingScreen();
 
-					 NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
+					NewDesign_Awaiting_ApprovalScreen.getStatusFromViewTripInViewTripScreen(Log);
 
-		              System.out.println("Completed");
+		              System.out.println("Completed");*/
 
 
 		

@@ -110,7 +110,7 @@ public class NewDesign_Buses_SerachPage {
 	        Log.ReportEvent("ERROR", "Failed to select To location: " + e.getMessage());
 	    }
 	}
-	@FindBy(xpath = "(//*[@class='custom_datepicker_input'])[1]")
+	@FindBy(xpath = "//div[@class='tg-datepicker undefined']")
 	WebElement datePickerInput;
 	
 	//Method to Select Check-In Date By Passing Two Paramenters(Date and MounthYear)

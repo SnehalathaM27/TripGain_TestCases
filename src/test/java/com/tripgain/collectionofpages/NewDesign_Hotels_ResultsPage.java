@@ -36,9 +36,9 @@ public class NewDesign_Hotels_ResultsPage {
 
 
 	//Method to get the check in date text from result page 
-	
+	/*
 	public String[] getCheckInDateTextFromResultPage() {
-	    WebElement dateElement = driver.findElement(By.xpath("(//div[contains(@class,'hotel-price')])[3]"));
+	    WebElement dateElement = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-6 ms-1 fw-600 tg-typography_default')])[2]"));
 	    String fullText = dateElement.getText();  // e.g. "20th Sep, 2025 - 25th Sep, 2025"
 	    System.out.println("Full date text: " + fullText);
 
@@ -57,6 +57,35 @@ public class NewDesign_Hotels_ResultsPage {
 	    }
 
 	    return parts;
+	} */
+
+	public String[] getCheckInDateTextFromResultPage() {
+
+	    WebElement dateElement = new WebDriverWait(driver, Duration.ofSeconds(10))
+	            .until(ExpectedConditions.visibilityOfElementLocated(
+	                    By.xpath("(//div[contains(@class,'search-header-date-width')])[1]")));
+
+	    String fullText = dateElement.getAttribute("innerText").trim();
+	    System.out.println("Full raw text: " + fullText);
+
+	    // Split for any dash type
+	    String[] dateRange = fullText.split("\\s[-–—]\\s");
+	    if (dateRange.length < 1) {
+	        throw new RuntimeException("Date format not recognized: " + fullText);
+	    }
+
+	    String checkIn = dateRange[0];  // left side
+	    System.out.println("Check-in before suffix removal: " + checkIn);
+
+	    checkIn = checkIn.replaceAll("(?<=\\d)(st|nd|rd|th)", "");
+	    System.out.println("Check-in after suffix removal: " + checkIn);
+
+	    String[] parts = checkIn.trim().split("\\s+");
+	    for (String p : parts) {
+	        System.out.println("Part: " + p);
+	    }
+
+	    return parts;
 	}
 
 
@@ -64,7 +93,7 @@ public class NewDesign_Hotels_ResultsPage {
 	//Method to get the check out date text from result page 
 			
 	public String[] getCheckOutDateTextFromResultPage() {
-	    WebElement dateElement = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7 ms-1 tg-typography_default')])[2]"));
+	    WebElement dateElement = driver.findElement(By.xpath("(//div[contains(@class,'search-header-date-width')])[1]"));
 	    String fullText = dateElement.getText();  // e.g. "20th Sep, 2025 - 25th Sep, 2025"
 	    System.out.println("Full date text: " + fullText);
 
@@ -105,7 +134,7 @@ public class NewDesign_Hotels_ResultsPage {
 			//Method to get the room and guests text from result page 
 			
 			public String[] getRoomAndGuestTextFromResultPage() {
-			    WebElement countElement = driver.findElement(By.xpath("//div[contains(@class,'tg-typography_subtitle-7') and contains(@class,'tg-typography_default')]"));
+			    WebElement countElement = driver.findElement(By.xpath("(//div[contains(@class,'search-header-date-width')])[2]"));
 
 			    // Get full text like: "1 Room , 0 Adult , 0 Child"
 			    String fullText = countElement.getText();
@@ -883,17 +912,78 @@ public class NewDesign_Hotels_ResultsPage {
 			}
 		
 			// Method to select currency from dropdown
+//			public void selectCurrencyFromDropdown(String currencyCode, Log log) {
+//			    try {
+//			    	Thread.sleep(3000);
+//			    	driver.findElement(By.xpath("//div[contains(@class,'tg-currency-change')]//div[@class='tg-select-box__indicators css-1wy0on6']")).click();
+//
+//			        WebElement currencyOption = driver.findElement(
+//			            By.xpath("//span[@class='tg-select-option-label' and text()='" + currencyCode + "']")
+//			        );
+//
+//			        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", currencyOption);
+//			        currencyOption.click();
+//
+//			        String priceText = driver.findElement(
+//			            By.xpath("//span[@class='other-currency-price']")
+//			        ).getText();
+//
+//			        System.out.println("Raw price text: " + priceText);
+//
+//			        String priceCurrencyCode = priceText.split(" ")[0].replaceAll("[^A-Z]", "");
+//
+//			        System.out.println("Extracted currency code: " + priceCurrencyCode);
+//
+//			        if (priceCurrencyCode.equals(currencyCode)) {
+//			            System.out.println("Currency code matches: " + priceCurrencyCode);
+//			            log.ReportEvent("PASS", "Currency code matches: " + priceCurrencyCode);
+//			        } else {
+//			            System.err.println("Currency code does NOT match! Expected: " + currencyCode + ", but found: " + priceCurrencyCode);
+//			            log.ReportEvent("FAIL", "Currency code does NOT match! Expected: " + currencyCode + ", but found: " + priceCurrencyCode);
+//			        }
+//
+//			    } catch (Exception e) {
+//			        System.err.println("Exception occurred while selecting currency: " + e.getMessage());
+//			        log.ReportEvent("ERROR", "Exception occurred: " + e.getMessage());
+//			    }
+//			}
+			
+			// Method to select currency from dropdown
 			public void selectCurrencyFromDropdown(String currencyCode, Log log) {
 			    try {
-			        driver.findElement(By.xpath("//div[contains(@class,'tg-currency-change')]")).click();
 
-			        WebElement currencyOption = driver.findElement(
+			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+			        // Locate dropdown using your same XPath
+			        WebElement dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(
+			            By.xpath("//div[contains(@class,'tg-currency-change')]//div[@class='tg-select-box__indicators css-1wy0on6']")
+			        ));
+
+			        // --- TRY 1: Normal click ---
+			        try {
+			            dropdown.click();
+			        } catch (Exception e1) {
+
+			            // --- TRY 2: Actions click ---
+			            try {
+			                new Actions(driver).moveToElement(dropdown).click().perform();
+			            } catch (Exception e2) {
+
+			                // --- TRY 3: JavaScript click (guaranteed) ---
+			                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dropdown);
+			            }
+			        }
+
+			        // Wait for option and click it (your same XPath)
+			        WebElement currencyOption = wait.until(ExpectedConditions.elementToBeClickable(
 			            By.xpath("//span[@class='tg-select-option-label' and text()='" + currencyCode + "']")
-			        );
+			        ));
 
+			        // Scroll + click option
 			        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", currencyOption);
-			        currencyOption.click();
+			        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", currencyOption);
 
+			        // Validate selected currency
 			        String priceText = driver.findElement(
 			            By.xpath("//span[@class='other-currency-price']")
 			        ).getText();
@@ -902,21 +992,17 @@ public class NewDesign_Hotels_ResultsPage {
 
 			        String priceCurrencyCode = priceText.split(" ")[0].replaceAll("[^A-Z]", "");
 
-			        System.out.println("Extracted currency code: " + priceCurrencyCode);
-
 			        if (priceCurrencyCode.equals(currencyCode)) {
-			            System.out.println("Currency code matches: " + priceCurrencyCode);
 			            log.ReportEvent("PASS", "Currency code matches: " + priceCurrencyCode);
 			        } else {
-			            System.err.println("Currency code does NOT match! Expected: " + currencyCode + ", but found: " + priceCurrencyCode);
-			            log.ReportEvent("FAIL", "Currency code does NOT match! Expected: " + currencyCode + ", but found: " + priceCurrencyCode);
+			            log.ReportEvent("FAIL", "Expected: " + currencyCode + ", but found: " + priceCurrencyCode);
 			        }
 
 			    } catch (Exception e) {
-			        System.err.println("Exception occurred while selecting currency: " + e.getMessage());
 			        log.ReportEvent("ERROR", "Exception occurred: " + e.getMessage());
 			    }
 			}
+
 
 			public void validateOtherCurrencyPriceFromDescToResultPage(
 			        String[] otherCurrencyPriceFromDescPage,

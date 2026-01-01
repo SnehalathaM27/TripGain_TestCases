@@ -20,9 +20,9 @@ public class getDataExcel {
         File classpathRoot = new File(System.getProperty("user.dir"));
        
          
-        // File app = new File(classpathRoot, "\\src\\test\\resources\\testdata\\HotelsScripts_Skytravelers.xlsx"); 
+         File app = new File(classpathRoot, "\\src\\test\\resources\\testdata\\HotelsScripts_Skytravelers.xlsx"); 
      //    For implementation 
-        File app = new File(classpathRoot, "\\src\\test\\resources\\testdata\\Impleentation_TravelPolicy.xlsx"); 
+      //  File app = new File(classpathRoot, "\\src\\test\\resources\\testdata\\Impleentation_TravelPolicy.xlsx"); 
 
 
 

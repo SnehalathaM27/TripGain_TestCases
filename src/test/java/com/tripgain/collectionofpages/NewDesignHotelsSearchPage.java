@@ -1,6 +1,7 @@
 package com.tripgain.collectionofpages;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -103,7 +104,14 @@ public class NewDesignHotelsSearchPage {
 	WebElement datePickerInput;
 	
 	public void clickDate() {
-		driver.findElement(By.xpath("(//*[@class='custom_datepicker_input'])[1]")).click();
+		driver.findElement(By.xpath("(//div[contains(@class,' min-date-width')])[1]")).click();
+	}
+	
+	public void clickBusDate() {
+		//driver.findElement(By.xpath("//div[contains(@class,'field date-range')]")).click();
+		WebElement el = driver.findElement(By.xpath("//div[contains(@class,'field date-range')]"));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", el);
+
 	}
 	
 	//Method to Select Check-In Date By Passing Two Paramenters(Date and MounthYear)
@@ -166,7 +174,7 @@ public class NewDesignHotelsSearchPage {
 	public void selectDate(String returnDate, String returnMonthAndYear, Log Log) throws InterruptedException {
 	    clickDate();
 
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='custom-header']")));
 
 	    String currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
@@ -182,17 +190,32 @@ public class NewDesignHotelsSearchPage {
 	        currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
 	    }
 
-//	    // Now click the date safely
-//	    By dateLocator = By.xpath("//div[contains(@class,'react-datepicker__day') and text()='" + returnDate + "']");
-//	    WebElement dateElement = wait.until(ExpectedConditions.elementToBeClickable(dateLocator));
-//
-//	    try {
-//	        dateElement.click();
-//	    } catch (ElementClickInterceptedException e) {
-//	        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", dateElement);
-//	    }
-	    
-        driver.findElement(By.xpath("//span[text()='" + returnDate + "']")).click();
+        driver.findElement(By.xpath("//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'outside-month')) and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + returnDate + "']")).click();
+
+
+	    Log.ReportEvent("INFO", "Selected date: " + returnDate + " " + returnMonthAndYear);
+	}
+	
+	public void selectBusDate(String returnDate, String returnMonthAndYear, Log Log) throws InterruptedException {
+	    clickBusDate();
+
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='custom-header']")));
+
+	    String currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
+	    System.out.println("Current calendar: " + currentMonthYear);
+
+	    // Navigate to correct month if needed
+	    while (!currentMonthYear.trim().equalsIgnoreCase(returnMonthAndYear.trim())) {
+	        driver.findElement(By.xpath("(//button[contains(@class,'nav-arrow')])[2]")).click();
+	        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+	            By.xpath("//div[@class='custom-header']"),
+	            returnMonthAndYear
+	        ));
+	        currentMonthYear = driver.findElement(By.xpath("//div[@class='custom-header']")).getText();
+	    }
+
+        driver.findElement(By.xpath("//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'outside-month')) and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + returnDate + "']")).click();
 
 
 	    Log.ReportEvent("INFO", "Selected date: " + returnDate + " " + returnMonthAndYear);
@@ -202,7 +225,7 @@ public class NewDesignHotelsSearchPage {
 		//Method to Click on Check-Out  Date
 		public void clickOnReturnDate()
 		{
-			driver.findElement(By.xpath("(//*[@class='custom_datepicker_input'])[2]")).click();
+			driver.findElement(By.xpath("(//div[contains(@class,' min-date-width')])[2]")).click();
 		}
 		
 		//Method to Select Return Date By Passing Two Paramenters(Date and MounthYear)
@@ -216,8 +239,8 @@ public class NewDesignHotelsSearchPage {
 		    // Log the current month and year displayed in the date picker
 
 		    if (currentMonthYear.contentEquals(returnMonthAndYear)) {
-		        driver.findElement(By.xpath("(//div[@class='react-datepicker'])[1]//span[text()='" + returnDate + "']")).click();
-		        Thread.sleep(4000);
+		    	// Select date that is NOT from outside month and NOT disabled
+		        driver.findElement(By.xpath("//div[@class='react-datepicker__month']//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + returnDate + "']")).click();
 
 		        // Log the selected return date
 		    } else {
@@ -230,14 +253,15 @@ public class NewDesignHotelsSearchPage {
 		          //  Log.ReportEvent("INFO", "Navigated to: " + currentMonthYear);
 		        }
 
-		        driver.findElement(By.xpath("//span[text()='" + returnDate + "']")).click();
-
+		     // Select date that is NOT from outside month and NOT disabled
+		        driver.findElement(By.xpath("//div[@class='react-datepicker__month']//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + returnDate + "']")).click();
 		        // Log the selected return date
 		        Log.ReportEvent("INFO", "Selected return date: " + returnDate + " " + returnMonthAndYear);
 		    }
 		}
 		
-		//Method to add room, adt and child
+		
+				//Method to add room, adt and child
 		public void fillRoomDetails(String roomCountStr, String adultCountStr, String childCountStr, String childAgesStr, Log Log) {
 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		    JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -471,7 +495,7 @@ public class NewDesignHotelsSearchPage {
 			        // Wait for the expected result section to appear
 			        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 			        wait.until(ExpectedConditions.visibilityOfElementLocated(
-			            By.xpath("//div[contains(@class,'MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row css-1hkyx2d')]")
+			            By.xpath("//div[contains(@class,'MuiGrid2-root MuiGrid2-direction-xs-row MuiGrid2-grid-lg-8 MuiGrid2-grid-md-8 MuiGrid2-grid-sm-8 MuiGrid2-grid-xs-12 h-100 css-1fteupx')]")
 			        ));
 
 			    } catch (Exception e) {

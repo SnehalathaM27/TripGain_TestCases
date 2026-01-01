@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Suite" class="navigator-link">
-              <span class="suite-name border-failed">Suite</span>
+              <span class="suite-name border-passed">Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -55,7 +55,7 @@
                 </li>
                 <li>
                   <a href="#" panel-name="testlist-Suite" class="navigator-link ">
-                    <span class="test-stats">2 tests</span>
+                    <span class="test-stats">4 tests</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -92,21 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method, 1 failed,   </span>
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Suite" class="hide-methods failed suite-Suite"> (hide)</a> <!-- hide-methods failed suite-Suite -->
-                      <a href="#" panel-name="suite-Suite" class="show-methods failed suite-Suite"> (show)</a> <!-- show-methods failed suite-Suite -->
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Suite" class="hide-methods passed suite-Suite"> (hide)</a> <!-- hide-methods passed suite-Suite -->
+                      <a href="#" panel-name="suite-Suite" class="show-methods passed suite-Suite"> (show)</a> <!-- show-methods passed suite-Suite -->
                     </span>
-                    <div class="method-list-content failed suite-Suite">
+                    <div class="method-list-content passed suite-Suite">
                       <span>
-                        <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="Implementation.Imp_1_Xpheno_TravelPolicyTesting01" class="method navigator-link" hash-for-method="myTest({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyde...)">myTest({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyde...)</a> <!-- method navigator-link -->
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="NewDesign_Buses.TCNDBU_1_verifyBusesSearch" class="method navigator-link" hash-for-method="myTest({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, St...)">myTest({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, St...)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-Suite -->
+                    </div> <!-- method-list-content passed suite-Suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,32 +118,22 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Suite" class="panel Suite">
-          <div class="suite-Suite-class-failed">
+          <div class="suite-Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">Implementation.Imp_1_Xpheno_TravelPolicyTesting01</span>
+              <img src="passed.png"/>
+              <span class="class-name">NewDesign_Buses.TCNDBU_1_verifyBusesSearch</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="myTest({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyde...)">
-                  </a> <!-- myTest({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyde...) -->
+                  <a name="myTest({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, St...)">
+                  </a> <!-- myTest({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, St...) -->
                   <span class="method-name">myTest</span>
-                  <span class="parameters">({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyderabad, HeadGrade=Head - Head, Status2=Reject, BusOrigin=delhi, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=hyderabad, TripName=TravelGrade_1, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5500, Password=XPHENO&*%%6121})</span>
-                  <div class="stack-trace">java.lang.AssertionError: Remarks mismatch between approver and second approver Trips Page.
-	at com.tripgain.collectionofpages.NewDesign_Trips.validateRemarksFromFirstApproverToSecondApprover(NewDesign_Trips.java:1687)
-	at Implementation.Imp_1_Xpheno_TravelPolicyTesting01.myTest(Imp_1_Xpheno_TravelPolicyTesting01.java:699)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-... Removed 16 stack frames
-</div> <!-- stack-trace -->
+                  <span class="parameters">({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, Status2=Reject, TravellerSearchValue2=testfinanceadmin98@tripgain.com, Password1=@AM@TGA1$29TN, TravellerSearchValue=testtraveller98@tripgain.com, UserName1=automation@tga.com, SearchBy=Email, URL=https://neo.tripgain.com/login, Remarks=test, TestRun=, SearchValue=testapprover98@tripgain.com, Password=@AM@TGA1$29TN})</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Suite-class-failed -->
+          </div> <!-- suite-Suite-class-passed -->
         </div> <!-- panel Suite -->
         <div panel-name="test-xml-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -153,14 +143,20 @@
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
-  &lt;test thread-count=&quot;5&quot; parallel=&quot;tests&quot; name=&quot;test&quot;&gt;
+&lt;suite thread-count=&quot;7&quot; parallel=&quot;tests&quot; name=&quot;Suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
+  &lt;test thread-count=&quot;7&quot; parallel=&quot;tests&quot; name=&quot;test&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+  &lt;/test&gt; &lt;!-- test --&gt;
+  &lt;test thread-count=&quot;7&quot; parallel=&quot;tests&quot; name=&quot;test3&quot;&gt;
     &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Implementation.Imp_1_Xpheno_TravelPolicyTesting01&quot;/&gt;
+      &lt;class name=&quot;NewDesign_Buses.TCNDBU_1_verifyBusesSearch&quot;/&gt;
     &lt;/classes&gt;
-  &lt;/test&gt; &lt;!-- test --&gt;
-  &lt;test thread-count=&quot;5&quot; parallel=&quot;tests&quot; name=&quot;test1&quot;&gt;
+  &lt;/test&gt; &lt;!-- test3 --&gt;
+  &lt;test thread-count=&quot;7&quot; parallel=&quot;tests&quot; name=&quot;test4&quot;&gt;
+    &lt;parameter name=&quot;browser&quot; value=&quot;chrome&quot;/&gt;
+  &lt;/test&gt; &lt;!-- test4 --&gt;
+  &lt;test thread-count=&quot;7&quot; parallel=&quot;tests&quot; name=&quot;test1&quot;&gt;
     &lt;parameter name=&quot;browser&quot; value=&quot;edge&quot;/&gt;
   &lt;/test&gt; &lt;!-- test1 --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -174,7 +170,13 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">test (1 class)</span>
+                <span class="test-name">test (0 classes)</span>
+              </li>
+              <li>
+                <span class="test-name">test3 (1 class)</span>
+              </li>
+              <li>
+                <span class="test-name">test4 (0 classes)</span>
               </li>
               <li>
                 <span class="test-name">test1 (0 classes)</span>
@@ -206,13 +208,13 @@ data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'myTest')
-data.setCell(0, 2, 'Implementation.Imp_1_Xpheno_TravelPolicyTesting01')
-data.setCell(0, 3, 284339);
+data.setCell(0, 2, 'NewDesign_Buses.TCNDBU_1_verifyBusesSearch')
+data.setCell(0, 3, 75202);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 minutes</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -238,26 +240,24 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">Implementation.Imp_1_Xpheno_TravelPolicyTesting01</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">NewDesign_Buses.TCNDBU_1_verifyBusesSearch</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
-                <span class="method-name">launchApplication(chrome, public void Implementation.Imp_1_Xpheno_TravelPolicyTesting01.myTest(java.util.Map) throws j...)</span>
+                <span class="method-name">launchApplication(chrome, public void NewDesign_Buses.TCNDBU_1_verifyBusesSearch.myTest(java.util.Map) throws java.lan...)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">myTest({Origin=delhi, Status=Approve, Destination=hyderabad, UserName=admin@xpheno.com, BusDestination=hyde...)</span>
-                <span class="method-start">3333 ms</span>
+                <span class="method-name">myTest({Origin=Hyderabad, Status=Approve, Destination=vijayawada, UserName=testtraveller98@tripgain.com, St...)</span>
+                <span class="method-start">23152 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">287672 ms</span>
+                <span class="method-start">98369 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">afterSuite</span>
-                <span class="method-start">289439 ms</span>
+                <span class="method-start">101843 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

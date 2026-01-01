@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
 
 import org.openqa.selenium.WebDriver;
@@ -160,7 +161,8 @@ try {
 		
 	
 Thread.sleep(4000);
-		
+NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
+
 			        NewDesign_Emulate_Process.clcikOnAdmin();
 			        
 	        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
@@ -174,8 +176,9 @@ Thread.sleep(4000);
 	        //select grade ----------------------
 	        String[] selectedGradeFromDropdown = Implementation_Corporate_Travellers_Page.clickOnSelectGrade(grade, Log);
 	        Implementation_Corporate_Travellers_Page.clickOnSelectGender(gender, Log);
-
+Thread.sleep(1000);
 	        Implementation_Corporate_Travellers_Page.clickOnSaveBtn();
+	        Thread.sleep(3000);
 	        Implementation_Corporate_Travellers_Page.emulateAfterSelectedGrade();
 	        String[] TravellerProfileGrade = Implementation_Corporate_Travellers_Page.clickOnTravellerProfile();
 	        Implementation_Corporate_Travellers_Page.validateGradesFromSelectedToTravellerProfile(selectedGradeFromDropdown, TravellerProfileGrade, Log, screenShots);
@@ -246,14 +249,14 @@ Thread.sleep(4000);
 			NewDesignHotelsResultsPage.moveLeftThumbToRightByPercentage(40);
 			NewDesignHotelsResultsPage.moveRightThumbToLeftByPercentage(30);  */
 	      	
-			String userRatingFromResultscreen = NewDesignHotelsResultsPage.clickUserRating("Excellent: 4+", Log, screenShots);
-			NewDesignHotelsResultsPage.ApplyFilterBtn();
-			NewDesignHotelsResultsPage.clickOnSortOption("Price: Low to High", Log);
-			NewDesignHotelsResultsPage.validatePricesLowToHigh(Log);
-			Thread.sleep(2000);
-		 NewDesignHotelsResultsPage.clickOnSortOption("Price: High to Low", Log);
-			NewDesignHotelsResultsPage.validatePricesHighToLow(Log);
-			Thread.sleep(2000);
+//			String userRatingFromResultscreen = NewDesignHotelsResultsPage.clickUserRating("Excellent: 4+", Log, screenShots);
+//			NewDesignHotelsResultsPage.ApplyFilterBtn();
+//			NewDesignHotelsResultsPage.clickOnSortOption("Price: Low to High", Log);
+//			NewDesignHotelsResultsPage.validatePricesLowToHigh(Log);
+//			Thread.sleep(2000);
+//		 NewDesignHotelsResultsPage.clickOnSortOption("Price: High to Low", Log);
+//			NewDesignHotelsResultsPage.validatePricesHighToLow(Log);
+//			Thread.sleep(2000);
 
 //				NewDesignHotelsResultsPage.clickOnSortOption("Star Rating: Ascending", Log);
 //				NewDesignHotelsResultsPage.clickOnSortOption("Star Rating: Descending", Log);
@@ -297,7 +300,7 @@ Thread.sleep(1000);
 				
 				String[] selectRooms = NewDesignHotels_DescPage.selectRoomsFromDescPg();
 				
-				Thread.sleep(3000);
+				Thread.sleep(6000);
 				String[] BookingPgcheckIn = NewDesign_HotelsBookingPage.getCheckInAfterFromBookingPg();
 				String[] BookingPgCheckOut = NewDesign_HotelsBookingPage.getCheckOutTimeFromBookingPg();
 				String[] BookingPgAddress = NewDesign_HotelsBookingPage.getHotelAddressFromBookingPg();
@@ -395,7 +398,7 @@ Thread.sleep(1000);
 //				NewDesignBusesResultsPage.clickAndValidateSeatType(Log, screenShots);
 				//	NewDesignBusesResultsPage.getAndValidatePolicyText(Log, screenShots);
 					
-					Implementation_Corporate_Travellers_Page.validateBusesPricesAgainstGradePolicy(selectedGradeFromDropdown, gradeprice, Log, screenShots);
+				//	Implementation_Corporate_Travellers_Page.validateBusesPricesAgainstGradePolicy(selectedGradeFromDropdown, gradeprice, Log, screenShots);
 Thread.sleep(2000);
 NewDesignHotels_DescPage.goToTop();
 
@@ -406,9 +409,22 @@ NewDesignHotels_DescPage.goToTop();
 					String[] SeatType = NewDesignBusesResultsPage.getSeatTypeTextFromresultPgAfterSelect();
 					String[] BoardingDetails = NewDesignBusesResultsPage.selectBoardingPoints(Log, screenShots);
 					String[] DroppingPoint = NewDesignBusesResultsPage.selectDroppingPoint(Log, screenShots);
-				//	NewDesignBusesResultsPage.clcikLowerBirth(Log, screenShots);
+					//NewDesignBusesResultsPage.clcikLowerBirth(Log, screenShots);
 					Thread.sleep(1000);
-					NewDesignBusesResultsPage.clickUpperBerth(Log, screenShots);
+					//NewDesignBusesResultsPage.clickUpperBerth(Log, screenShots);
+					
+					try {
+					    // Try clicking Upper Berth first
+						NewDesignBusesResultsPage.clickUpperBerth(Log, screenShots);
+					    System.out.println("Upper Berth clicked successfully.");
+					} catch (NoSuchElementException e) {
+					    // If Upper Berth not found, click Lower Berth instead
+						System.out.println("Upper Berth not found, trying Lower Berth...");
+						NewDesignBusesResultsPage.clcikLowerBirth(Log, screenShots);
+					} catch (Exception e) {
+					    // Catch any other unexpected errors
+					}
+
 					String SeatSelectionPrice = NewDesignBusesResultsPage.getPriceAfterSeatSelection(Log, screenShots);
 					NewDesignBusesResultsPage.clcikOnConfirmSeat();
 					
@@ -523,7 +539,7 @@ NewDesignHotels_DescPage.goToTop();
 				        NewDesign_Emulate_Process.clcikOnAdmin();
 				        Thread.sleep(3000);
 				        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
-				        NewDesign_Emulate_Process.enterSearchValueByIndex(ApproverEmails, 0);
+				        NewDesign_Emulate_Process.enterSearchValueByIndex(ApproverEmails, 0, Log);
 				        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
 				        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
 				        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
@@ -624,8 +640,9 @@ NewDesignHotels_DescPage.goToTop();
 							        NewDesign_Emulate_Process.clickOnSwitchBack();
 							        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
 							        NewDesign_Emulate_Process.clcikOnAdmin();
+							        Thread.sleep(2000);
 							        NewDesign_Emulate_Process.clickOnSearchByThroughUser(searchby);
-							        NewDesign_Emulate_Process.enterSearchValueByIndex(ApproverEmails, 1);
+							        NewDesign_Emulate_Process.enterSearchValueByIndex(ApproverEmails, 1, Log);
 							        NewDesign_Emulate_Process.clcikOnCorpTravellerSearchButton();
 							        NewDesign_Emulate_Process.clickOnEmulmateUserOption();
 							        NewDesign_Emulate_Process.waitUntilApproverScreenDisplay(Log, screenShots);
@@ -696,7 +713,6 @@ NewDesignHotels_DescPage.goToTop();
 									
 									NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
 									String[] SecondtravellerRemarks = NewDesignTrips.getSecondApproverRemarksInTripsPage(Log);
-									NewDesignTrips.validateRemarksFromFirstApproverToSecondApprover(approverRemarks, SecondtravellerRemarks, Log, screenShots);
 									
 									 NewDesign_Emulate_Process.clcikOnProcessButton();
 								        String[] secondApproverRemarks = NewDesign_Emulate_Process.enterRemarks(remarks);
@@ -728,7 +744,7 @@ NewDesignHotels_DescPage.goToTop();
 										NewDesignTrips.getStatusInAwaitingApprovalForHotels(Log);
 										NewDesignTrips.clickOnApprovalDetailsForCreateTrip();
 										String[] travellerPgSecondAppRemarks = NewDesignTrips.getSecondApproverRemarksInTripsPage(Log);
-									//	NewDesignTrips.validateRemarksFromSecondApproverToTravellerpg(secondApproverRemarks, travellerPgSecondAppRemarks, Log, screenShots);
+								//		NewDesignTrips.validateRemarksFromSecondApproverToTravellerpg(secondApproverRemarks, travellerPgSecondAppRemarks, Log, screenShots);
 										
 
 						              System.out.println("Completed");

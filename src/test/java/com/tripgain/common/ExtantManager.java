@@ -76,6 +76,12 @@ public class ExtantManager {
 
 
 	}
+    
+    public String getReportFilePath() {
+        return getReportFilePath();
+    }
+
+   
     // This should be called ONCE after all tests are done (e.g., in @AfterSuite)
     public void finalizeExtentReport() {
         synchronized (lock) {

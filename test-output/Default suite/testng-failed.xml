@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Implementation.Imp_2_TravelPolicyTestingForHeadGrade">
+      <class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses">
         <methods>
           <include name="myTest"/>
-          <include name="tearDown"/>
-          <include name="afterSuite"/>
           <include name="launchApplication"/>
+          <include name="afterSuite"/>
+          <include name="tearDown"/>
         </methods>
-      </class> <!-- Implementation.Imp_2_TravelPolicyTestingForHeadGrade -->
+      </class> <!-- NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

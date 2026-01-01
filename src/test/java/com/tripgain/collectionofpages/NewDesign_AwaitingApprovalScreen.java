@@ -64,12 +64,40 @@ public class NewDesign_AwaitingApprovalScreen {
 	    return new String[]{date};
 	}	
 	
-	public String[] getApproverIdFromAwaitingPg(Log log) {
+	public String[] getApproverIdFromAwaitingPg(Log log,String text) throws InterruptedException {
+		WebElement search = driver.findElement(By.xpath("//input[@placeholder='Search']"));
+		search.click();           
+		search.clear();           
+		search.sendKeys(text);  
+		Thread.sleep(3000);
 	    String approverid = driver.findElement(By.xpath("(//div[contains(@class,'trip_card__container')])[1]//div[contains(text(),'Approver ID:')]//div")).getText();
 	    System.out.println("approverid from awaiting Page: " + approverid);
 	    log.ReportEvent("INFO", "Approverid from awaiting Page:"+ approverid);
 	    return new String[]{approverid};
 	}	
+	
+	public String[] getApproverIdFromAwaitingPgForTrips(Log log, String text) throws InterruptedException {
+
+	    // Click search field
+	    WebElement search = driver.findElement(By.xpath("//input[@placeholder='Search']"));
+	    search.click();
+	    search.clear();
+
+	    // Enter text returned from previous method
+	    search.sendKeys(text);
+	    Thread.sleep(3000);
+
+	    // Capture Approver ID for the first record
+	    String approverId = driver.findElement(
+	        By.xpath("(//div[contains(@class,'trip_card__container')])[1]//div[contains(text(),'Approver ID:')]/div")
+	    ).getText();
+
+	    System.out.println("Approver ID from Awaiting Page: " + approverId);
+	    log.ReportEvent("INFO", "Approver ID from Awaiting Page: " + approverId);
+
+	    return new String[]{approverId};
+	}
+
 	
 	
 public void clickOnViewTripInAwaitingScreen() {
@@ -80,7 +108,7 @@ public void clickOnViewTripInAwaitingScreen() {
 
 public String[] getLocationDetailsFromViewTripInAwaitingScreen() throws InterruptedException {
 	Thread.sleep(3000);
-    String text = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-location')]")).getText();
+    String text = driver.findElement(By.xpath("//div[contains(@class,' tg-typography tg-typography_subtitle-3 fw-600 tg-typography_default')]")).getText();
     System.out.println("Location names from view trip Page: " + text);
 
     String[] parts = text.split("-");
@@ -174,7 +202,8 @@ public String[] getPriceFromViewTripInViewTripScreen() {
 
 public String[] getStatusFromViewTripInViewTripScreen(Log log) throws InterruptedException {
 	Thread.sleep(2000);
-    String status = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-status')]")).getText();
+   // String status = driver.findElement(By.xpath("//div[contains(@class,'tg-bus-status')]")).getText();
+	    String status = driver.findElement(By.xpath("(//div[contains(@class,'tg-label')])[2]")).getText();
     System.out.println("status from view trip Page: " + status);
    // log.ReportEvent("INFO", "service status from View trip Page."+ status);
 
@@ -504,7 +533,7 @@ public void validateBusPriceFromBusBookingToViewTrippage(String[] bookingBuspric
 
 //get data from Approval Details in view trip screen
 
-public String[] getApproverNameInAwaitingScreen(Log log) {
+public String[] getApproverNameInAwaitingScreen1(Log log) {
     List<WebElement> approverElements = driver.findElements(By.xpath("//div[contains(@class,'tg-approver-name')]"));
     
     if (approverElements.isEmpty()) {
@@ -521,6 +550,32 @@ public String[] getApproverNameInAwaitingScreen(Log log) {
     log.ReportEvent("INFO", "Approver Names from Awaiting Screen: " + String.join(", ", approverNames));
     return approverNames;
 }
+
+public String[] getApproverNameInAwaitingScreen(Log log) {
+    // Locate all approver name elements on the Awaiting screen
+    List<WebElement> approverElements = driver.findElements(
+        By.xpath("//div[contains(@class,'tg-approver-name')]")
+    );
+
+    // If no approvers found
+    if (approverElements.isEmpty()) {
+        log.ReportEvent("INFO", "No approver names found on the Awaiting screen.");
+        return new String[0]; // empty array
+    }
+
+    // Extract text from all approver elements
+    String[] approverNames = new String[approverElements.size()];
+    for (int i = 0; i < approverElements.size(); i++) {
+        approverNames[i] = approverElements.get(i).getText().trim();
+    }
+
+    // Log result summary
+    log.ReportEvent("INFO", approverNames.length + " approver names found on Awaiting screen: " 
+        + String.join(", ", approverNames));
+
+    return approverNames;
+}
+
 
 
 public void clickApprovalDetailsButtonInViewtrip() {

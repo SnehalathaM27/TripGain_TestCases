@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,34 +52,40 @@ public class NewDesign_Trips {
 		//Method to enter name the trip
 		public String enterNameThisTrip(String tripName, Log log) {
 		    try {
-		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+		        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
 
-		        WebElement inputField = wait.until(ExpectedConditions.visibilityOfElementLocated(
-		            By.xpath("//input[@name='tripname']")));
+		        WebElement inputField = wait.until(ExpectedConditions.elementToBeClickable(
+		            By.xpath("//input[@name='tripname']"))
+		        );
 
-		        // Scroll to the input field
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", inputField);
-		        Thread.sleep(500); // Optional delay
+		        // Scroll into view
+		        ((JavascriptExecutor) driver)
+		                .executeScript("arguments[0].scrollIntoView({block: 'center'});", inputField);
+		        Thread.sleep(300);
 
-		        // Clear using JavaScript
-		        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputField);
+		        // Click to focus
+		        inputField.click();
+		        Thread.sleep(200);
 
-		        // Enter the name
+		        // Best clearing method for React Inputs
+		        inputField.sendKeys(Keys.CONTROL, "a");
+		        inputField.sendKeys(Keys.DELETE);
+
+		        // Enter text
 		        inputField.sendKeys(tripName);
 
-		        System.out.println("Entered trip name: " + tripName);
 		        log.ReportEvent("INFO", "Entered trip name: " + tripName);
-
-		        return tripName; // ✅ Return the name entered
+		        return tripName;
 
 		    } catch (Exception e) {
-		        System.out.println("Failed to enter trip name: " + e.getMessage());
-		        e.printStackTrace();
 		        log.ReportEvent("FAIL", "Failed to enter trip name: " + e.getMessage());
-
 		        return null;
 		    }
 		}
+
+		
+	
+
 
 		
 		 @FindBy(xpath = "//*[contains(@id,'origin')]")
@@ -280,7 +287,7 @@ public class NewDesign_Trips {
 				    String currentMonthYear = driver.findElement(monthYearHeader).getText();
 
 				    if (currentMonthYear.equals(MonthandYear)) {
-				        By dayLocator = By.xpath("//div[@class='react-datepicker__month-container']//span[text()='" + day + "']");
+				        By dayLocator = By.xpath("//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'outside-month')) and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + day + "']");
 				       // wait.until(ExpectedConditions.elementToBeClickable(dayLocator)).click();
 				        WebElement dayElement = wait.until(ExpectedConditions.elementToBeClickable(dayLocator));
 				        try {
@@ -295,7 +302,7 @@ public class NewDesign_Trips {
 				            wait.until(ExpectedConditions.textToBe(monthYearHeader, MonthandYear));
 				            currentMonthYear = driver.findElement(monthYearHeader).getText();
 				        }
-				        By dayLocator = By.xpath("//div[@class='react-datepicker__month-container']//span[text()='" + day + "']");
+				        By dayLocator = By.xpath("//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'outside-month')) and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + day + "']");
 				        wait.until(ExpectedConditions.elementToBeClickable(dayLocator)).click();
 				    }
 
@@ -366,7 +373,7 @@ public class NewDesign_Trips {
 			                    currentMonthYear = driver.findElement(monthYearHeader).getText();
 			                }
 
-			                By dayLocator = By.xpath("//div[@class='react-datepicker__month-container']//span[text()='" + returnDate + "']");
+			                By dayLocator = By.xpath("//div[@class='react-datepicker__month']//div[contains(@class, 'react-datepicker__day') and not(contains(@class, 'disabled'))]//span[@class='day' and text()='" + returnDate + "']");
 			                WebElement dayElement = wait.until(ExpectedConditions.elementToBeClickable(dayLocator));
 			                dayElement.click();
 
@@ -778,7 +785,7 @@ public class NewDesign_Trips {
 					        // Wait for the expected result section to appear
 					        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 					        wait.until(ExpectedConditions.visibilityOfElementLocated(
-					            By.xpath("//div[contains(@class,'MuiGrid2-root MuiGrid2-container MuiGrid2-direction-xs-row css-1hkyx2d')]")
+					            By.xpath("//div[@class='hcard ']")
 					        ));
 
 					    } catch (Exception e) {
@@ -795,7 +802,7 @@ public class NewDesign_Trips {
 					}
 				  
 				  public String[] getLocNAmeFromTripHotelResultsPg() {
-			 		    String TRipLocNm = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-7 ms-1 tg-typography_default')])[1]")).getText();
+			 		    String TRipLocNm = driver.findElement(By.xpath("(//div[contains(@id,'hotel-search-header-id')]//div[@class=' tg-typography tg-typography_subtitle-6 ms-1 fw-600 tg-typography_default'])[1]")).getText();
 			 	        System.out.println("location name from results page: " + TRipLocNm);
 			 		    return new String[]{TRipLocNm};
 			 		}
@@ -1398,10 +1405,28 @@ public class NewDesign_Trips {
 					
 					
 		//Method to clcik on awaiting approval
-					public void clickOnAwaitingApproval() throws InterruptedException {
-						driver.findElement(By.xpath("//span[text()='Awaiting Approval']")).click();
-						Thread.sleep(3000);
+					public void clickOnAwaitingApproval() {
+					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(90));
+
+					    // Click on "Awaiting Approval" tab/button
+					    WebElement awaitingTab = wait.until(ExpectedConditions.elementToBeClickable(
+					        By.xpath("//span[text()='Awaiting Approval']")
+					    ));
+					    awaitingTab.click();
+
+					    // Wait until the "Awaiting Approval" heading or section is visible
+					    wait.until(ExpectedConditions.visibilityOfElementLocated(
+					        By.xpath("//div[text()='Awaiting Approval']")
+					    ));
 					}
+
+					public void waitUntilDivDisplayed(WebDriver driver) {
+					    By locator = By.xpath("//div[@class='mb-16']");
+
+					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
+					    wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+					}
+
 					
 					//Method to enetr data in search in awaiting apporoval page 
 					

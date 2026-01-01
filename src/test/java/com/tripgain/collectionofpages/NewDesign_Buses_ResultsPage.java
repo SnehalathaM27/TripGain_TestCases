@@ -39,7 +39,7 @@ public class NewDesign_Buses_ResultsPage {
 
 	//Method to get the check in date text from result page 
 	public String[] getCheckInDateTextFromResultPage() {
-	    String checkIndate = driver.findElement(By.xpath("(//div[@class=' tg-typography tg-typography_subtitle-7 hotel-price fw-500 tg-typography_default'])[3]")).getText();
+	    String checkIndate = driver.findElement(By.xpath("(//div[contains(@class,' tg-typography tg-typography_subtitle-6 hotel-price fw-600 tg-typography_default')])[3]")).getText();
 	    System.out.println("check in date text from Results Page: " + checkIndate);
 	    return new String[]{checkIndate};
 	}
@@ -669,6 +669,8 @@ public class NewDesign_Buses_ResultsPage {
 	public String[] selectBoardingPoints(Log log, ScreenShots screenshots) {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	    try {
+	    	driver.findElement(By.xpath("//button[text()='Boarding/Dropping Point']")).click();
+
 	    	WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(
 	    	    By.xpath("(//div[contains(@class,'tg-select-box__indicators css-1wy0on6')])[7]")
 	    	));
@@ -985,12 +987,12 @@ public class NewDesign_Buses_ResultsPage {
 	        selectButton.click();
 
 	        // Extract required fields as Strings
-	        String departureTime = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-typography__subtitle-4 fw-600')]")).getText().trim();
+	        String departureTime = selectedBusCard.findElement(By.xpath(".//div[contains(@class,' tg-bus-deptime')]")).getText().trim();
 	        String arrivalTime = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-bsrs-arrtime')]")).getText().trim();
-	        String duration = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-typography_subtitle-7')]")).getText().trim();
+	        String duration = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-bus-duration')]")).getText().trim();
 	        String busName = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-bsrs-operatorname')]")).getText().trim();
 	        String serviceName = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-buscard-servicename')]")).getText().trim();
-	        String amount = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-typography_subtitle-4') and contains(@class,'tg-typography_default')]")).getText().trim();
+	        String amount = selectedBusCard.findElement(By.xpath(".//div[contains(@class,'tg-bus-fare')]")).getText().trim();
 	        String policy = selectedBusCard.findElement(By.xpath(".//*[contains(@class,'tg-policy')]")).getText().trim();
 
 	        // Store values in array

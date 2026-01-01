@@ -1,0 +1,1244 @@
+<html>
+<head>
+<title>TestNG:  test2</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>test2</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>3/27/0</td>
+</tr><tr>
+<td>Started on:</td><td>Wed Nov 05 12:08:35 IST 2025</td>
+</tr>
+<tr><td>Total time:</td><td>6789 seconds (6789201 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=thiruvananthapuram, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=amravati, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=3, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_127, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Expected search results were not displayed. Page message: 
+Home
+Trips
+Expense
+Dashboard
+Admin
+Switch Back
+TA
+TravelGrade_127
+Trip Id : TGTR20250511RIMIM7
+Mumbai, Maharashtra, India
+13th Nov, 2025 - 14th Nov, 2025
+1 Room , 1 Adult , 0 Child
+Logout from trip
+We have found 0 hotels. If you can&apos;t find the hotel you&apos;re looking for, please request the hotel offline.
+Request Offline Hotel Booking
+Filters
+Price
+User Rating
+Per Night Price
+Rating
+Amenities
+Price: Low to High
+INR
+
+
+No hotels found.
+
+Sorry, There were no hotels found for this search criteria.
+We suggest you modify your search and try again.
+	at com.tripgain.collectionofpages.NewDesign_Trips.clickOnSearchHotelBut(NewDesign_Trips.java:793)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:226)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace126894865", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace126894865'><pre>java.lang.AssertionError: Expected search results were not displayed. Page message: 
+Home
+Trips
+Expense
+Dashboard
+Admin
+Switch Back
+TA
+TravelGrade_127
+Trip Id : TGTR20250511RIMIM7
+Mumbai, Maharashtra, India
+13th Nov, 2025 - 14th Nov, 2025
+1 Room , 1 Adult , 0 Child
+Logout from trip
+We have found 0 hotels. If you can&apos;t find the hotel you&apos;re looking for, please request the hotel offline.
+Request Offline Hotel Booking
+Filters
+Price
+User Rating
+Per Night Price
+Rating
+Amenities
+Price: Low to High
+INR
+
+
+No hotels found.
+
+Sorry, There were no hotels found for this search criteria.
+We suggest you modify your search and try again.
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Trips.clickOnSearchHotelBut(NewDesign_Trips.java:793)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:226)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>97</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=kochi, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=ratnagiri, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_126, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //div[@role=&apos;option&apos;] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49370}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49370/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2c0c555e3972d07a620ea328d8383dc9
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1398215957", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1398215957'><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //div[@role=&apos;option&apos;] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49370}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49370/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 2c0c555e3972d07a620ea328d8383dc9
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>193</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=london, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=bangalore, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_105, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace502263916", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace502263916'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>285</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=chennai, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=chandigarh, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=7, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_112, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace38052999", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace38052999'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>104</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=hyderabad, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=vijayawada, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=8, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_113, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1685516465", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1685516465'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>235</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=london, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=surat, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=5, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_121, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2012576701", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2012576701'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>286</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=singapore, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=ahmedabad, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=4, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_108, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1650768047", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1650768047'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>103</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=paris, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=pune, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=3, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_116, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1117383370", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1117383370'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>178</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=dubai, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=nashik, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=6, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_122, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace605588045", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace605588045'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>110</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=mumbai, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=mumbai, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=2, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_102, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&apos;tg-triprequest-hb-view-unview-hotel-details&apos;]&quot;}
+  (Session info: chrome=141.0.7390.125)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [3f4e5fe570377cd39f4864a954f5ce93, findElement {using=xpath, value=//div[@class=&apos;tg-triprequest-hb-view-unview-hotel-details&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59724}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59724/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 3f4e5fe570377cd39f4864a954f5ce93
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1008219919", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1008219919'><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&apos;tg-triprequest-hb-view-unview-hotel-details&apos;]&quot;}
+  (Session info: chrome=141.0.7390.125)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [3f4e5fe570377cd39f4864a954f5ce93, findElement {using=xpath, value=//div[@class=&apos;tg-triprequest-hb-view-unview-hotel-details&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59724}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59724/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 3f4e5fe570377cd39f4864a954f5ce93
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>255</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=pune, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=Hubli, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=2, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_129, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace761654077", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace761654077'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>237</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=thiruvananthapuram, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=jaipur, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=6, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_111, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //h2[@id=&apos;alert-dialog-title&apos;] (tried for 70 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57192}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57192/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 7a57e1fce6f46aee8053ce30635e7cab
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1378250813", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1378250813'><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //h2[@id=&apos;alert-dialog-title&apos;] (tried for 70 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:57192}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:57192/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 7a57e1fce6f46aee8053ce30635e7cab
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>430</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=bangalore, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=bangalore, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=2, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_104, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;button type=&quot;button&quot; class=&quot;tg-btn tg-btn_primary tg-btn_sm right&quot;&gt;...&lt;/button&gt; is not clickable at point (1175, 100). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=141.0.7390.125)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [38dbc8b94410fb74b54d49ef268ed169, clickElement {id=f.21D37E9F6DFE2400FDF5EB86AF13A99F.d.7E2E9BE134330188E19FB0931C5C9A82.e.380}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49942}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49942/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (38dbc8b94410fb74b54d49ef268ed169)] -&gt; xpath: //button[text()=&apos;Create Trip&apos;]]
+Session ID: 38dbc8b94410fb74b54d49ef268ed169
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1895800097", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1895800097'><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;button type=&quot;button&quot; class=&quot;tg-btn tg-btn_primary tg-btn_sm right&quot;&gt;...&lt;/button&gt; is not clickable at point (1175, 100). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=141.0.7390.125)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [38dbc8b94410fb74b54d49ef268ed169, clickElement {id=f.21D37E9F6DFE2400FDF5EB86AF13A99F.d.7E2E9BE134330188E19FB0931C5C9A82.e.380}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49942}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49942/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (38dbc8b94410fb74b54d49ef268ed169)] -&gt; xpath: //button[text()=&apos;Create Trip&apos;]]
+Session ID: 38dbc8b94410fb74b54d49ef268ed169
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>27</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=vijayawada, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=hyderabad, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=9, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_114, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace456903717", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace456903717'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>186</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=tokyo, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=lonavala, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=5, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_125, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;button type=&quot;button&quot; disabled=&quot;&quot; class=&quot;tg-btn tg-btn_disabled tg-btn_md tg-bsrs-continue-btn justify-content-end&quot;&gt;...&lt;/button&gt; is not clickable at point (1174, 569). Other element would receive the click: &lt;div class=&quot;tg-dropdown-menu-item tg-select-option undefined&quot; aria-selected=&quot;false&quot; aria-disabled=&quot;false&quot; tabindex=&quot;0&quot; role=&quot;option&quot; id=&quot;react-select-50-option-3&quot; style=&quot;z-index: 1000;&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=141.0.7390.125)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [5af0ba0ea2f0f98f57374022c3f6d874, clickElement {id=f.D5B6DFAD048D69CB6A67507E5EEF8A76.d.2C7A68AC77CC205A6403FA63387C8BD4.e.7926}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58033}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:58033/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (5af0ba0ea2f0f98f57374022c3f6d874)] -&gt; xpath: //button[text()=&apos;Confirm Seat&apos;]]
+Session ID: 5af0ba0ea2f0f98f57374022c3f6d874
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace385696153", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace385696153'><pre>java.lang.AssertionError: Exception occurred: org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;button type=&quot;button&quot; disabled=&quot;&quot; class=&quot;tg-btn tg-btn_disabled tg-btn_md tg-bsrs-continue-btn justify-content-end&quot;&gt;...&lt;/button&gt; is not clickable at point (1174, 569). Other element would receive the click: &lt;div class=&quot;tg-dropdown-menu-item tg-select-option undefined&quot; aria-selected=&quot;false&quot; aria-disabled=&quot;false&quot; tabindex=&quot;0&quot; role=&quot;option&quot; id=&quot;react-select-50-option-3&quot; style=&quot;z-index: 1000;&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=141.0.7390.125)
+Build info: version: &apos;4.29.0&apos;, revision: &apos;5fc1ec94cb&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.7&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [5af0ba0ea2f0f98f57374022c3f6d874, clickElement {id=f.D5B6DFAD048D69CB6A67507E5EEF8A76.d.2C7A68AC77CC205A6403FA63387C8BD4.e.7926}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 141.0.7390.125, chrome: {chromedriverVersion: 141.0.7390.122 (b477534e7e1..., userDataDir: C:\Users\LENOVO\AppData\Loc...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58033}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:58033/devtoo..., se:cdpVersion: 141.0.7390.125, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (5af0ba0ea2f0f98f57374022c3f6d874)] -&gt; xpath: //button[text()=&apos;Confirm Seat&apos;]]
+Session ID: 5af0ba0ea2f0f98f57374022c3f6d874
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>354</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=vijayawada, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=Belgaum, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=3, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_130, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1183244706", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1183244706'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>112</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=singapore, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=shirdi, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=4, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_124, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2026785067", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2026785067'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 5000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>110</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=coorg, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=nagpur, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=6, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_118, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace147327214", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace147327214'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>171</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=newyork, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=coimbatore, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=2, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_123, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Exception occurred: java.lang.IllegalArgumentException: Index out of range. Available bus cards: 1
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace271233805", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace271233805'><pre>java.lang.AssertionError: Exception occurred: java.lang.IllegalArgumentException: Index out of range. Available bus cards: 1
+	at org.testng.Assert.fail(Assert.java:111)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:750)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>327</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=tokyo, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=pune, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=5, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_109, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace2090122236", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2090122236'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>273</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=dubai, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=chennai, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=2, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_106, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace483263459", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace483263459'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>146</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=goa, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=indore, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=3, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_119, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Bus name mismatch between the Booking page and the Details page for the selected bus.
+	at com.tripgain.collectionofpages.NewDesign_Buses_BookingPage.validateBusNameFromBusBookingToDetailsPageAfterAdd(NewDesign_Buses_BookingPage.java:1544)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:475)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace361082600", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace361082600'><pre>java.lang.AssertionError: Bus name mismatch between the Booking page and the Details page for the selected bus.
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Buses_BookingPage.validateBusNameFromBusBookingToDetailsPageAfterAdd(NewDesign_Buses_BookingPage.java:1544)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:475)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>333</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=hyderabad, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=hyderabad, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_103, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: grades mismatch between selected to traveller profile grade section
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateGradesFromSelectedToTravellerProfile(Implementation_Corporate_TravellersPage.java:140)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:181)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace552661791", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace552661791'><pre>java.lang.AssertionError: grades mismatch between selected to traveller profile grade section
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateGradesFromSelectedToTravellerProfile(Implementation_Corporate_TravellersPage.java:140)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:181)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>26</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=delhi, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=delhi, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_101, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1443908193", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1443908193'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>247</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=pune, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=ahmedabad, TravellerSearchValue2=testfinance98@tripgain.com, Grade=Others - Others, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_115, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace187325662", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace187325662'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>323</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=newyork, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=kolkata, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=3, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_107, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Policy mismatch
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace483617259", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace483617259'><pre>java.lang.AssertionError: Policy mismatch
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.NewDesign_Hotels_DescPage.validateHotelPolicyFromDescToResultPage(NewDesign_Hotels_DescPage.java:361)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:291)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>268</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=shimla, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=goa, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=5, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=mumbai, TripName=TravelGrade_117, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td><div><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+... Removed 16 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace237659285", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace237659285'><pre>java.lang.AssertionError: Hotel policy validation failed - Some hotels don&apos;t follow grade policy with limit: 7000
+	at org.testng.Assert.fail(Assert.java:111)
+	at com.tripgain.collectionofpages.Implementation_Corporate_TravellersPage.validateHotelPricesAgainstGradePolicy(Implementation_Corporate_TravellersPage.java:219)
+	at Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest(Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.java:240)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:687)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:995)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:741)
+	at org.testng.TestRunner.run(TestRunner.java:616)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:463)
+	at org.testng.internal.thread.ThreadUtil.lambda$execute$0(ThreadUtil.java:64)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+</pre></div></td>
+<td>183</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=bangalore, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=bhopal, TravellerSearchValue2=testfinance98@tripgain.com, Grade=BU - BU, Gender=Male, HotelIndex=4, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_120, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=7000, Password=XPHENO&*%%6121}</td>
+<td></td>
+<td>318</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=kochi, Status=Approve, Destination=delhi, UserName=admin@xpheno.com, BusDestination=delhi, HeadGrade=Head - Head, Status2=Reject, BusOrigin=patna, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=6, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_110, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td></td>
+<td>361</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+<tr>
+<td title='Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc.myTest()'><b>myTest</b><br>Test class: Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc<br>Parameters: {Origin=chennai, Status=Approve, Destination=mumbai, UserName=admin@xpheno.com, BusDestination=mumbai, HeadGrade=Head - Head, Status2=Reject, BusOrigin=goa, TravellerSearchValue2=testfinance98@tripgain.com, Grade=DM & TL - DM & TL, Gender=Male, HotelIndex=1, TravellerSearchValue=testapprover@xpheno.com, SearchBy=Email, URL=https://neo.tripgain.com/login, BusIndex=1, HotelOrigin=delhi, TripName=TravelGrade_128, Remarks=test, TestRun=, SearchValue=testtraveller@xpheno.com, GradePrice=5000, Password=XPHENO&*%%6121}</td>
+<td></td>
+<td>337</td>
+<td>Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc@c86b9e3</td></tr>
+</table><p>
+</body>
+</html>

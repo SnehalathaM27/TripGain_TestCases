@@ -232,31 +232,43 @@
                               <!--New design Hotels and buses-->
     
            <!--class name="NewDesign_Hotels.TCND_1_verifyHotelsSearch1"/-->
-                        <!--class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/-->
+                        
+                        
                     <!--class name="NewDesign_Trips.TCNDTR_1_CreateTripsForHotels"/>
                <class name="NewDesign_Trips.TCNDTR_2_CreateTripsForBuses"/>
      <class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses"/-->
      
                                    <!--Implementation -->
      
-      <class name="Implementation.Imp_1_Xpheno_TravelPolicyTesting01"/>
-      <!--class name="Implementation.Imp_2_Xpheno_TravelPolicyTestingForHeadGrade"/-->
+      <!--class name="Implementation.Imp_1_Xpheno_TravelPolicyTesting01"/>
+            <class name="Implementation.Imp_2_Xpheno_TravelPolicyTestingForHeadGrade"/>
+                <class name="Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc"/>
+ <class name="Implementation.Imp_4_Xpheno_TravelPolicyTestingwithUdipiLoc"/-->
+
+
      </classes>
      
                     
      
   </test> <!-- Test -->
   
-   <test name="test2">
+  
+   <test name="test3">
    <parameter name="browser" value="chrome"/>
     <classes>
-    <class name="Implementation.Imp_3_Xpheno_TravelPolicyTestingwithDelAndMumbaiLoc"/>
+        <class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/>
 
-    </classes>
+     </classes>
   </test>
-   
+  
+    <test name="test4">
+   <parameter name="browser" value="chrome"/>
+    <classes>
+     <!--class name="NewDesign_Trips.TCNDTR_3_CreateTripsForHotelsAndBuses"/-->
 
- 
+     </classes>
+  </test>
+  
 
  <test name="test1">
    <parameter name="browser" value="edge"/>

@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions; // ADD THIS IMPORT
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -13,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.tripgain.common.EmailUtils;
 import com.tripgain.common.ExtantManager;
 import com.tripgain.common.ScreenShots;
 import com.tripgain.common.TestResultTracker;
@@ -25,7 +27,13 @@ public class BaseClass{
 		{
 			if (browser.equalsIgnoreCase("chrome")) {
 				// Set the path to the ChromeDriver executable (optional if already set in system PATH)
-				driver = new ChromeDriver();
+				
+				// ADD THESE 3 LINES FOR CHROME LOGGING
+				ChromeOptions options = new ChromeOptions();
+				options.setCapability("goog:loggingPrefs", java.util.Map.of("browser", "ALL"));
+				driver = new ChromeDriver(options); // CHANGED THIS LINE
+				
+				// REMOVED THIS LINE: driver = new ChromeDriver();
 
 			} else if (browser.equalsIgnoreCase("firefox")) {
 				// Set the path to the GeckoDriver executable (optional if already set in system PATH)
@@ -51,9 +59,10 @@ public class BaseClass{
 			int total = passed + failed;
 
 			if (reportPath != null) {
-				String toEmail = "sudheer@tripgain.com";
+				String toEmail = "harshitha@tripgain.com";
 				String[] ccEmails = {
-						"ranga@tripgain.com","ashutosh@tripgain.com","ramu.achala@tripgain.com","manish@tripgain.com","rajashekar@tripgain.com","arun@tripgain.com"
+					"harshitha@tripgain.com"
+						//	"ranga@tripgain.com","ashutosh@tripgain.com","ramu.achala@tripgain.com","manish@tripgain.com","rajashekar@tripgain.com","arun@tripgain.com"
 				};
 				EmailUtils.sendReportByEmail(reportPath, toEmail, ccEmails, total, passed, failed);
 			} else {
@@ -70,4 +79,5 @@ public class BaseClass{
 //				extantManager.flushReport();
 //				}
 	
+
 }
