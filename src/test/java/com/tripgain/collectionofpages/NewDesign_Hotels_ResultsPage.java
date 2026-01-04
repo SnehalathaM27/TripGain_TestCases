@@ -515,7 +515,8 @@ public class NewDesign_Hotels_ResultsPage {
 			        }
 
 			        // Construct dynamic XPath for the specific card
-			        String cardXPath = "(//div[contains(@class,'hcard')])[" + hotelIndex + "]";
+			       // String cardXPath = "(//div[contains(@class,'hcard')])[" + hotelIndex + "]";
+				        String cardXPath = "(//div[contains(@class,'hcards')])[" + hotelIndex + "]";
 
 			        // Wait for the specific hotel card to be visible
 			        WebElement card = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(cardXPath)));

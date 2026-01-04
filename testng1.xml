@@ -256,7 +256,13 @@
    <test name="test3">
    <parameter name="browser" value="chrome"/>
     <classes>
-        <class name="NewDesign_Buses.TCNDBU_1_verifyBusesSearch"/>
+<class name="NewDesign_Buses.TCNDBUNEW_2"/>
+<class name="NewDesign_Buses.TCNDBUNEW_3"/>
+<class name="NewDesign_Buses.TCNDBUNEW_4"/>
+
+ <class name="NewDesign_Hotels.TCNDNEW_2"/>
+  <class name="NewDesign_Hotels.TCNDNEW_3"/>
+
 
      </classes>
   </test>

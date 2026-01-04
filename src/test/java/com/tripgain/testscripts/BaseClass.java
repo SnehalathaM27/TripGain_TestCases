@@ -22,7 +22,7 @@ import com.tripgain.common.TestResultTracker;
 public class BaseClass{
 
       
-		WebDriver driver;
+		 WebDriver driver;
 		public WebDriver launchBrowser(String browser,String url)
 		{
 			if (browser.equalsIgnoreCase("chrome")) {

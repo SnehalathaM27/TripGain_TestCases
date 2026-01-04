@@ -115,10 +115,10 @@
 
         <!-- Selenium WebDriver -->
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.29.0</version>
-        </dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.29.0</version>
+</dependency>
 
         <!-- WebDriverManager -->
         <dependency>
@@ -188,27 +188,7 @@
         </dependency>
         
         
-         <!-- BrowserMob Proxy -->
-    <dependency>
-        <groupId>net.lightbody.bmp</groupId>
-        <artifactId>browsermob-core</artifactId>
-        <version>2.1.5</version>
-        <scope>test</scope>
-        <exclusions>
-            <exclusion>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-    
-    <!-- Required for BrowserMob Proxy -->
-    <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-all</artifactId>
-        <version>4.1.100.Final</version>
-    </dependency>
-     
+        
 
 
 
